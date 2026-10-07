@@ -1,0 +1,8 @@
+# Docker host: windows. Containers use Linux; override DOCKER_PLATFORM for other CPUs.
+services:
+  database:
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+  service:
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+  web:
+    platform: ${DOCKER_PLATFORM:-linux/amd64}

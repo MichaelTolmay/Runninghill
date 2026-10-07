@@ -6,3 +6,6 @@ p { line-height: 1.6; }
 button { background: #234ac8; color: white; border: 0; border-radius: .5rem; padding: .9rem 1.2rem; font: inherit; cursor: pointer; }
 button:disabled { opacity: .65; cursor: wait; }
 button:focus-visible { outline: 3px solid #172950; outline-offset: 4px; }
+
+label, input { display: block; }
+input { box-sizing: border-box; width: 100%; margin-top: .6rem; padding: .8rem; font: inherit; }

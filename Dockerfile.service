@@ -1,0 +1,15 @@
+# syntax=docker/dockerfile:1
+FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS build
+RUN apt-get update && apt-get install -y --no-install-recommends clang zlib1g-dev && rm -rf /var/lib/apt/lists/*
+WORKDIR /source
+COPY . .
+ARG TARGETARCH
+RUN case "$TARGETARCH" in amd64) rid=linux-x64 ;; arm64) rid=linux-arm64 ;; *) exit 1 ;; esac &&     dotnet publish src/Runninghill.Service -c Release -r "$rid" -o /out
+
+FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-noble
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=build /out .
+USER $APP_UID
+EXPOSE 5080 5081
+ENTRYPOINT ["./Runninghill.Service"]

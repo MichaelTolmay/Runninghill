@@ -1,18 +1,20 @@
 @page "/"
-@rendermode InteractiveServer
-@inject IRunninghillSdk Sdk
-@inject ILogger<Home> Logger
+@inject HttpClient Client
 
 <PageTitle>Runninghill</PageTitle>
 <main>
     <h1>Runninghill</h1>
-    <p>Check that your application is ready to use.</p>
-    <button @onclick="CheckStatusAsync" disabled="@checking">@(checking ? "Checking…" : "Check connection")</button>
+    <p>Check that the shared application is ready to use.</p>
+    <label for="token">Access token</label>
+    <input id="token" type="password" @bind="token" autocomplete="off" spellcheck="false" />
+    <p>Your token stays in this page's memory and is cleared when you reload.</p>
+    <button @onclick="CheckStatusAsync" disabled="@(checking || string.IsNullOrWhiteSpace(token))">@(checking ? "Checking…" : "Check connection")</button>
     <p role="status" aria-live="polite">@status</p>
 </main>
 
 @code {
     private bool checking;
+    private string token = "";
     private string status = "Ready to check the connection.";
 
     private async Task CheckStatusAsync()
@@ -20,16 +22,18 @@
         checking = true;
         try
         {
-            status = await Sdk.GetStatusAsync();
+            using var request = new HttpRequestMessage(HttpMethod.Get, "api/status");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            using var response = await Client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.StatusResponse)
+                ?? throw new HttpRequestException("The service returned an empty response.");
+            status = result.Message;
         }
-        catch (Exception exception)
-        {
-            Logger.LogError(exception, "Application status check failed.");
-            status = "The connection could not be verified. Please try again.";
-        }
-        finally
-        {
-            checking = false;
-        }
+        catch (HttpRequestException exception) when (exception.StatusCode is System.Net.HttpStatusCode.Unauthorized or System.Net.HttpStatusCode.Forbidden)
+        { status = "A valid access token with status.read permission is required."; }
+        catch (HttpRequestException) { status = "The service is unavailable. Please try again."; }
+        catch (OperationCanceledException) { status = "The request timed out. Please try again."; }
+        finally { checking = false; }
     }
 }

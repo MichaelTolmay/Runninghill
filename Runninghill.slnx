@@ -1,10 +1,8 @@
 <Solution>
   <Folder Name="/Libraries/">
-    <Project Path="src/Runninghill.Models/Runninghill.Models.csproj" />
-    <Project Path="src/Runninghill.Models.Sdk/Runninghill.Models.Sdk.csproj" />
+    <Project Path="src/Runninghill.Contracts/Runninghill.Contracts.csproj" />
     <Project Path="src/Runninghill.Database/Runninghill.Database.csproj" />
     <Project Path="src/Runninghill.Application/Runninghill.Application.csproj" />
-    <Project Path="src/Runninghill.Sdk/Runninghill.Sdk.csproj" />
   </Folder>
   <Folder Name="/Service/">
     <Project Path="src/Runninghill.Service/Runninghill.Service.csproj" />

@@ -6,6 +6,8 @@
         <VerticalStackLayout Padding="30" Spacing="20" MaximumWidthRequest="640">
             <Label Text="Runninghill" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
             <Label Text="Check that your application is ready to use." />
+            <Entry x:Name="ServiceUrl" Placeholder="Service URL (https://…)" Keyboard="Url" />
+            <Entry x:Name="AccessToken" Placeholder="Access token" IsPassword="True" />
             <Button x:Name="CheckButton" Text="Check connection" Clicked="OnCheckClicked" />
             <ActivityIndicator x:Name="ProgressIndicator" IsVisible="False" IsRunning="False" />
             <Label x:Name="StatusLabel" Text="Ready to check the connection." />

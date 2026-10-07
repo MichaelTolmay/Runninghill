@@ -1,0 +1,9 @@
+**/bin
+**/obj
+.git
+artifacts
+.env
+.env.*
+**/*.db
+TestResults
+**/node_modules

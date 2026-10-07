@@ -1,9 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <RunAOTCompilation Condition="'$(Configuration)' == 'Release'">true</RunAOTCompilation>
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../../Runninghill.Sdk/Runninghill.Sdk.csproj" />
-    <ProjectReference Include="../../Runninghill.Models.Sdk/Runninghill.Models.Sdk.csproj" />
+    <!-- Router discovers pages by reflection; preserve page types through full trimming. -->
+    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+    <ProjectReference Include="../../Runninghill.Contracts/Runninghill.Contracts.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" />
   </ItemGroup>
 </Project>

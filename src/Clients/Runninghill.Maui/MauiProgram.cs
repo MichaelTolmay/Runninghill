@@ -15,6 +15,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        // Keep one navigation shell; create pages through DI so their dependencies are supplied.
         builder.Services.AddSingleton<AppShell>();
         builder.Services.AddTransient<MainPage>();
 #if DEBUG

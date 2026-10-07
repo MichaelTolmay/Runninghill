@@ -13,11 +13,13 @@ using Runninghill.Contracts;
 using Runninghill.Database;
 using Runninghill.Service;
 
+// The slim host loads only the features we use. This keeps native startup and memory costs low.
 var builder = WebApplication.CreateSlimBuilder(args);
 builder.Services.AddSingleton(services => ServiceConfiguration.Load(
     services.GetRequiredService<IConfiguration>(), services.GetRequiredService<IHostEnvironment>()));
 builder.Logging.ClearProviders();
 builder.Logging.AddJsonConsole();
+// Export telemetry only when a collector is configured; local development needs no collector.
 var exportTelemetry = !string.IsNullOrWhiteSpace(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]);
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService("Runninghill.Service"))
@@ -31,12 +33,16 @@ builder.Services.AddOpenTelemetry()
         metrics.AddAspNetCoreInstrumentation().AddMeter("Microsoft.AspNetCore.Server.Kestrel", "Npgsql");
         if (exportTelemetry) metrics.AddOtlpExporter();
     });
+// Give in-flight work time to finish when the host shuts down.
 builder.Services.Configure<HostOptions>(options => options.ShutdownTimeout = TimeSpan.FromSeconds(30));
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolverChain.Insert(0, ApiJsonContext.Default));
+// One data source owns a pool of reusable database connections for the whole process.
+// A query borrows a connection and returns it; it does not open a new physical connection each time.
 builder.Services.AddSingleton<NpgsqlDataSource>(services => new NpgsqlSlimDataSourceBuilder(
     services.GetRequiredService<ServiceConfiguration>().ConnectionString).Build());
 builder.Services.AddSingleton<IDatabaseReadiness, PostgresReadiness>();
 builder.Services.AddTransient<IRunninghillApplication, RunninghillApplication>();
+// Authentication checks who sent the token; authorization below checks what they may do.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme).Configure<ServiceConfiguration>((options, configuration) =>
 {
@@ -44,6 +50,7 @@ builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationSc
     options.MapInboundClaims = false;
     if (!string.IsNullOrWhiteSpace(configuration.Authority))
         options.Authority = configuration.Authority;
+    // The shared signing key is a local-development shortcut. Configuration rejects it in production.
     else
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -56,11 +63,12 @@ builder.Services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationSc
         };
 });
 builder.Services.AddAuthorizationBuilder().AddPolicy("status.read", policy =>
-    policy.RequireAuthenticatedUser().RequireAssertion(context => context.User.FindAll("scope")
-        .Any(claim => claim.Value.Split(' ', StringSplitOptions.RemoveEmptyEntries).Contains("status.read"))));
+    policy.RequireAuthenticatedUser().RequireAssertion(context => ScopePermissions.HasScope(context.User, "status.read")));
 builder.Services.AddGrpc(options => options.EnableDetailedErrors = false);
-builder.Services.AddProblemDetails();
+builder.Services.AddProblemDetails(options => options.CustomizeProblemDetails = ApiErrors.DescribeProblem);
+builder.Services.AddExceptionHandler<ApiErrors>();
 builder.Services.AddRequestTimeouts();
+// Reject excess work immediately instead of letting a waiting queue grow and exhaust memory.
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -72,14 +80,30 @@ var app = builder.Build();
 // Resolve validated settings before opening listeners; never silently use a fallback.
 _ = app.Services.GetRequiredService<ServiceConfiguration>();
 _ = app.Services.GetRequiredService<NpgsqlDataSource>();
-app.UseExceptionHandler();
+// Keep the same reference in HTTP headers, error bodies, and server logs.
+app.Use((context, next) =>
+{
+    // OnStarting runs after an exception handler has cleared/replaced a failed response.
+    context.Response.OnStarting(static state =>
+    {
+        var requestContext = (HttpContext)state;
+        requestContext.Response.Headers["X-Request-ID"] = requestContext.TraceIdentifier;
+        return Task.CompletedTask;
+    }, context);
+    // There is no work after the next handler, so return its task without another async wrapper.
+    return next(context);
+});
+// Preserve failure metrics even though our handler turns exceptions into friendly responses.
+app.UseExceptionHandler(new ExceptionHandlerOptions { SuppressDiagnosticsCallback = _ => false });
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
 app.UseRequestTimeouts();
+// Live means the process is running. Ready also means it can use the database.
+// Keeping these separate prevents a database outage from causing endless service restarts.
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") });
-app.MapGet("/api/status", async (IRunninghillApplication application, CancellationToken cancellationToken) =>
+app.MapGet("/api/status", async (IRunninghillApplication application, HttpContext context, ILogger<Program> logger, CancellationToken cancellationToken) =>
 {
     try
     {
@@ -87,8 +111,10 @@ app.MapGet("/api/status", async (IRunninghillApplication application, Cancellati
     }
     catch (ApplicationUnavailableException)
     {
+        logger.LogWarning("Database unavailable for status request. Request reference: {RequestId}", context.TraceIdentifier);
         return Results.Problem(statusCode: StatusCodes.Status503ServiceUnavailable,
-            title: "The application is temporarily unavailable.");
+            title: "The service cannot reach its data right now.",
+            detail: "Please try again shortly. If this continues, share the request reference with support.");
     }
 }).RequireAuthorization("status.read").RequireRateLimiting("api").WithRequestTimeout(TimeSpan.FromSeconds(10));
 app.MapGrpcService<ApplicationGrpcService>().RequireAuthorization("status.read").RequireRateLimiting("api");

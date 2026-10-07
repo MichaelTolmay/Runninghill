@@ -81,13 +81,47 @@ public sealed class ServiceTests
         Assert.Contains("ConnectionStrings:Runninghill is required", exception.Message);
     }
 
+    [Fact]
+    public async Task UnexpectedHttpFailureHidesPrivateDetailsAndReturnsRequestReference()
+    {
+        await using var factory = new ServiceFactory(failure: new InvalidOperationException("private-database-password"));
+        using var http = factory.CreateClient();
+        http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ServiceFactory.Token());
+        using var response = await http.GetAsync("/api/status");
+        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+        var body = await response.Content.ReadAsStringAsync();
+        Assert.DoesNotContain("private-database-password", body);
+        using var problem = JsonDocument.Parse(body);
+        Assert.Equal(response.Headers.GetValues("X-Request-ID").Single(), problem.RootElement.GetProperty("requestId").GetString());
+        Assert.Contains("try again", problem.RootElement.GetProperty("detail").GetString());
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task GrpcErrorsHaveFriendlyMessagesAndReferences(bool unexpected)
+    {
+        await using var factory = new ServiceFactory(ready: false,
+            failure: unexpected ? new InvalidOperationException("private-database-password") : null);
+        using var http = factory.CreateClient();
+        using var channel = GrpcChannel.ForAddress(http.BaseAddress!, new GrpcChannelOptions { HttpHandler = factory.Server.CreateHandler() });
+        using var call = channel.CreateCallInvoker().AsyncUnaryCall(StatusMethod(), null,
+            new CallOptions(new Metadata { { "authorization", "Bearer " + ServiceFactory.Token() } }), new Empty());
+        var error = await Assert.ThrowsAsync<RpcException>(() => call.ResponseAsync);
+        Assert.Equal(unexpected ? StatusCode.Internal : StatusCode.Unavailable, error.StatusCode);
+        Assert.DoesNotContain("private-database-password", error.Status.Detail);
+        var reference = error.Trailers.GetValue("request-id");
+        Assert.False(string.IsNullOrWhiteSpace(reference));
+        Assert.Contains(reference!, error.Status.Detail);
+    }
+
     private static Method<Empty, StringValue> StatusMethod() => new(MethodType.Unary,
         "runninghill.v1.Application", "GetStatus",
         Marshallers.Create<Empty>(Google.Protobuf.MessageExtensions.ToByteArray, bytes => Empty.Parser.ParseFrom(bytes)),
         Marshallers.Create<StringValue>(Google.Protobuf.MessageExtensions.ToByteArray, bytes => StringValue.Parser.ParseFrom(bytes)));
 }
 
-public sealed class ServiceFactory(bool ready = true, bool missingConnection = false) : WebApplicationFactory<Program>
+public sealed class ServiceFactory(bool ready = true, bool missingConnection = false, Exception? failure = null) : WebApplicationFactory<Program>
 {
     private const string Key = "test-only-signing-key-at-least-32-bytes-long";
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -104,9 +138,16 @@ public sealed class ServiceFactory(bool ready = true, bool missingConnection = f
         {
             services.RemoveAll<IDatabaseReadiness>();
             services.AddSingleton<IDatabaseReadiness>(new StubDatabase(ready));
+            if (failure is not null)
+            {
+                services.RemoveAll<IRunninghillApplication>();
+                services.AddSingleton<IRunninghillApplication>(new FailingApplication(failure));
+            }
         });
     }
 
+    // Sign test tokens locally so these tests do not depend on an external login provider.
+    // This known key belongs only to the test server. Never use it in a deployed service.
     internal static string Token(string scope = "status.read")
     {
         static string Encode(byte[] value) => Convert.ToBase64String(value).TrimEnd('=').Replace('+', '-').Replace('/', '_');
@@ -116,4 +157,10 @@ public sealed class ServiceFactory(bool ready = true, bool missingConnection = f
         var signature = Encode(HMACSHA256.HashData(Encoding.UTF8.GetBytes(Key), Encoding.UTF8.GetBytes(header + "." + payload)));
         return header + "." + payload + "." + signature;
     }
+}
+
+// Simulate a bug without depending on an actual database or putting secrets in test configuration.
+internal sealed class FailingApplication(Exception failure) : IRunninghillApplication
+{
+    public Task<string> GetStatusAsync(CancellationToken cancellationToken = default) => Task.FromException<string>(failure);
 }

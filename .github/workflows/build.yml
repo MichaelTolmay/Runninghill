@@ -28,6 +28,8 @@ jobs:
         run: dotnet publish src/Runninghill.Service -c Release -r ${{ matrix.rid }} -o artifacts/service
       - name: Publish native CLI
         run: dotnet publish src/Clients/Runninghill.Cli -c Release -r ${{ matrix.rid }} -o artifacts/cli
+      - name: Check native CLI failure messages
+        run: python tests/cli/smoke.py --cli-directory artifacts/cli
       - uses: actions/upload-artifact@v4
         with:
           name: native-${{ matrix.rid }}

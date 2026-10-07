@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Libraries/">
+    <Project Path="src/Runninghill.Models/Runninghill.Models.csproj" />
+    <Project Path="src/Runninghill.Models.Sdk/Runninghill.Models.Sdk.csproj" />
+    <Project Path="src/Runninghill.Database/Runninghill.Database.csproj" />
+    <Project Path="src/Runninghill.Application/Runninghill.Application.csproj" />
+    <Project Path="src/Runninghill.Sdk/Runninghill.Sdk.csproj" />
+  </Folder>
+  <Folder Name="/Service/">
+    <Project Path="src/Runninghill.Service/Runninghill.Service.csproj" />
+  </Folder>
+  <Folder Name="/Clients/">
+    <Project Path="src/Clients/Runninghill.Cli/Runninghill.Cli.csproj" />
+    <Project Path="src/Clients/Runninghill.Web/Runninghill.Web.csproj" />
+    <Project Path="src/Clients/Runninghill.Maui/Runninghill.Maui.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/Runninghill.Tests/Runninghill.Tests.csproj" />
+  </Folder>
+</Solution>

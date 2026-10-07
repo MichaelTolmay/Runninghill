@@ -1,0 +1,35 @@
+@page "/"
+@rendermode InteractiveServer
+@inject IRunninghillSdk Sdk
+@inject ILogger<Home> Logger
+
+<PageTitle>Runninghill</PageTitle>
+<main>
+    <h1>Runninghill</h1>
+    <p>Check that your application is ready to use.</p>
+    <button @onclick="CheckStatusAsync" disabled="@checking">@(checking ? "Checking…" : "Check connection")</button>
+    <p role="status" aria-live="polite">@status</p>
+</main>
+
+@code {
+    private bool checking;
+    private string status = "Ready to check the connection.";
+
+    private async Task CheckStatusAsync()
+    {
+        checking = true;
+        try
+        {
+            status = await Sdk.GetStatusAsync();
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Application status check failed.");
+            status = "The connection could not be verified. Please try again.";
+        }
+        finally
+        {
+            checking = false;
+        }
+    }
+}

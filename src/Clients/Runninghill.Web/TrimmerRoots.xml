@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="Runninghill.Web">
+    <type fullname="Runninghill.Web.Components.Pages.*" preserve="all" />
+  </assembly>
+</linker>

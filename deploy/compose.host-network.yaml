@@ -1,0 +1,25 @@
+# Optional Linux-only workaround when the host kernel cannot create Docker bridge interfaces.
+services:
+  database:
+    network_mode: host
+    command: ["postgres", "-c", "listen_addresses=127.0.0.1", "-p", "55432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -p 55432 -U runninghill -d runninghill"]
+  service:
+    build:
+      network: host
+    network_mode: host
+    ports: !reset []
+    environment:
+      ConnectionStrings__Runninghill: Host=127.0.0.1;Port=55432;Database=runninghill;Username=runninghill;Password=${POSTGRES_PASSWORD};Timeout=5;Maximum Pool Size=100
+      Kestrel__Endpoints__HttpJson__Url: http://127.0.0.1:5080
+      Kestrel__Endpoints__Grpc__Url: http://127.0.0.1:5081
+  web:
+    build:
+      network: host
+    network_mode: host
+    ports: !reset []
+    volumes:
+      - ./deploy/nginx.host-network.conf:/etc/nginx/conf.d/default.conf:ro
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://127.0.0.1:5082/health/live"]

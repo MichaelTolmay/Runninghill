@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Runninghill.Sdk;
 
 namespace Runninghill.Maui;
 
@@ -16,7 +15,6 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddRunninghillSdk($"Data Source={Path.Combine(FileSystem.AppDataDirectory, "runninghill.db")}");
         builder.Services.AddSingleton<AppShell>();
         builder.Services.AddTransient<MainPage>();
 #if DEBUG

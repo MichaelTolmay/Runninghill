@@ -1,0 +1,10 @@
+{
+  "name": "runninghill-browser-tests",
+  "private": true,
+  "scripts": {
+    "test": "node smoke.cjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.63.0"
+  }
+}

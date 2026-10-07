@@ -1,0 +1,63 @@
+name: runninghill
+services:
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    environment:
+      POSTGRES_DB: runninghill
+      POSTGRES_USER: runninghill
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python3 scripts/dev-setup.py first}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U runninghill -d runninghill"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+    stop_grace_period: 30s
+  service:
+    build:
+      context: .
+      dockerfile: Dockerfile.service
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      ConnectionStrings__Runninghill: Host=database;Database=runninghill;Username=runninghill;Password=${POSTGRES_PASSWORD};Timeout=5;Maximum Pool Size=100
+      Authentication__Audience: ${AUTHENTICATION_AUDIENCE:-runninghill}
+      Authentication__Authority: ${AUTHENTICATION_AUTHORITY:-}
+      Authentication__DevelopmentSigningKey: ${DEVELOPMENT_SIGNING_KEY:-}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      Kestrel__Endpoints__HttpJson__Url: http://0.0.0.0:5080
+      Kestrel__Endpoints__Grpc__Url: http://0.0.0.0:5081
+    ports:
+      - "127.0.0.1:5080:5080"
+      - "127.0.0.1:5081:5081"
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://localhost:5080/health/ready"]
+      interval: 10s
+      timeout: 8s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+    stop_grace_period: 35s
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "127.0.0.1:5082:8080"
+    depends_on:
+      service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:8080/health/live"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+volumes:
+  database:

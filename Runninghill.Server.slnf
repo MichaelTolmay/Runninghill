@@ -1,0 +1,16 @@
+{
+  "solution": {
+    "path": "Runninghill.slnx",
+    "projects": [
+      "src/Runninghill.Models/Runninghill.Models.csproj",
+      "src/Runninghill.Models.Sdk/Runninghill.Models.Sdk.csproj",
+      "src/Runninghill.Database/Runninghill.Database.csproj",
+      "src/Runninghill.Application/Runninghill.Application.csproj",
+      "src/Runninghill.Sdk/Runninghill.Sdk.csproj",
+      "src/Runninghill.Service/Runninghill.Service.csproj",
+      "src/Clients/Runninghill.Cli/Runninghill.Cli.csproj",
+      "src/Clients/Runninghill.Web/Runninghill.Web.csproj",
+      "tests/Runninghill.Tests/Runninghill.Tests.csproj"
+    ]
+  }
+}

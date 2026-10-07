@@ -1,5 +1,9 @@
 @page "/"
 @inject HttpClient Client
+@inject ILogger<Home> Logger
+@implements IDisposable
+@using Runninghill.Clients
+@using System.Text.Json
 
 <PageTitle>Runninghill</PageTitle>
 <main>
@@ -13,27 +17,69 @@
 </main>
 
 @code {
+    // Leaving this page cancels its outstanding request. No work should outlive its owner.
+    private readonly CancellationTokenSource lifetime = new();
     private bool checking;
     private string token = "";
     private string status = "Ready to check the connection.";
 
     private async Task CheckStatusAsync()
     {
+        if (checking || string.IsNullOrWhiteSpace(token))
+            return;
+
         checking = true;
+        string? requestId = null;
+        var cancellationToken = lifetime.Token;
         try
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, "api/status");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            using var response = await Client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.StatusResponse)
-                ?? throw new HttpRequestException("The service returned an empty response.");
+            using var response = await Client.SendAsync(request, cancellationToken);
+            requestId = ClientMessages.ReadReference(response);
+            if (!response.IsSuccessStatusCode)
+            {
+                status = ClientMessages.WithReference(ClientMessages.ForStatus(response.StatusCode), requestId);
+                return;
+            }
+            var result = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.StatusResponse, cancellationToken)
+                ?? throw new JsonException("Missing status response.");
+            if (string.IsNullOrWhiteSpace(result.Message))
+                throw new JsonException("Missing status message.");
             status = result.Message;
         }
-        catch (HttpRequestException exception) when (exception.StatusCode is System.Net.HttpStatusCode.Unauthorized or System.Net.HttpStatusCode.Forbidden)
-        { status = "A valid access token with status.read permission is required."; }
-        catch (HttpRequestException) { status = "The service is unavailable. Please try again."; }
-        catch (OperationCanceledException) { status = "The request timed out. Please try again."; }
-        finally { checking = false; }
+        catch (HttpRequestException exception)
+        {
+            status = ClientMessages.WithReference(ClientMessages.ForRequestFailure(exception), requestId);
+        }
+        catch (JsonException)
+        {
+            status = ClientMessages.WithReference(ClientMessages.InvalidReply, requestId);
+        }
+        catch (FormatException)
+        {
+            status = "The access token contains invalid characters. Copy a new token and try again.";
+        }
+        catch (OperationCanceledException)
+        {
+            status = lifetime.IsCancellationRequested ? "Request cancelled." : ClientMessages.TimedOut;
+        }
+        catch (Exception exception)
+        {
+            // This is a UI boundary: show a safe message instead of breaking the whole page.
+            // Record only the error type; exception text can contain a URL or other private input.
+            Logger.LogError("Unexpected client error {ErrorType}. Request reference: {RequestId}", exception.GetType().Name, requestId);
+            status = ClientMessages.WithReference(ClientMessages.Unexpected, requestId);
+        }
+        finally
+        {
+            checking = false;
+        }
+    }
+
+    public void Dispose()
+    {
+        lifetime.Cancel();
+        lifetime.Dispose();
     }
 }

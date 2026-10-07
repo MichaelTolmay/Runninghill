@@ -31,8 +31,8 @@ per-request bearer tokens and generated JSON metadata for AOT compatibility.
 Business logic and database access remain in the service. All clients share
 server-owned data. The browser uses
 same-origin `/api` requests proxied by nginx; bearer tokens remain in page memory.
-MAUI holds an entered token only in memory and reuses its HTTP client until the service
-address changes. Neither client embeds a signing key or database credential.
+MAUI holds an entered token only in memory, clears it when leaving the page, and
+reuses its HTTP client until the service address changes. Neither client embeds a signing key or database credential.
 
 `GET /api/status` returns `{ "message": "Runninghill is ready. Database schema verified." }`.
 gRPC exposes `runninghill.v1.Application/GetStatus` using the existing protobuf
@@ -117,6 +117,7 @@ dotnet test Runninghill.Server.slnf --no-build -m:1
 
 # Linux: clang and zlib development headers are required for Native AOT.
 dotnet publish src/Clients/Runninghill.Cli -c Release -r linux-x64 -o artifacts/cli/linux-x64
+python3 tests/cli/smoke.py --cli-directory artifacts/cli/linux-x64
 export RUNNINGHILL_SERVICE_URL=http://localhost:5080/
 export RUNNINGHILL_ACCESS_TOKEN="$(python3 scripts/dev-token.py)"
 ./artifacts/cli/linux-x64/Runninghill.Cli status
@@ -190,6 +191,57 @@ dotnet publish src/Clients/Runninghill.Maui -c Release -f net10.0-ios -r ios-arm
 
 CI publishes the service and CLI on Linux, Windows, and macOS, and builds/smoke-tests
 the three-container Linux stack, including a real browser authentication check. Native UI signing and device tests remain platform-specific.
+
+## Reading and maintaining the code
+
+Start with `Runninghill.Application/RunninghillApplication.cs`: it describes what the
+app does. The database project answers its database questions. The service is the
+front door: it checks access, limits work, and translates results into HTTP or gRPC.
+Clients display those replies. `Clients/Shared/ClientMessages.cs` holds shared wording
+compiled into each client; it does not wrap the application or send network requests.
+
+Comments explain the reasons behind code that would otherwise be surprising:
+
+- A connection pool is a collection of open connections we can borrow and return.
+  Reusing them is faster than reconnecting for every request.
+- `await` lets a request wait for the network without blocking a worker thread.
+  A cancellation token tells waiting work to stop when it is no longer needed.
+- `using`/`await using` returns resources even when an error occurs. `finally` puts
+  UI controls back into a usable state whether a request succeeds or fails.
+- Generated JSON and logging code is prepared at build time. This keeps runtime
+  work low and preserves AOT compatibility.
+- Permission checks compare slices of existing text, avoiding new strings and arrays.
+  Keep exact, case-sensitive permission matching when changing this code.
+- nginx serves the web publish's existing gzip files to browsers that accept them,
+  reducing downloads without recompressing files for each visitor. See the
+  [nginx gzip-static documentation](https://nginx.org/en/docs/http/ngx_http_gzip_static_module.html).
+
+Do not cache readiness results to make a benchmark look faster: that could report a
+broken database as healthy. Do not add automatic retries to writes without deciding
+how duplicate submissions will be prevented. Measure representative work before
+claiming whole-system throughput or changing the concurrency limit.
+
+## Understanding and reporting errors
+
+Clients explain what to do for expired tokens, missing permissions, a busy service,
+network problems, timeouts, or replies they cannot read. Requests have ten-second
+limits; managed response buffering is capped at 64 KiB for this small status endpoint.
+Leaving a UI page cancels its request. HTTP failures are handled as normal results;
+invalid JSON and unexpected UI errors are caught at the client boundary.
+
+HTTP replies carry `X-Request-ID`; HTTP problem bodies also include `requestId`.
+gRPC failures include a `request-id` trailer and the same reference in their message.
+For service failures, give support the displayed reference, approximate time, app
+version, and what you were doing. Do not send tokens, passwords, or connection strings.
+If there is no reference, the request may not have reached the service; report the
+message and check the address and connection first.
+
+Server logs retain unexpected exception details with the request reference. Users
+receive safe explanations, never raw SQL or stack traces. Exception telemetry is
+explicitly retained with .NET 10's
+[exception-handler diagnostics setting](https://learn.microsoft.com/aspnet/core/breaking-changes/10/exception-handler-diagnostics-suppressed?view=aspnetcore-10.0).
+Client logs avoid raw exception text because it can contain private input. Startup
+configuration errors identify the setting to fix without printing its value.
 
 ## Service operation
 

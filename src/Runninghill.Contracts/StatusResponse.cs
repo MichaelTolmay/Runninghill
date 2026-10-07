@@ -1,4 +1,4 @@
 namespace Runninghill.Contracts;
 
-// Transport contract; persistence entities and UI state do not belong here.
+// The small message sent over the network. Keep database rows and page state out of this model.
 public sealed record StatusResponse(string Message);

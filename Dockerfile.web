@@ -2,11 +2,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS build
 WORKDIR /source
 COPY global.json .
+# Install the WebAssembly compiler once in a cached build layer.
 RUN dotnet workload install wasm-tools
 RUN apt-get update && apt-get install -y --no-install-recommends python3 python-is-python3 && rm -rf /var/lib/apt/lists/*
 COPY . .
 RUN dotnet publish src/Clients/Runninghill.Web -c Release -o /out
 
+# The finished site is static: nginx serves it without a .NET server runtime.
 FROM nginxinc/nginx-unprivileged:stable-alpine
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /out/wwwroot /usr/share/nginx/html

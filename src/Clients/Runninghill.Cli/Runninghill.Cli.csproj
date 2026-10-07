@@ -7,5 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../Runninghill.Contracts/Runninghill.Contracts.csproj" />
+    <!-- Share only display messages, without adding a wrapper or another assembly. -->
+    <Compile Include="../Shared/ClientMessages.cs" Link="ClientMessages.cs" />
   </ItemGroup>
 </Project>

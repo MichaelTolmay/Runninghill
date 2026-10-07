@@ -6,7 +6,8 @@ package runninghill.v1;
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
 
-// Transport contracts stay here; the shared domain models assembly remains empty.
+// This file is the gRPC wire contract. Changing it can affect clients written in any language.
+// Empty means there are no input fields; StringValue carries the status text.
 service Application {
   rpc GetStatus (google.protobuf.Empty) returns (google.protobuf.StringValue);
 }

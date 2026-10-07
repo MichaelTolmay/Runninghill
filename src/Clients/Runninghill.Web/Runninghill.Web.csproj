@@ -8,6 +8,8 @@
     <!-- Router discovers pages by reflection; preserve page types through full trimming. -->
     <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
     <ProjectReference Include="../../Runninghill.Contracts/Runninghill.Contracts.csproj" />
+    <!-- Share only display messages, without adding a wrapper or another assembly. -->
+    <Compile Include="../Shared/ClientMessages.cs" Link="ClientMessages.cs" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" />
   </ItemGroup>

@@ -32,7 +32,7 @@ python3 scripts/dev.py configure --host-network --allow-missing-prune-data
 Docker uses the local `default` context, without changing your global Docker context.
 Pass `--docker-context NAME` to `configure` to deliberately select another context.
 
-`prepare` starts a separate PostgreSQL container, applies the additive collection migration,
+`prepare` starts a separate PostgreSQL container, applies the EF Core collection migrations,
 generates private Debug settings, and builds the selected projects. It leaves the existing release stack alone:
 
 | Debug component | Local address |
@@ -105,9 +105,7 @@ and `--rid`; service/CLI then publish for the build host, and MAUI for the selec
 runtime. `--target core` publishes service, CLI, and web. Their libraries are included;
 test projects are built/run, not published as products.
 
-Debug uses portable symbols and disables optimization. Service/CLI and Apple MAUI
-Native AOT is enabled only in Release; Android/Windows/web keep their existing
-Release compilation modes. See the README's AOT support table for platform limits.
+Debug uses portable symbols and disables optimization. The service publishes with self-contained ReadyToRun in Release, with trimming disabled for EF Core. Client Release compilation modes are unchanged. See [service publishing](databases.md#release-publishing-with-readytorun) for details.
 
 ## VS Code: F5 and compound debugging
 

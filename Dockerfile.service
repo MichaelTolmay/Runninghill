@@ -1,16 +1,17 @@
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS build
-RUN apt-get update && apt-get install -y --no-install-recommends clang zlib1g-dev && rm -rf /var/lib/apt/lists/*
 WORKDIR /source
 COPY . .
-# Native binaries must match the CPU architecture of the final container.
+# ReadyToRun code and the bundled .NET runtime must match the final container's CPU.
 ARG TARGETARCH
 RUN case "$TARGETARCH" in amd64) rid=linux-x64 ;; arm64) rid=linux-arm64 ;; *) exit 1 ;; esac &&     dotnet publish src/Runninghill.Service -c Release -r "$rid" -o /out
 
-# Only the published native app and OS libraries are needed when running.
+# The self-contained publish includes .NET; this base supplies its OS dependencies.
 FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-noble
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
+# Named SQLite volumes inherit this writable directory on first creation.
+RUN mkdir -p /data && chown $APP_UID /data
 COPY --from=build /out .
 USER $APP_UID
 EXPOSE 5080 5081

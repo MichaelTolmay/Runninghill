@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Real HTTP + PostgreSQL contract checks. Uses a running debug or development Docker stack."""
+"""Real HTTP + database contract checks. Uses a running debug or development Docker stack."""
 import argparse
 import concurrent.futures
 import json
+import os
 from pathlib import Path
 import subprocess
 import urllib.error
@@ -16,7 +17,7 @@ parser.add_argument('--debug', action='store_true')
 parser.add_argument('--url')
 args = parser.parse_args()
 base = args.url or ('http://localhost:5180' if args.debug else 'http://localhost:5080')
-token = subprocess.check_output(['python3', 'scripts/dev.py', 'token'] if args.debug else ['python3', 'scripts/dev-token.py'], cwd=ROOT, text=True).strip()
+token = os.environ.get('RUNNINGHILL_ACCESS_TOKEN') or subprocess.check_output(['python3', 'scripts/dev.py', 'token'] if args.debug else ['python3', 'scripts/dev-token.py'], cwd=ROOT, text=True).strip()
 headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
 created = []
 # Only letters are valid words. Every run gets its own prefix so cleanup cannot touch user words.
@@ -90,7 +91,7 @@ try:
     assert all(a['id'] > b['id'] for a, b in zip(history['items'], history['items'][1:])), 'History must show newest first'
     # A new HTTP connection still reads database state; no client-memory-only collection.
     assert request('GET', f"words/{second['id']}") == second
-    print('PostgreSQL collection checks passed: auth, validation, CRUD, paging, filtering, concurrent retries, immutable sentence history.')
+    print('HTTP collection checks passed: auth, validation, CRUD, paging, filtering, concurrent retries, immutable sentence history.')
 finally:
     # Delete only this test's own words. Sentence history deliberately has no delete endpoint.
     for word in created:

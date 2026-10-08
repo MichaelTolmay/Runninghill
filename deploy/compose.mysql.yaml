@@ -1,0 +1,21 @@
+# Local development MySQL alternative to the default PostgreSQL container.
+services:
+  database:
+    build: !reset null
+    image: mysql:8.4
+    environment: !override
+      MYSQL_DATABASE: runninghill
+      MYSQL_USER: runninghill
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes: !override
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [CMD, mysqladmin, ping, --protocol=tcp, --host=127.0.0.1, --silent]
+      start_period: 40s
+  service:
+    environment:
+      Database__Provider: MySQL
+      ConnectionStrings__Runninghill: Server=database;Database=runninghill;User=runninghill;Password=${MYSQL_PASSWORD};SslMode=Required
+volumes:
+  mysql-data:

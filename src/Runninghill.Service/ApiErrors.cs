@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Runninghill.Application;
-using Npgsql;
+using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Runninghill.Service;
 
@@ -25,7 +26,7 @@ public sealed partial class ApiErrors(ILogger<ApiErrors> logger) : IExceptionHan
                 detail: expected.Message).ExecuteAsync(context);
             return true;
         }
-        if (exception is NpgsqlException or TimeoutException)
+        if (exception is DbException or DbUpdateException or TimeoutException)
         {
             LogUnexpectedFailure(logger, context.TraceIdentifier, exception);
             await Results.Problem(statusCode: 503, title: "Your collection is temporarily unavailable.",

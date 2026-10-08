@@ -7,7 +7,9 @@ services:
     environment:
       POSTGRES_DB: runninghill
       POSTGRES_USER: runninghill
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python3 scripts/dev-setup.py first}
+      # The PostgreSQL image rejects an empty password when selected. An unused provider
+      # must not require its credentials when a MySQL/MSSQL/SQLite override is loaded.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
     volumes:
       - database:/var/lib/postgresql/data
     healthcheck:
@@ -23,7 +25,8 @@ services:
       dockerfile: Dockerfile.service
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
-      ConnectionStrings__Runninghill: Host=database;Database=runninghill;Username=runninghill;Password=${POSTGRES_PASSWORD};Timeout=5;Maximum Pool Size=100
+      Database__Provider: Postgres
+      ConnectionStrings__Runninghill: Host=database;Database=runninghill;Username=runninghill;Password=${POSTGRES_PASSWORD:-};Timeout=5;Maximum Pool Size=100
       Authentication__Audience: ${AUTHENTICATION_AUDIENCE:-runninghill}
       Authentication__Authority: ${AUTHENTICATION_AUTHORITY:-}
       Authentication__DevelopmentSigningKey: ${DEVELOPMENT_SIGNING_KEY:-}

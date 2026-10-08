@@ -1,0 +1,21 @@
+# SQL Server Developer edition is for development/testing, on x64 hosts.
+services:
+  database:
+    build: !reset null
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment: !override
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Set a strong MSSQL_SA_PASSWORD in .env}
+      MSSQL_MEMORY_LIMIT_MB: 2048
+    volumes: !override
+      - mssql-data:/var/opt/mssql
+    healthcheck:
+      test: [CMD, /bin/bash, -c, 'exec 3<>/dev/tcp/127.0.0.1/1433']
+      start_period: 40s
+  service:
+    environment:
+      Database__Provider: MSSQL
+      ConnectionStrings__Runninghill: Server=database;Database=runninghill;User ID=sa;Password=${MSSQL_SA_PASSWORD};Encrypt=True;TrustServerCertificate=True
+volumes:
+  mssql-data:

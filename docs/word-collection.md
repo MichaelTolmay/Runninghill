@@ -1,6 +1,6 @@
 # Word collection
 
-The web app, native MAUI app and CLI use the same authenticated HTTP API and PostgreSQL collection. No SDK projects or embedded web views have been added. On Windows, MAUI renders native WinUI controls.
+The web app, native MAUI app and CLI use the same authenticated HTTP API and EF Core 10 collection (PostgreSQL, MSSQL, SQLite or MySQL). No SDK projects or embedded web views have been added. On Windows, MAUI renders native WinUI controls.
 
 ## Run locally
 
@@ -25,7 +25,7 @@ The existing [build/debug guide](build-and-debug.md) covers individual projects,
 
 ## Upgrade an existing Docker database
 
-New, empty databases run both SQL files automatically. Existing volumes need the additive migration **before starting the updated service**:
+Both new databases and existing volumes now use EF Core migrations. Build the service image and start the database first, then apply migrations **before starting the updated API**:
 
 ```sh
 python3 scripts/migrate.py
@@ -33,7 +33,7 @@ python3 scripts/migrate.py
 python3 scripts/migrate.py --host-network
 ```
 
-The script targets Docker context `default`; use `--docker-context NAME` to select another. Rebuild and start the three-container stack with your existing Compose host override. Do not delete the database volume. `scripts/dev.py prepare` automatically applies the same migration to its separate debug database. Schema version 2 is required for readiness. Migrations run transactionally, serialize with an advisory lock, and may be repeated safely.
+The script targets Docker context `default`; use `--docker-context NAME` to select another. Do not delete the database volume. `scripts/dev.py prepare` applies the EF migrations to its separate debug database. Schema version 3 is required. See the [database guide](databases.md) for provider configuration, first-time Docker setup and the version 2 PostgreSQL upgrade path.
 
 ## HTTP contract
 
@@ -119,8 +119,8 @@ node tests/browser/smoke.cjs
 node tests/browser/collection.cjs
 ```
 
-Integration checks use a unique word prefix and clean up only their own words. They leave saved test sentences in history to exercise immutable snapshots, so use an isolated test/development database. Browser screenshots are written under ignored `artifacts/ui/`. Release checks should also publish service/CLI with NativeAOT, web with WebAssembly AOT, and MAUI for each supported host/device.
+Integration checks use a unique word prefix and clean up only their own words. They leave saved test sentences in history to exercise immutable snapshots, so use an isolated test/development database. Browser screenshots are written under ignored `artifacts/ui/`. Release checks should publish the CLI with NativeAOT, web with WebAssembly AOT, and MAUI for each supported host/device. The EF service publishes with self-contained [ReadyToRun](databases.md#release-publishing-with-readytorun).
 
 The service uses normal globalization because invariant mode skips Unicode normalization. The Linux runtime image includes ICU; custom minimal images must supply it.
 
-Npgsql array and TLS mappings are explicitly enabled on its slim builder, keeping the required features compatible with native compilation; see the [official builder documentation](https://www.npgsql.org/doc/api/Npgsql.NpgsqlSlimDataSourceBuilder.html). Queries are parameterized, pooled, cancellable and time-bounded. Unique/type/prefix indexes serve common collection operations. These safeguards are not a throughput benchmark: production capacity still depends on deployment resources and workload.
+EF queries are parameterized, pooled, cancellable and time-bounded. Unique spelling/type and type/ID indexes support collection operations. See the [database guide](databases.md) for the mappings and migration workflow. These safeguards are not a throughput benchmark: production capacity still depends on deployment resources and workload.

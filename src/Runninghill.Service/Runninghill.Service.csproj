@@ -1,7 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <PublishAot Condition="'$(Configuration)' == 'Release'">true</PublishAot>
+    <!-- EF generates queries at runtime. ReadyToRun precompiles service code while
+         keeping the runtime features needed by all four database providers. -->
+    <PublishAot>false</PublishAot>
+    <PublishTrimmed>false</PublishTrimmed>
+    <PublishReadyToRun Condition="'$(Configuration)' == 'Release'">true</PublishReadyToRun>
+    <!-- Include the runtime when publishing; ordinary builds need no runtime identifier. -->
+    <PublishSelfContained Condition="'$(Configuration)' == 'Release'">true</PublishSelfContained>
     <!-- Real words need Unicode normalization; invariant mode silently skips it. -->
     <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>

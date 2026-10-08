@@ -63,6 +63,7 @@ def token():
 def prepare_files():
     secret = credentials()
     configuration = {
+        'Database': {'Provider': 'Postgres'},
         'ConnectionStrings': {'Runninghill': 'Host=127.0.0.1;Port=55433;Database=runninghill;Username=runninghill;Password=' + secret['password'] + ';Timeout=5'},
         'Authentication': {'Audience': 'runninghill', 'Authority': '', 'DevelopmentSigningKey': secret['key']},
         'Kestrel': {'Endpoints': {
@@ -152,10 +153,13 @@ def main():
     elif args.action == 'prepare':
         prepare_files()
         compose(['up', '-d', '--build', '--wait', '--wait-timeout', '90'])
-        compose(['exec', '-T', 'database', 'psql', '-p', '55433' if settings()['host_network'] else '5432', '-U', 'runninghill', '-d', 'runninghill', '-v', 'ON_ERROR_STOP=1'],
-                (ROOT / 'deploy/database/002-words.sql').read_text())
         if not args.no_build:
             subprocess.run([sys.executable, str(ROOT / 'scripts/build.py'), 'build', '-c', 'Debug', '--target', args.target], check=True)
+        subprocess.run(['dotnet', 'run', '--project', str(SERVICE), '--no-launch-profile',
+                        *(['--no-build'] if args.no_build else []), '--', '--migrate-database'],
+                       cwd=ROOT, env=dict(os.environ, Database__Provider='Postgres',
+                           ConnectionStrings__Runninghill=json.loads((SERVICE / 'appsettings.Development.local.json').read_text())['ConnectionStrings']['Runninghill']),
+                       check=True)
         print('Debug environment ready. HTTP 5180; gRPC 5181; web 5182; database 55433.')
     else:
         if args.target not in ('service', 'web', 'cli'):

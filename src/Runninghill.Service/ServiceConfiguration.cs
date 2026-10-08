@@ -1,29 +1,15 @@
 using System.Text;
-using Npgsql;
+using Runninghill.Database;
 
 namespace Runninghill.Service;
 
 // Validate once at startup. Refusing bad settings is safer than starting a service that
 // looks healthy but cannot store data or check who is allowed to use it.
-public sealed record ServiceConfiguration(string ConnectionString, string Audience, string? Authority, string? DevelopmentSigningKey)
+public sealed record ServiceConfiguration(string ConnectionString, string Audience, string? Authority, string? DevelopmentSigningKey, DatabaseSettings Database)
 {
     public static ServiceConfiguration Load(IConfiguration configuration, IHostEnvironment environment)
     {
-        var connectionString = configuration.GetConnectionString("Runninghill");
-        if (string.IsNullOrWhiteSpace(connectionString))
-            throw new InvalidOperationException("ConnectionStrings:Runninghill is required; no temporary database fallback is allowed.");
-        NpgsqlConnectionStringBuilder connectionSettings;
-        try
-        {
-            connectionSettings = new NpgsqlConnectionStringBuilder(connectionString);
-        }
-        catch (ArgumentException)
-        {
-            // Do not repeat the supplied value: a connection string usually contains a password.
-            throw new InvalidOperationException("ConnectionStrings:Runninghill is not a valid PostgreSQL connection string. Check its setting names and value formats.");
-        }
-        if (string.IsNullOrWhiteSpace(connectionSettings.Database))
-            throw new InvalidOperationException("The PostgreSQL database name must be explicitly configured.");
+        var database = DatabaseSettings.Parse(configuration["Database:Provider"], configuration.GetConnectionString("Runninghill"));
         var audience = configuration["Authentication:Audience"];
         if (string.IsNullOrWhiteSpace(audience))
             throw new InvalidOperationException("Authentication:Audience is required.");
@@ -36,6 +22,6 @@ public sealed record ServiceConfiguration(string ConnectionString, string Audien
         if (!string.IsNullOrWhiteSpace(authority) && (!Uri.TryCreate(authority, UriKind.Absolute, out var authorityUri) || authorityUri.Scheme != "https"))
             throw new InvalidOperationException("Authentication:Authority must be an HTTPS URL.");
 
-        return new ServiceConfiguration(connectionString, audience, authority, signingKey);
+        return new ServiceConfiguration(database.ConnectionString, audience, authority, signingKey, database);
     }
 }

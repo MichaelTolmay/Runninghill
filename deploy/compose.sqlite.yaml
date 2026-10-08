@@ -1,0 +1,13 @@
+# No database server is needed for SQLite. The file survives container replacement.
+services:
+  database:
+    profiles: [postgres]
+  service:
+    depends_on: !reset {}
+    environment:
+      Database__Provider: SQLite
+      ConnectionStrings__Runninghill: Data Source=/data/runninghill.db;Default Timeout=5
+    volumes:
+      - sqlite-data:/data
+volumes:
+  sqlite-data:

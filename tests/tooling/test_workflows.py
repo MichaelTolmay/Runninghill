@@ -53,13 +53,13 @@ class BuildTests(unittest.TestCase):
 
 
 class DebugSettingsTests(unittest.TestCase):
-    def test_debug_migration_uses_stdin_and_configured_context(self):
+    def test_compose_uses_configured_context_and_private_environment(self):
         with patch.object(dev, 'settings', return_value={'docker_context': 'local-test', 'host_network': False}), \
              patch.object(dev, 'credentials', return_value={'password': 'private'}), \
              patch.object(dev.subprocess, 'run') as run:
-            dev.compose(['exec', '-T', 'database', 'psql'], input_text='SELECT 1;')
+            dev.compose(['up', '-d', 'database'])
         self.assertEqual(run.call_args.args[0][0:3], ['docker', '--context', 'local-test'])
-        self.assertEqual(run.call_args.kwargs['input'], 'SELECT 1;')
+        self.assertEqual(run.call_args.kwargs['env']['POSTGRES_PASSWORD'], 'private')
         self.assertNotIn('private', ' '.join(run.call_args.args[0]))
 
     def test_failed_settings_refresh_preserves_previous_file(self):

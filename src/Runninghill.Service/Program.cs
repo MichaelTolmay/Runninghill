@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -25,6 +24,16 @@ if (builder.Environment.IsDevelopment())
         .WithOrigins("http://localhost:5182", "http://127.0.0.1:5182")
         .WithMethods("GET", "POST", "PUT", "DELETE").WithHeaders("Authorization", "Content-Type").WithExposedHeaders("X-Request-ID")));
 }
+// Migration mode needs only database settings. It never opens HTTP listeners or requires
+// an access-token issuer, so deployment tooling can use a separate DDL credential.
+if (args.Contains("--migrate-database"))
+{
+    builder.Services.AddCollectionDatabase(_ => DatabaseSettings.Parse(
+        builder.Configuration["Database:Provider"], builder.Configuration.GetConnectionString("Runninghill")));
+    await using var migrationHost = builder.Build();
+    await migrationHost.Services.GetRequiredService<DatabaseMigrator>().MigrateAsync();
+    return;
+}
 builder.Services.AddSingleton(services => ServiceConfiguration.Load(
     services.GetRequiredService<IConfiguration>(), services.GetRequiredService<IHostEnvironment>()));
 builder.Logging.ClearProviders();
@@ -40,19 +49,14 @@ builder.Services.AddOpenTelemetry()
     })
     .WithMetrics(metrics =>
     {
-        metrics.AddAspNetCoreInstrumentation().AddMeter("Microsoft.AspNetCore.Server.Kestrel", "Npgsql");
+        metrics.AddAspNetCoreInstrumentation().AddMeter("Microsoft.AspNetCore.Server.Kestrel", "Microsoft.EntityFrameworkCore", "Npgsql");
         if (exportTelemetry) metrics.AddOtlpExporter();
     });
 // Give in-flight work time to finish when the host shuts down.
 builder.Services.Configure<HostOptions>(options => options.ShutdownTimeout = TimeSpan.FromSeconds(30));
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolverChain.Insert(0, ApiJsonContext.Default));
-// One data source owns a pool of reusable database connections for the whole process.
-// A query borrows a connection and returns it; it does not open a new physical connection each time.
-builder.Services.AddSingleton<NpgsqlDataSource>(services => new NpgsqlSlimDataSourceBuilder(
-    services.GetRequiredService<ServiceConfiguration>().ConnectionString).EnableArrays().EnableTransportSecurity().Build());
-builder.Services.AddSingleton<IDatabaseReadiness, PostgresReadiness>();
+builder.Services.AddCollectionDatabase(services => services.GetRequiredService<ServiceConfiguration>().Database);
 builder.Services.AddTransient<IRunninghillApplication, RunninghillApplication>();
-builder.Services.AddSingleton<IWordRepository, PostgresWordRepository>();
 builder.Services.AddTransient<WordCollection>();
 // Bound request buffering before JSON is parsed. A sentence contains at most 50 word IDs.
 builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = 16 * 1024);
@@ -96,7 +100,7 @@ builder.Services.AddHealthChecks().AddCheck<DatabaseHealthCheck>("database", tag
 var app = builder.Build();
 // Resolve validated settings before opening listeners; never silently use a fallback.
 _ = app.Services.GetRequiredService<ServiceConfiguration>();
-_ = app.Services.GetRequiredService<NpgsqlDataSource>();
+_ = app.Services.GetRequiredService<DatabaseSettings>();
 // Keep the same reference in HTTP headers, error bodies, and server logs.
 app.Use((context, next) =>
 {

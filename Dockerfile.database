@@ -1,2 +1,2 @@
 FROM postgres:17-alpine
-COPY deploy/database/*.sql /docker-entrypoint-initdb.d/
+# EF Core migrations are run explicitly by the deployment, including for existing volumes.

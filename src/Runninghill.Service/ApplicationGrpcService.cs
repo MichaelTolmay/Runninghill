@@ -12,7 +12,12 @@ public sealed partial class ApplicationGrpcService(IRunninghillApplication appli
     {
         // A linked token stops work when EITHER the caller leaves OR our ten-second limit ends.
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(context.CancellationToken);
-        deadline.CancelAfter(TimeSpan.FromSeconds(10));
+#if DEBUG
+        // A breakpoint pauses the server, not the caller's clock. Preserve the caller's
+        // own cancellation, but do not make our timer abort a paused debugging session.
+        if (!System.Diagnostics.Debugger.IsAttached)
+#endif
+            deadline.CancelAfter(TimeSpan.FromSeconds(10));
         try
         {
             return new StringValue { Value = await application.GetStatusAsync(deadline.Token) };

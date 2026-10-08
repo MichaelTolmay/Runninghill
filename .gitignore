@@ -14,3 +14,8 @@ artifacts/
 !.env.example
 **/__pycache__/
 **/node_modules/
+
+# Local build paths and generated debugger credentials
+Directory.Build.local.props
+.run/
+src/Runninghill.Service/appsettings.Development.local.json

@@ -1,0 +1,148 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Service",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "debug: prepare service",
+      "program": "${workspaceFolder}/src/Runninghill.Service/bin/Debug/net10.0/Runninghill.Service.dll",
+      "cwd": "${workspaceFolder}/src/Runninghill.Service",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RUNNINGHILL_LOCAL_DEBUG": "1"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "stopAtEntry": false
+    },
+    {
+      "name": "CLI (service already running)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "debug: prepare cli",
+      "program": "${workspaceFolder}/src/Clients/Runninghill.Cli/bin/Debug/net10.0/Runninghill.Cli.dll",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "status"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "stopAtEntry": true,
+      "env": {
+        "RUNNINGHILL_DEBUG_ENV_FILE": "${workspaceFolder}/.run/cli.env"
+      }
+    },
+    {
+      "name": "Web (service already running)",
+      "type": "blazorwasm",
+      "request": "launch",
+      "preLaunchTask": "debug: prepare web",
+      "cwd": "${workspaceFolder}/src/Clients/Runninghill.Web",
+      "url": "http://localhost:5182",
+      "browser": "chrome",
+      "timeout": 60000
+    },
+    {
+      "name": "MAUI (selected device)",
+      "type": "maui",
+      "request": "launch",
+      "preLaunchTask": "debug: prepare maui",
+      "configuration": "Debug"
+    },
+    {
+      "name": "Attach to a managed process",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}",
+      "justMyCode": true
+    },
+    {
+      "name": "Service (compound)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Runninghill.Service/bin/Debug/net10.0/Runninghill.Service.dll",
+      "cwd": "${workspaceFolder}/src/Runninghill.Service",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RUNNINGHILL_LOCAL_DEBUG": "1"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "stopAtEntry": false
+    },
+    {
+      "name": "CLI (compound)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Clients/Runninghill.Cli/bin/Debug/net10.0/Runninghill.Cli.dll",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "status"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "stopAtEntry": true,
+      "preLaunchTask": "debug: wait for service",
+      "env": {
+        "RUNNINGHILL_DEBUG_ENV_FILE": "${workspaceFolder}/.run/cli.env"
+      }
+    },
+    {
+      "name": "Web (compound)",
+      "type": "blazorwasm",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/src/Clients/Runninghill.Web",
+      "url": "http://localhost:5182",
+      "browser": "chrome",
+      "timeout": 60000,
+      "preLaunchTask": "debug: wait for service"
+    },
+    {
+      "name": "MAUI (compound)",
+      "type": "maui",
+      "request": "launch",
+      "configuration": "Debug"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Service + Web",
+      "configurations": [
+        "Service (compound)",
+        "Web (compound)"
+      ],
+      "preLaunchTask": "debug: prepare core",
+      "stopAll": true
+    },
+    {
+      "name": "Service + CLI",
+      "configurations": [
+        "Service (compound)",
+        "CLI (compound)"
+      ],
+      "preLaunchTask": "debug: prepare core",
+      "stopAll": true
+    },
+    {
+      "name": "Service + MAUI",
+      "configurations": [
+        "Service (compound)",
+        "MAUI (compound)"
+      ],
+      "preLaunchTask": "debug: prepare all",
+      "stopAll": true
+    },
+    {
+      "name": "All applications",
+      "configurations": [
+        "Service (compound)",
+        "CLI (compound)",
+        "Web (compound)",
+        "MAUI (compound)"
+      ],
+      "preLaunchTask": "debug: prepare all",
+      "stopAll": true
+    }
+  ]
+}

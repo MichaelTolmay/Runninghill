@@ -19,7 +19,7 @@ public sealed partial class PostgresReadiness(NpgsqlDataSource dataSource, ILogg
             // The database gets less time than the API so the API can still send a useful error.
             command.CommandTimeout = 5;
             var result = await command.ExecuteScalarAsync(cancellationToken);
-            var ready = result is int version && version == 1;
+            var ready = result is int version && version == 2;
             if (!ready)
                 LogSchemaMismatch(logger);
             return ready;
@@ -38,7 +38,7 @@ public sealed partial class PostgresReadiness(NpgsqlDataSource dataSource, ILogg
     }
 
     // Generated log methods avoid making argument arrays and boxing values for each log call.
-    [LoggerMessage(Level = LogLevel.Warning, Message = "Database schema marker is missing or unsupported. Apply the expected version 1 migration.")]
+    [LoggerMessage(Level = LogLevel.Warning, Message = "Database schema marker is missing or unsupported. Apply the expected version 2 migration.")]
     private static partial void LogSchemaMismatch(ILogger logger);
 
     [LoggerMessage(Level = LogLevel.Warning, Message = "Database or required schema is unavailable. Check PostgreSQL connectivity and migrations.")]

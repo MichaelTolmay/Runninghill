@@ -1,85 +1,99 @@
 @page "/"
-@inject HttpClient Client
-@inject ILogger<Home> Logger
 @implements IDisposable
-@using Runninghill.Clients
-@using System.Text.Json
 
-<PageTitle>Runninghill</PageTitle>
-<main>
-    <h1>Runninghill</h1>
-    <p>Check that the shared application is ready to use.</p>
-    <label for="token">Access token</label>
-    <input id="token" type="password" @bind="token" autocomplete="off" spellcheck="false" />
-    <p>Your token stays in this page's memory and is cleared when you reload.</p>
-    <button @onclick="CheckStatusAsync" disabled="@(checking || string.IsNullOrWhiteSpace(token))">@(checking ? "Checking…" : "Check connection")</button>
-    <p role="status" aria-live="polite">@status</p>
-</main>
-
-@code {
-    // Leaving this page cancels its outstanding request. No work should outlive its owner.
-    private readonly CancellationTokenSource lifetime = new();
-    private bool checking;
-    private string token = "";
-    private string status = "Ready to check the connection.";
-
-    private async Task CheckStatusAsync()
-    {
-        if (checking || string.IsNullOrWhiteSpace(token))
-            return;
-
-        checking = true;
-        string? requestId = null;
-        var cancellationToken = lifetime.Token;
-        try
-        {
-            using var request = new HttpRequestMessage(HttpMethod.Get, "api/status");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            using var response = await Client.SendAsync(request, cancellationToken);
-            requestId = ClientMessages.ReadReference(response);
-            if (!response.IsSuccessStatusCode)
-            {
-                status = ClientMessages.WithReference(ClientMessages.ForStatus(response.StatusCode), requestId);
-                return;
-            }
-            var result = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.StatusResponse, cancellationToken)
-                ?? throw new JsonException("Missing status response.");
-            if (string.IsNullOrWhiteSpace(result.Message))
-                throw new JsonException("Missing status message.");
-            status = result.Message;
-        }
-        catch (HttpRequestException exception)
-        {
-            status = ClientMessages.WithReference(ClientMessages.ForRequestFailure(exception), requestId);
-        }
-        catch (JsonException)
-        {
-            status = ClientMessages.WithReference(ClientMessages.InvalidReply, requestId);
-        }
-        catch (FormatException)
-        {
-            status = "The access token contains invalid characters. Copy a new token and try again.";
-        }
-        catch (OperationCanceledException)
-        {
-            status = lifetime.IsCancellationRequested ? "Request cancelled." : ClientMessages.TimedOut;
-        }
-        catch (Exception exception)
-        {
-            // This is a UI boundary: show a safe message instead of breaking the whole page.
-            // Record only the error type; exception text can contain a URL or other private input.
-            Logger.LogError("Unexpected client error {ErrorType}. Request reference: {RequestId}", exception.GetType().Name, requestId);
-            status = ClientMessages.WithReference(ClientMessages.Unexpected, requestId);
-        }
-        finally
-        {
-            checking = false;
-        }
-    }
-
-    public void Dispose()
-    {
-        lifetime.Cancel();
-        lifetime.Dispose();
-    }
-}
+<PageTitle>Word collection · Runninghill</PageTitle>
+<a class="skip-link" href="#collection">Skip to word collection</a>
+<div class="workspace">
+    <header class="topbar">
+        <a class="brand" href="/" aria-label="Runninghill home"><span class="brand-mark">W</span><span>Runninghill<small>WORD COLLECTION</small></span></a>
+        <span class="connection-badge">@(connected ? "Connected" : "Connect to get started")</span>
+    </header>
+    <main>
+        <section class="intro">
+            <div><p class="eyebrow">A LITTLE LANGUAGE, A LOT OF POSSIBILITY</p><h1>Your words. New possibilities.</h1><p>Collect words by type, then bring them together in a sentence.</p></div>
+            <a class="button secondary" href="#sentence">Build a sentence <span aria-hidden="true">↗</span></a>
+        </section>
+        <details class="connection panel" open="@(!connected)">
+            <summary>Service connection <span class="muted">Your access token stays in memory only</span></summary>
+            <form @onsubmit="ConnectAsync" @onsubmit:preventDefault class="connection-form">
+                <div class="field"><label for="token">Access token</label><input id="token" disabled="@busy" type="password" @bind="token" autocomplete="off" spellcheck="false" required /></div>
+                <button disabled="@busy">@(busy ? "Please wait…" : "Connect / refresh")</button>
+                @if (connected) { <button type="button" class="secondary" @onclick="Disconnect" disabled="@busy">Disconnect</button> }
+            </form>
+        </details>
+        <p class="feedback @(error ? "error" : "")" role="status" aria-live="polite">@message</p>
+        <div class="workspace-grid" aria-busy="@busy">
+            <section id="collection" class="panel collection" aria-labelledby="collection-title">
+                <div class="section-heading"><div><p class="eyebrow">YOUR PERSONAL WORD BANK</p><h2 id="collection-title">Word collection</h2></div><span class="count">@words.Length on this page</span></div>
+                <form class="word-form" @onsubmit="SaveWordAsync" @onsubmit:preventDefault>
+                    <div class="field word-field"><label for="word">@(editingId is null ? "Add a word" : "Edit word")</label><input id="word" disabled="@busy" @ref="wordInput" @bind="draftWord" maxlength="80" placeholder="e.g. possibility" required autocomplete="off" /></div>
+                    <div class="field"><label for="word-type">Word type</label><select id="word-type" disabled="@busy" @bind="draftType">@foreach (var type in WordTypes.All) { <option>@type</option> }</select></div>
+                    <button disabled="@(!connected || busy)">@(editingId is null ? "Add word" : "Save changes")</button>
+                    @if (editingId is not null) { <button type="button" class="secondary" @onclick="CancelEdit" disabled="@busy">Cancel edit</button> }
+                </form>
+                <form class="filters" @onsubmit="SearchAsync" @onsubmit:preventDefault>
+                    <div class="field search-field"><label for="search">Search collection</label><input id="search" disabled="@busy" @bind="search" maxlength="80" placeholder="Search by the start of a word…" type="search" /></div>
+                    <details class="type-filter" data-dismiss-dropdown><summary>Word types <span class="count">@(selectedTypes.Count == 0 ? "All" : selectedTypes.Count)</span></summary>
+                        <div class="type-options">
+                            <div class="dropdown-heading"><strong>Filter by word type</strong><button type="button" class="text-button" data-close-dropdown aria-label="Close word types">Close</button></div>
+                            <p class="muted">Choose types, then apply filters.</p>
+                            @foreach (var type in WordTypes.All) { <label><input type="checkbox" disabled="@busy" checked="@selectedTypes.Contains(type)" @onchange="() => ToggleType(type)" /> @type</label> }
+                            <button type="button" class="text-button" disabled="@busy" @onclick="() => selectedTypes.Clear()">Clear type selection</button>
+                            <button type="submit" class="full-width" disabled="@(!connected || busy)">Apply selected types</button>
+                        </div>
+                    </details>
+                    <button class="secondary" disabled="@(!connected || busy)">Apply filters</button>
+                    <button type="button" class="text-button" disabled="@(!connected || busy)" @onclick="ResetFiltersAsync">Clear filters</button>
+                </form>
+                @if (words.Length == 0)
+                {
+                    <div class="empty"><span class="empty-icon" aria-hidden="true">Aa</span><h3>@(connected ? "Make room for a new word" : "Your collection starts here")</h3><p>@(connected ? "Add your first word above, or try a different search or word type." : "Enter an access token and connect to load your saved words.")</p></div>
+                }
+                else
+                {
+                    <div class="list-heading"><span>WORD & TYPE</span><span>ACTIONS</span></div>
+                    <ul class="word-list">
+                        @foreach (var word in words)
+                        {
+                            <li @key="word.Id"><div class="word-description"><strong>@word.Word</strong><span class="tag @TypeClass(word.Type)">@word.Type</span></div>
+                                <div class="row-actions"><button class="secondary" @onclick="() => AddToSentence(word)" disabled="@(busy || chosen.Count >= 50)" aria-label="Add @word.Word to sentence">+ Add to sentence</button><button class="text-button" @onclick="() => EditAsync(word)" disabled="@busy" aria-label="Edit @word.Word">Edit</button><button class="text-button danger" @onclick="() => pendingDelete = word.Id" disabled="@busy" aria-label="Delete @word.Word">Delete</button></div>
+                                @if (pendingDelete == word.Id)
+                                {
+                                    <div class="delete-confirm" role="group" aria-label="Confirm deletion"><p>Delete “@word.Word”? Saved sentences will stay unchanged.</p><button class="danger-button" disabled="@busy" @onclick="() => DeleteAsync(word)">Confirm delete</button><button class="secondary" disabled="@busy" @onclick="() => pendingDelete = null">Keep word</button></div>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+                <div class="pagination"><button class="secondary" disabled="@(busy || previous.Count == 0)" @onclick="PreviousAsync">Previous</button><span>Page @(previous.Count + 1)</span><button class="secondary" disabled="@(busy || nextAfter is null)" @onclick="NextAsync">Next</button></div>
+            </section>
+            <aside class="sentence-column">
+                <section id="sentence" class="panel" aria-labelledby="sentence-title">
+                    <p class="eyebrow">PUT YOUR WORDS TO WORK</p><h2 id="sentence-title">Build a sentence</h2><p class="muted">Choose <strong>+ Add to sentence</strong> beside a word. Use it again whenever you need it.</p>
+                    <p class="preview-label">Sentence preview</p>
+                    <div class="sentence-preview">
+                        @if (chosen.Count == 0) { <p class="placeholder">Add words from your collection to see your sentence here.</p> }
+                        else { <p class="sentence-text">@string.Join(" ", chosen.Select(w => w.Word))</p> }
+                    </div>
+                    <ol class="sentence-words">
+                        @for (var i = 0; i < chosen.Count; i++)
+                        {
+                            var index = i;
+                            <li><span class="tag @TypeClass(chosen[i].Type)">@(i + 1). @chosen[i].Word</span><div class="chip-actions"><button class="text-button" aria-label="Move word @(i + 1) earlier" disabled="@(busy || i == 0)" @onclick="() => Move(index, -1)">←</button><button class="text-button" aria-label="Move word @(i + 1) later" disabled="@(busy || i == chosen.Count - 1)" @onclick="() => Move(index, 1)">→</button><button class="text-button" aria-label="Remove word @(i + 1)" disabled="@busy" @onclick="() => Remove(index)">×</button></div></li>
+                        }
+                    </ol>
+                    <div class="sentence-footer"><span class="muted">@chosen.Count / 50 words</span><button class="text-button" disabled="@(busy || chosen.Count == 0)" @onclick="ClearSentence">Clear</button></div>
+                    <p id="sentence-help" class="hint" aria-live="polite">@SentenceHelp</p>
+                    <button class="full-width" aria-describedby="sentence-help" disabled="@(!connected || busy || chosen.Count == 0)" @onclick="SaveSentenceAsync">Save sentence</button>
+                    <p class="hint">Saved sentences keep their wording when your collection changes.</p>
+                </section>
+                <section class="panel history" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Saved sentences</h2><button class="text-button" disabled="@(!connected || busy)" @onclick="RefreshHistoryAsync">Refresh</button></div>
+                    @if (sentences.Length == 0) { <p class="muted">Your saved sentences will appear here.</p> }
+                    <ol>@foreach (var sentence in sentences) { <li @key="sentence.Id"><p>@sentence.Text</p><small>@sentence.CreatedAt.ToLocalTime().ToString("dd MMM yyyy · HH:mm")</small></li> }</ol>
+                    <div class="pagination"><button class="secondary" disabled="@(busy || sentenceAfter == 0)" @onclick="RefreshHistoryAsync">First</button><button class="secondary" disabled="@(busy || nextSentenceAfter is null)" @onclick="NextHistoryAsync">Next</button></div>
+                </section>
+            </aside>
+        </div>
+        <footer>One collection. Nine word types. Endless ways to express yourself.</footer>
+    </main>
+</div>

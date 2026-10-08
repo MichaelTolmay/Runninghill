@@ -1,0 +1,8 @@
+# Optional Linux fallback for hosts whose kernel cannot create Docker bridge interfaces.
+services:
+  database:
+    network_mode: host
+    ports: !reset []
+    command: ["postgres", "-c", "listen_addresses=127.0.0.1", "-c", "port=55433"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -p 55433 -U runninghill -d runninghill"]

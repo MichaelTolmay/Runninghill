@@ -1,10 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <PublishAot>true</PublishAot>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <PublishAot Condition="'$(Configuration)' == 'Release'">true</PublishAot>
+    <!-- Real words need Unicode normalization; invariant mode silently skips it. -->
+    <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
   <ItemGroup>
+    <!-- Debug credentials are read from the source working directory, never shipped. -->
+    <Content Update="appsettings.Development.local.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
     <ProjectReference Include="../Runninghill.Application/Runninghill.Application.csproj" />
     <ProjectReference Include="../Runninghill.Database/Runninghill.Database.csproj" />
     <ProjectReference Include="../Runninghill.Contracts/Runninghill.Contracts.csproj" />

@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Router discovers pages by reflection; preserve page types through full trimming. -->
+    <Content Update="wwwroot/appsettings.Development.json" CopyToPublishDirectory="Never" />
     <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
     <ProjectReference Include="../../Runninghill.Contracts/Runninghill.Contracts.csproj" />
     <!-- Share only display messages, without adding a wrapper or another assembly. -->

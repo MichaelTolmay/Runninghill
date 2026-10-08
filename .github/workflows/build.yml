@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
+      - name: Check build and debug tooling
+        run: python -m unittest discover -s tests/tooling -v
       - name: Test managed components
         run: dotnet test tests/Runninghill.Tests/Runninghill.Tests.csproj -m:1
       - name: Publish native service
@@ -35,12 +37,19 @@ jobs:
           name: native-${{ matrix.rid }}
           path: artifacts/
   containers:
+    needs: native
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: python3 scripts/dev-setup.py
       - run: docker compose up --build -d --wait --wait-timeout 120
       - run: python3 scripts/smoke-stack.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-linux-x64
+          path: artifacts/native
+      - run: chmod +x artifacts/native/cli/Runninghill.Cli
+      - run: python3 tests/cli/collection.py --cli-directory artifacts/native/cli
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -48,7 +57,10 @@ jobs:
           cache-dependency-path: tests/browser/package-lock.json
       - run: npm ci --prefix tests/browser
       - run: npx --prefix tests/browser playwright-core install --with-deps chromium
+      - run: python3 tests/integration/collection.py
       - run: node tests/browser/smoke.cjs
+      - run: node tests/browser/collection.cjs
+      - run: node tests/browser/collection-regressions.cjs
       - name: Check database outage isolation
         run: |
           docker compose stop database
@@ -60,3 +72,14 @@ jobs:
       - name: Clean up ephemeral CI stack
         if: always()
         run: docker compose down --volumes
+
+  windows-ui:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet workload install maui-windows
+      - name: Compile native WinUI collection screen
+        run: dotnet build src/Clients/Runninghill.Maui -c Debug -f net10.0-windows10.0.19041.0 -p:MauiTargetFrameworks=net10.0-windows10.0.19041.0

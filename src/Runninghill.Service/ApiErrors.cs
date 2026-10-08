@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
+using Runninghill.Application;
+using Npgsql;
 
 namespace Runninghill.Service;
 
@@ -8,6 +10,28 @@ public sealed partial class ApiErrors(ILogger<ApiErrors> logger) : IExceptionHan
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception,
         CancellationToken cancellationToken)
     {
+        if (exception is BadHttpRequestException invalidRequest)
+        {
+            // Invalid JSON is a caller mistake, not a broken service. Never echo the raw body.
+            await Results.Problem(statusCode: invalidRequest.StatusCode,
+                title: "Please check the request.",
+                detail: "Send valid JSON with the documented fields and values, then try again.")
+                .ExecuteAsync(context);
+            return true;
+        }
+        if (exception is CollectionException expected)
+        {
+            await Results.Problem(statusCode: expected.StatusCode, title: "Please check your collection.",
+                detail: expected.Message).ExecuteAsync(context);
+            return true;
+        }
+        if (exception is NpgsqlException or TimeoutException)
+        {
+            LogUnexpectedFailure(logger, context.TraceIdentifier, exception);
+            await Results.Problem(statusCode: 503, title: "Your collection is temporarily unavailable.",
+                detail: "Please try again shortly. Your unsaved changes are still in the app.").ExecuteAsync(context);
+            return true;
+        }
         // The reference is made by the server, not copied from a caller's untrusted header.
         LogUnexpectedFailure(logger, context.TraceIdentifier, exception);
         await Results.Problem(statusCode: StatusCodes.Status500InternalServerError,

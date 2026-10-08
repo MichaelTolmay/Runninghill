@@ -7,3 +7,7 @@ artifacts
 **/*.db
 TestResults
 **/node_modules
+
+.run
+Directory.Build.local.props
+**/appsettings.Development.local.json

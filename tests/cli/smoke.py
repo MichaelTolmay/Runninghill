@@ -51,7 +51,7 @@ cases = [
     (200, b'null', 1, 'cannot read'),
     (200, b'{}', 1, 'cannot read'),
     (200, b'{"message":""}', 1, 'cannot read'),
-    (200, b'x' * 70000, 1, 'larger'),
+    (200, b'x' * 300000, 1, 'larger'),
 ]
 try:
     for status, body, exit_code, expected in cases:

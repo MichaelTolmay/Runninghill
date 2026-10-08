@@ -1,8 +1,11 @@
-# Runninghill
+# Runninghill word collection
+
+Create and organize words, build sentences, and browse saved history from the responsive web app, native MAUI/WinUI app, or CLI. See the [word collection guide](docs/word-collection.md) for setup, database upgrades, API examples and UI details.
+
 
 A .NET 10 modular application with a central HTTP/JSON and gRPC service,
 PostgreSQL persistence, CLI, Blazor WebAssembly, and MAUI clients.
-The original assessment is preserved below. Word/sentence use cases are not yet implemented.
+Word CRUD and sentence creation are implemented. The original assessment is preserved below.
 
 ## Architecture
 
@@ -10,7 +13,7 @@ The original assessment is preserved below. Word/sentence use cases are not yet 
 flowchart LR
     UI[CLI / MAUI / Blazor WebAssembly] -->|HTTP/JSON| Service[Runninghill.Service · JSON + gRPC]
     Service --> App[Runninghill.Application · business use cases]
-    App --> Port[IDatabaseReadiness · application interface]
+    App --> Port[IWordRepository / IDatabaseReadiness · interfaces]
     Adapter[Runninghill.Database · PostgreSQL adapter] -. implements .-> Port
     Adapter --> DB[(PostgreSQL)]
 ```
@@ -91,7 +94,8 @@ docker compose down
 `down` preserves the named database volume. Do not use `down -v` unless you intend
 to delete the database. The initialization SQL only runs for a new, empty volume.
 Database schema changes must be applied separately as versioned migrations, not
-concurrently by every service instance.
+concurrently by every service instance. Existing databases need `python3 scripts/migrate.py`
+(or `--host-network` for the Linux fallback) before starting the updated service.
 
 On this Linux machine Docker bridge creation fails with `operation not supported`.
 The container images were built with `docker --context default build --network=host`;
@@ -104,6 +108,13 @@ docker --context default build --network=host -f Dockerfile.web -t runninghill-w
 docker --context default build -f Dockerfile.database -t runninghill-database .
 docker --context default compose -f compose.yaml -f deploy/compose.host-network.yaml up -d --no-build
 ```
+
+## Debug and Release workflows
+
+See [Build and debug Runninghill](docs/build-and-debug.md) for the shared build scripts,
+individual/all-project builds, Release publishing, VS Code F5 and compound profiles,
+MAUI device selection, and the isolated Debug database. Start with `python3 scripts/dev.py configure`,
+then `python3 scripts/dev.py prepare --target core`; choose **Service + Web** in Run and Debug.
 
 ## Build, test, and run the CLI
 
@@ -132,7 +143,7 @@ To run the service without Docker, configure `ConnectionStrings__Runninghill`,
 Development can instead use `ASPNETCORE_ENVIRONMENT=Development` and
 `Authentication__DevelopmentSigningKey` of at least 32 bytes. Production refuses
 that fallback and requires an authority. The dev token issuer is
-`runninghill-development`, with audience `runninghill`, scope `status.read`, and
+`runninghill-development`, with audience `runninghill`, the status/word/sentence scopes, and
 15-minute expiry. Real login/token acquisition is provided by your identity provider;
 the sample UI's token entry is not a complete login experience.
 
@@ -225,7 +236,7 @@ claiming whole-system throughput or changing the concurrency limit.
 
 Clients explain what to do for expired tokens, missing permissions, a busy service,
 network problems, timeouts, or replies they cannot read. Requests have ten-second
-limits; managed response buffering is capped at 64 KiB for this small status endpoint.
+limits; managed response buffering is capped at 256 KiB for bounded word and sentence pages.
 Leaving a UI page cancels its request. HTTP failures are handled as normal results;
 invalid JSON and unexpected UI errors are caught at the client boundary.
 
@@ -237,8 +248,8 @@ If there is no reference, the request may not have reached the service; report t
 message and check the address and connection first.
 
 Server logs retain unexpected exception details with the request reference. Users
-receive safe explanations, never raw SQL or stack traces. Exception telemetry is
-explicitly retained with .NET 10's
+receive safe explanations, never raw SQL or stack traces. Unexpected exception telemetry is
+retained; expected validation failures are excluded from outage diagnostics using .NET 10's
 [exception-handler diagnostics setting](https://learn.microsoft.com/aspnet/core/breaking-changes/10/exception-handler-diagnostics-suppressed?view=aspnetcore-10.0).
 Client logs avoid raw exception text because it can contain private input. Startup
 configuration errors identify the setting to fix without printing its value.
@@ -246,7 +257,7 @@ configuration errors identify the setting to fix without printing its value.
 ## Service operation
 
 - `/health/live` checks only process responsiveness; database outages do not make it fail.
-- `/health/ready` verifies the `runninghill.schema_info` marker is version 1. Missing
+- `/health/ready` verifies the `runninghill.schema_info` marker is version 2. Missing
   tables or an unreachable database return 503. Missing connection configuration
   fails startup; there is no SQLite/in-memory fallback.
 - The application itself also fails unavailable when schema readiness fails. This
@@ -254,9 +265,9 @@ configuration errors identify the setting to fix without printing its value.
 - HTTP and gRPC calls are bounded to 10 seconds; database checks have a five-second
   command timeout. Each instance allows 64 concurrent API requests with no waiting queue.
 - Authentication validates JWT issuer, audience, expiry, and signature; both transports
-  enforce `status.read`. Anonymous health endpoints contain no connection details.
+  enforce `status.read` for status; collection routes require their own read/write scopes. Anonymous health endpoints contain no connection details.
 - Connection pooling is shared, request state is local to the request, and no automatic
-  retries can duplicate future writes. Design idempotency before enabling write retries.
+  retries are enabled. Sentence submissions use a request UUID to make explicit retries safe.
 - Shutdown allows 30 seconds to drain work. Docker grants 35 seconds before forced termination.
 - JSON logs and OpenTelemetry ASP.NET/Kestrel/PostgreSQL metrics and traces are configured.
   Set `OTEL_EXPORTER_OTLP_ENDPOINT` to your collector to export them; no fourth collector

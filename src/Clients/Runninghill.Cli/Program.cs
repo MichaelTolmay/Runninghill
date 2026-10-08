@@ -4,13 +4,46 @@ using Runninghill.Contracts;
 using Runninghill.Clients;
 using System.Text.Json;
 
-if (args.Length > 1 || (args.Length == 1 && args[0] != "status"))
+if (args is ["--help"] or ["-h"] or ["help"])
 {
-    Console.Error.WriteLine("Usage: Runninghill.Cli [status]. Configure RUNNINGHILL_SERVICE_URL and RUNNINGHILL_ACCESS_TOKEN.");
+    Console.WriteLine(CollectionCommands.Help);
+    return 0;
+}
+if (args.Length > 0 && args[0] is not "status" and not "words" and not "sentences" || args.Length > 1 && args[0] == "status")
+{
+    Console.Error.WriteLine(CollectionCommands.Help);
     return 2;
 }
 var serviceUrl = Environment.GetEnvironmentVariable("RUNNINGHILL_SERVICE_URL");
 var token = Environment.GetEnvironmentVariable("RUNNINGHILL_ACCESS_TOKEN");
+#if DEBUG
+// Some IDE debug adapters cannot read envFile settings. This explicit Debug-only fallback
+// reads our two generated settings; Release binaries contain no local-file credential loader.
+var debugEnvironmentFile = Environment.GetEnvironmentVariable("RUNNINGHILL_DEBUG_ENV_FILE");
+if (!string.IsNullOrEmpty(debugEnvironmentFile))
+{
+    try
+    {
+        foreach (var line in File.ReadAllLines(debugEnvironmentFile))
+        {
+            var setting = line.Split('=', 2);
+            if (setting.Length != 2) continue;
+            if (setting[0] == "RUNNINGHILL_SERVICE_URL") serviceUrl = setting[1];
+            if (setting[0] == "RUNNINGHILL_ACCESS_TOKEN") token = setting[1];
+        }
+    }
+    catch (IOException)
+    {
+        Console.Error.WriteLine("Could not read Debug settings. Run python scripts/dev.py prepare first.");
+        return 2;
+    }
+    catch (UnauthorizedAccessException)
+    {
+        Console.Error.WriteLine("Cannot read Debug settings. Check file permissions in .run.");
+        return 2;
+    }
+}
+#endif
 if (!Uri.TryCreate(serviceUrl, UriKind.Absolute, out var address) ||
     (address.Scheme != "https" && !(address.Scheme == "http" && address.IsLoopback)) || string.IsNullOrWhiteSpace(token))
 {
@@ -20,10 +53,12 @@ if (!Uri.TryCreate(serviceUrl, UriKind.Absolute, out var address) ||
 // Ctrl+C stops the request too, so the server does not keep working after we leave.
 using var cancellation = new CancellationTokenSource();
 Console.CancelKeyPress += (_, e) => { e.Cancel = true; cancellation.Cancel(); };
-using var client = new HttpClient { BaseAddress = address, Timeout = TimeSpan.FromSeconds(10), MaxResponseContentBufferSize = 64 * 1024 };
+using var client = new HttpClient { BaseAddress = address, Timeout = ClientMessages.RequestTimeout, MaxResponseContentBufferSize = 256 * 1024 };
 string? requestId = null;
 try
 {
+    if (args.Length > 0 && args[0] is "words" or "sentences")
+        return await CollectionCommands.ExecuteAsync(args, client, token, cancellation.Token);
     using var request = new HttpRequestMessage(HttpMethod.Get, "api/status");
     // Attach the token to this request only; never print it in an error message.
     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);

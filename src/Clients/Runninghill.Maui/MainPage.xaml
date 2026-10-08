@@ -1,16 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Runninghill.Maui.MainPage" Title="Runninghill">
-    <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="20" MaximumWidthRequest="640">
-            <Label Text="Runninghill" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
-            <Label Text="Check that your application is ready to use." />
-            <Entry x:Name="ServiceUrl" Placeholder="Service URL (https://…)" Keyboard="Url" />
-            <Entry x:Name="AccessToken" Placeholder="Access token" IsPassword="True" />
-            <Button x:Name="CheckButton" Text="Check connection" Clicked="OnCheckClicked" />
-            <ActivityIndicator x:Name="ProgressIndicator" IsVisible="False" IsRunning="False" />
-            <Label x:Name="StatusLabel" Text="Ready to check the connection." />
+             x:Class="Runninghill.Maui.MainPage" Title="Word collection" Shell.NavBarIsVisible="False"
+             BackgroundColor="#F0F2F5" SizeChanged="OnLayoutChanged">
+    <ContentPage.Resources>
+        <!-- The same colors, spacing and type scale as the web design, using native controls. -->
+        <Style TargetType="Label"><Setter Property="TextColor" Value="#2D3748"/><Setter Property="FontSize" Value="14"/><Setter Property="FontFamily" Value="{OnPlatform WinUI='Segoe UI', Default='OpenSansRegular'}"/></Style>
+        <Style x:Key="PrimaryButton" TargetType="Button"><Setter Property="BackgroundColor" Value="#2868B1"/><Setter Property="TextColor" Value="White"/><Setter Property="CornerRadius" Value="6"/><Setter Property="FontSize" Value="14"/><Setter Property="Padding" Value="14,10"/><Setter Property="MinimumHeightRequest" Value="44"/><Setter Property="MinimumWidthRequest" Value="44"/></Style>
+        <Style TargetType="Button" BasedOn="{StaticResource PrimaryButton}"/>
+        <Style x:Key="Secondary" TargetType="Button" BasedOn="{StaticResource PrimaryButton}"><Setter Property="BackgroundColor" Value="White"/><Setter Property="TextColor" Value="#245B99"/><Setter Property="BorderColor" Value="#BDCFE4"/><Setter Property="BorderWidth" Value="1"/></Style>
+        <Style TargetType="Entry"><Setter Property="BackgroundColor" Value="White"/><Setter Property="TextColor" Value="#2D3748"/><Setter Property="PlaceholderColor" Value="#657185"/><Setter Property="MinimumHeightRequest" Value="44"/></Style>
+        <Style TargetType="Picker"><Setter Property="BackgroundColor" Value="White"/><Setter Property="TextColor" Value="#2D3748"/><Setter Property="MinimumHeightRequest" Value="44"/></Style>
+        <Style x:Key="Panel" TargetType="Border"><Setter Property="BackgroundColor" Value="White"/><Setter Property="Stroke" Value="#E2E8F0"/><Setter Property="StrokeShape" Value="RoundRectangle 12"/><Setter Property="Padding" Value="24"/></Style>
+        <Style x:Key="Heading" TargetType="Label"><Setter Property="FontSize" Value="20"/><Setter Property="FontAttributes" Value="Bold"/><Setter Property="TextColor" Value="#1A1A2E"/></Style>
+        <Style x:Key="Eyebrow" TargetType="Label"><Setter Property="FontSize" Value="10"/><Setter Property="CharacterSpacing" Value="1.6"/><Setter Property="TextColor" Value="#5B6C85"/><Setter Property="FontAttributes" Value="Bold"/></Style>
+        <Style x:Key="Muted" TargetType="Label"><Setter Property="TextColor" Value="#5E6979"/><Setter Property="FontSize" Value="13"/></Style>
+    </ContentPage.Resources>
+    <ScrollView x:Name="PageScroll">
+        <VerticalStackLayout x:Name="Workspace" Padding="40,24" Spacing="24" MaximumWidthRequest="1440" HorizontalOptions="Fill">
+            <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12">
+                <Border BackgroundColor="#2868B1" StrokeThickness="0" StrokeShape="RoundRectangle 10" HeightRequest="44"><Label Text="W" TextColor="White" FontSize="25" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/></Border>
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center"><Label Text="Runninghill" FontSize="20" FontAttributes="Bold"/><Label Text="WORD COLLECTION" FontSize="10" CharacterSpacing="1.8"/></VerticalStackLayout>
+                <Label x:Name="ConnectionState" Grid.Column="2" Text="Not connected" Style="{StaticResource Muted}" VerticalOptions="Center"/>
+            </Grid>
+            <BoxView HeightRequest="1" Color="#DCE2E9"/>
+            <VerticalStackLayout Spacing="10" Margin="0,8"><Label Text="A LITTLE LANGUAGE, A LOT OF POSSIBILITY" Style="{StaticResource Eyebrow}"/><Label Text="Your words. New possibilities." FontSize="32" FontAttributes="Bold" TextColor="#1A1A2E" SemanticProperties.HeadingLevel="Level1"/><Label Text="Collect words by type, then bring them together in a sentence." Style="{StaticResource Muted}"/></VerticalStackLayout>
+            <Border Style="{StaticResource Panel}">
+                <VerticalStackLayout Spacing="12">
+                    <Button Text="Service connection ▾" Style="{StaticResource Secondary}" HorizontalOptions="Start" Clicked="OnConnectionToggle"/>
+                    <Label Text="Your access token stays in memory only" Style="{StaticResource Muted}"/>
+                    <VerticalStackLayout x:Name="ConnectionFields" Spacing="8">
+                        <Label Text="Service URL"/><Entry x:Name="ServiceUrl" Placeholder="https://your-service/" Keyboard="Url" SemanticProperties.Description="Service URL"/>
+                        <Label Text="Access token"/><Entry x:Name="AccessToken" IsPassword="True" SemanticProperties.Description="Access token"/>
+                        <FlexLayout Wrap="Wrap"><Button x:Name="ConnectButton" Text="Connect / refresh" Clicked="OnConnect" Margin="0,0,8,0"/><Button Text="Disconnect" Style="{StaticResource Secondary}" Clicked="OnDisconnect"/></FlexLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+            <ActivityIndicator x:Name="ProgressIndicator" IsVisible="False" IsRunning="False" Color="#2868B1"/>
+            <Label x:Name="StatusLabel" Text="Connect to load your collection." TextColor="#315C8C"/>
+            <Grid x:Name="Panels" ColumnDefinitions="1.7*,*" RowDefinitions="Auto,Auto" ColumnSpacing="24" RowSpacing="24">
+                <Border x:Name="WordPanel" Style="{StaticResource Panel}" VerticalOptions="Start" SizeChanged="OnWordPanelChanged">
+                    <VerticalStackLayout Spacing="20">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="8" ColumnSpacing="8"><Label Grid.ColumnSpan="2" Text="YOUR PERSONAL WORD BANK" Style="{StaticResource Eyebrow}"/><Label Grid.Row="1" Text="Word collection" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2"/><Border Grid.Row="1" Grid.Column="1" BackgroundColor="#E9EFF8" StrokeThickness="0" StrokeShape="RoundRectangle 20" Padding="8,4" VerticalOptions="Center"><Label x:Name="WordCount" Text="0 on this page" FontSize="11" TextColor="#315C8C"/></Border></Grid>
+                        <Border BackgroundColor="#F8F9FA" Stroke="#E2E8F0" StrokeShape="RoundRectangle 10" Padding="16">
+                            <Grid x:Name="WordForm" ColumnDefinitions="*,150,Auto" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+                                <VerticalStackLayout x:Name="WordField" Spacing="7"><Label x:Name="WordFieldLabel" Text="Add a word"/><Entry x:Name="WordInput" Placeholder="e.g. possibility" MaxLength="80" SemanticProperties.Description="Word"/></VerticalStackLayout>
+                                <VerticalStackLayout x:Name="TypeField" Grid.Column="1" Spacing="7"><Label Text="Word type"/><Picker x:Name="WordType" Title="Word type" SemanticProperties.Description="Word type"/></VerticalStackLayout>
+                                <Button x:Name="SaveWordButton" Grid.Column="2" Text="Add word" VerticalOptions="End" Clicked="OnSaveWord" IsEnabled="False"/>
+                                <Button x:Name="CancelEditButton" Grid.Row="3" Grid.ColumnSpan="3" Text="Cancel edit" Style="{StaticResource Secondary}" IsVisible="False" Clicked="OnCancelEdit"/>
+                            </Grid>
+                        </Border>
+                        <VerticalStackLayout Spacing="8"><Label Text="Search collection"/><Entry x:Name="SearchInput" Placeholder="Search by the start of a word…" MaxLength="80" SemanticProperties.Description="Search collection"/>
+                            <FlexLayout Wrap="Wrap"><Button x:Name="TypeFilterButton" Text="Word types · All ▾" Clicked="OnTypeToggle" Style="{StaticResource Secondary}" Margin="0,0,8,8"/><Button x:Name="ApplyFiltersButton" Text="Apply filters" Style="{StaticResource Secondary}" Clicked="OnSearch" IsEnabled="False"/></FlexLayout>
+                            <VerticalStackLayout x:Name="TypeFilters" IsVisible="False" Spacing="4"/>
+                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*,Auto"><Label Text="WORD &amp; TYPE" Style="{StaticResource Eyebrow}"/><Label Grid.Column="1" Text="ACTIONS" Style="{StaticResource Eyebrow}"/></Grid>
+                        <VerticalStackLayout x:Name="WordRows" Spacing="0"/>
+                        <Grid ColumnDefinitions="Auto,*,Auto"><Button x:Name="PreviousButton" Text="Previous" Style="{StaticResource Secondary}" IsEnabled="False" Clicked="OnPrevious"/><Label x:Name="PageLabel" Grid.Column="1" Text="Page 1" HorizontalOptions="Center" VerticalOptions="Center"/><Button x:Name="NextButton" Grid.Column="2" Text="Next" Style="{StaticResource Secondary}" IsEnabled="False" Clicked="OnNext"/></Grid>
+                    </VerticalStackLayout>
+                </Border>
+                <VerticalStackLayout x:Name="SentenceColumn" Grid.Column="1" Spacing="24">
+                    <Border Style="{StaticResource Panel}"><VerticalStackLayout Spacing="12">
+                        <Label Text="PUT YOUR WORDS TO WORK" Style="{StaticResource Eyebrow}"/><Label Text="Build a sentence" Style="{StaticResource Heading}" SemanticProperties.HeadingLevel="Level2"/>
+                        <Label Text="Choose + Add to sentence beside a word. Use it again whenever you need it." Style="{StaticResource Muted}"/>
+                        <Label Text="Sentence preview" FontAttributes="Bold" FontSize="13"/>
+                        <Border BackgroundColor="#F8FAFC" Stroke="#CBD9EB" StrokeThickness="2" StrokeDashArray="3,2" StrokeShape="RoundRectangle 10" Padding="16" MinimumHeightRequest="110"><Label x:Name="SentencePreview" Text="Add words from your collection to see your sentence here." FontSize="19" TextColor="#253D5A" VerticalOptions="Center" LineBreakMode="CharacterWrap"/></Border>
+                        <VerticalStackLayout x:Name="SentenceRows" Spacing="4"/>
+                        <Grid ColumnDefinitions="*,Auto"><Label x:Name="SentenceCount" Text="0 / 50 words" Style="{StaticResource Muted}" VerticalOptions="Center"/><Button Grid.Column="1" Text="Clear" Style="{StaticResource Secondary}" Clicked="OnClearSentence"/></Grid>
+                        <Label x:Name="SentenceHelp" Text="Connect to your collection before saving a sentence." Style="{StaticResource Muted}"/>
+                        <Button x:Name="SaveSentenceButton" Text="Save sentence" IsEnabled="False" Clicked="OnSaveSentence"/><Label Text="Saved sentences keep their wording when your collection changes." Style="{StaticResource Muted}"/>
+                    </VerticalStackLayout></Border>
+                    <Border Style="{StaticResource Panel}"><VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto"><Label Text="Saved sentences" Style="{StaticResource Heading}" VerticalOptions="Center"/><Button Grid.Column="1" Text="Refresh" Style="{StaticResource Secondary}" Clicked="OnHistoryFirst"/></Grid>
+                        <VerticalStackLayout x:Name="HistoryRows" Spacing="14"><Label Text="Your saved sentences will appear here." Style="{StaticResource Muted}"/></VerticalStackLayout>
+                        <Grid ColumnDefinitions="Auto,*,Auto"><Button x:Name="HistoryFirstButton" Text="First" Style="{StaticResource Secondary}" IsEnabled="False" Clicked="OnHistoryFirst"/><Button x:Name="HistoryNextButton" Grid.Column="2" Text="Next" Style="{StaticResource Secondary}" IsEnabled="False" Clicked="OnHistoryNext"/></Grid>
+                    </VerticalStackLayout></Border>
+                </VerticalStackLayout>
+            </Grid>
+            <Label Text="One collection. Nine word types. Endless ways to express yourself." Style="{StaticResource Muted}" HorizontalTextAlignment="Center" Margin="0,8"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

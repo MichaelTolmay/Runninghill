@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0-android</TargetFrameworks>
+		<RunninghillAndroidTargetFramework Condition="'$(RunninghillAndroidTargetFramework)' == ''">net10.0-android</RunninghillAndroidTargetFramework>
+		<TargetFrameworks>$(RunninghillAndroidTargetFramework)</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('osx'))">$(TargetFrameworks);net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
 		<TargetFrameworks Condition="'$(MauiTargetFrameworks)' != ''">$(MauiTargetFrameworks)</TargetFrameworks>
@@ -13,10 +14,11 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
+		<RuntimeIdentifier Condition="'$(RunninghillMauiRuntimeIdentifier)' != ''">$(RunninghillMauiRuntimeIdentifier)</RuntimeIdentifier>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Runninghill.Maui</RootNamespace>
         <IsAotCompatible>true</IsAotCompatible>
-        <PublishAot Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' Or $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">true</PublishAot>
+        <PublishAot Condition="'$(Configuration)' == 'Release' And ($([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' Or $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst')">true</PublishAot>
         <PublishReadyToRun Condition="'$(Configuration)' == 'Release' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</PublishReadyToRun>
         <RunAOTCompilation Condition="'$(Configuration)' == 'Release' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">true</RunAOTCompilation>
         <AndroidEnableProfiledAot Condition="'$(Configuration)' == 'Release'">false</AndroidEnableProfiledAot>
@@ -81,5 +83,8 @@
     <ProjectReference Include="../../Runninghill.Contracts/Runninghill.Contracts.csproj" />
     <!-- Share only display messages, without adding a wrapper or another assembly. -->
     <Compile Include="../Shared/ClientMessages.cs" Link="ClientMessages.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' And ($([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' Or $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst')">
+    <PartialAppManifest Include="Platforms/DebugLocalNetwork.plist" />
   </ItemGroup>
 </Project>

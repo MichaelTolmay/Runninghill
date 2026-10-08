@@ -1,0 +1,23 @@
+# Debug processes run on the host so the IDE can stop at C# breakpoints.
+# Only PostgreSQL runs in Docker; its volume is separate from the release stack.
+name: runninghill-debug
+services:
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    environment:
+      POSTGRES_DB: runninghill
+      POSTGRES_USER: runninghill
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/dev.py prepare first}
+    ports:
+      - "127.0.0.1:55433:5432"
+    volumes:
+      - debug-database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U runninghill -d runninghill"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  debug-database:

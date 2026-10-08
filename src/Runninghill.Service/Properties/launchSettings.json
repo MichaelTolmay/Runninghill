@@ -1,9 +1,12 @@
 {
   "profiles": {
-    "Runninghill.Service": {
+    "Debug": {
       "commandName": "Project",
       "launchBrowser": false,
-      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" }
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RUNNINGHILL_LOCAL_DEBUG": "1"
+      }
     }
   }
 }

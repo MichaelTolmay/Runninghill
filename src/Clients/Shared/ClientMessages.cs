@@ -5,6 +5,12 @@ namespace Runninghill.Clients;
 // Shared wording, compiled into each client. This contains no network calls or business rules.
 internal static class ClientMessages
 {
+#if DEBUG
+    // Give a developer time to inspect a server breakpoint before the client gives up.
+    public static readonly TimeSpan RequestTimeout = TimeSpan.FromMinutes(5);
+#else
+    public static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(10);
+#endif
     public const string InvalidReply = "The service sent a reply this app cannot read. Please try again. If it continues, tell support which app version you are using.";
     public const string TimedOut = "The service took too long to reply. Check your connection and try again.";
     public const string Unexpected = "Something went wrong in this app. Please try again. If it continues, contact support and describe what you were doing.";
@@ -12,7 +18,7 @@ internal static class ClientMessages
     public static string ForStatus(HttpStatusCode? status) => status switch
     {
         HttpStatusCode.Unauthorized => "Your access token is missing, expired, or invalid. Please enter a new access token and try again.",
-        HttpStatusCode.Forbidden => "Your account does not have permission to check the service. Ask an administrator for status.read access.",
+        HttpStatusCode.Forbidden => "Your account does not have permission for this action. Ask an administrator for the required access (status.read, words.read/write or sentences.read/write).",
         HttpStatusCode.NotFound => "The service address was reached, but this feature was not found. Check the service URL and app version.",
         HttpStatusCode.TooManyRequests => "The service is busy. Please wait a few seconds and try again.",
         HttpStatusCode.ServiceUnavailable => "The service cannot reach its data right now. Please try again shortly.",

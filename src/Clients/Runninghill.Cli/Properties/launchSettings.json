@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Debug": {
+      "commandName": "Project",
+      "workingDirectory": "../../../",
+      "environmentVariables": {
+        "RUNNINGHILL_DEBUG_ENV_FILE": ".run/cli.env"
+      }
+    }
+  }
+}

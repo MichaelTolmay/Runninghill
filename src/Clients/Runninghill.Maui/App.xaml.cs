@@ -7,6 +7,8 @@ public partial class App : Microsoft.Maui.Controls.Application
     public App(AppShell shell)
     {
         InitializeComponent();
+        // The supplied design is a light theme; native input chrome follows it too.
+        UserAppTheme = AppTheme.Light;
         this.shell = shell;
     }
 

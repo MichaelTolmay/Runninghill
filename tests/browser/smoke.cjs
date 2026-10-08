@@ -3,7 +3,8 @@ const { execFileSync } = require('node:child_process');
 const path = require('node:path');
 const root = path.resolve(__dirname, '../..');
 (async () => {
-  const token = execFileSync('python3', [path.join(root, 'scripts/dev-token.py')], {encoding:'utf8'}).trim();
+  const debug = process.env.RUNNINGHILL_DEBUG === '1';
+  const token = execFileSync('python3', debug ? ['scripts/dev.py', 'token'] : ['scripts/dev-token.py'], {cwd:root, encoding:'utf8'}).trim();
   const browser = await chromium.launch({executablePath:process.env.RUNNINGHILL_CHROME_BINARY, headless:true});
   try {
     const page = await browser.newPage();
@@ -17,42 +18,43 @@ const root = path.resolve(__dirname, '../..');
     page.on('pageerror', e => { failures.push(e.message); console.log('BROWSER ERROR:',e.message); });
     page.on('console', m => { console.log('BROWSER CONSOLE:',m.type(),m.text()); });
     page.on('requestfailed', r => console.log('REQUEST FAILED:',r.url(), r.failure()?.errorText));
-    await page.goto('http://127.0.0.1:5082/');
-    await page.getByRole('heading', {name:'Runninghill', exact:true}).waitFor({timeout:60000});
+    await page.goto(process.env.RUNNINGHILL_WEB_URL || 'http://127.0.0.1:5082/');
+    await page.getByRole('heading', {name:'Your words. New possibilities.', exact:true}).waitFor({timeout:60000});
     await page.getByLabel('Access token', {exact:true}).fill(token);
     await page.getByLabel('Access token', {exact:true}).press('Tab');
-    await page.getByRole('button', {name:'Check connection', exact:true}).click();
-    await page.waitForFunction(() => document.querySelector('[role=status]').textContent.includes('Database schema verified'), null, {timeout:15000});
+    await page.getByRole('button', {name:'Connect / refresh', exact:true}).click();
+    await page.waitForFunction(() => document.querySelector('[role=status]').textContent.includes('up to date'), null, {timeout:15000});
     console.log('PASS AOT browser UI -> authenticated API -> PostgreSQL');
     if (!compressedNativeModule) throw Error('Native WebAssembly module was not served with gzip');
     console.log('PASS precompressed WebAssembly delivery');
+    await page.locator('.connection summary').click();
     await page.getByLabel('Access token', {exact:true}).fill('invalid-token');
     await page.getByLabel('Access token', {exact:true}).press('Tab');
-    await page.getByRole('button', {name:'Check connection', exact:true}).click();
+    await page.getByRole('button', {name:'Connect / refresh', exact:true}).click();
     await page.waitForFunction(() => document.querySelector('[role=status]').textContent.includes('new access token'));
     console.log('PASS browser displays authentication failure');
     // Simulate replies that real outages or a mismatched service version might produce.
     // Expected errors must leave the page usable and must never echo private response bodies.
-    for (const body of ['not-json', 'null', '{}', '{"message":""}']) {
-      await page.route('**/api/status', route => route.fulfill({
+    for (const body of ['not-json', 'null', '{}', '{"items":null}']) {
+      await page.route('**/api/words?**', route => route.fulfill({
         status: 200, contentType: 'application/json', body,
         headers: {'X-Request-ID': 'browser-invalid-reply'}
       }));
-      const received = page.waitForResponse(response => response.url().endsWith('/api/status'));
-      await page.getByRole('button', {name:'Check connection', exact:true}).click();
+      const received = page.waitForResponse(response => response.url().includes('/api/words?'));
+      await page.getByRole('button', {name:'Connect / refresh', exact:true}).click();
       await received;
       await page.waitForFunction(() => document.querySelector('[role=status]').textContent.includes('cannot read'));
       if (!(await page.getByRole('status').textContent()).includes('browser-invalid-reply')) throw Error('Missing request reference');
-      await page.unroute('**/api/status');
+      await page.unroute('**/api/words?**');
     }
-    await page.route('**/api/status', route => route.fulfill({
+    await page.route('**/api/words?**', route => route.fulfill({
       status: 429, body: 'private-server-detail', headers: {'X-Request-ID': 'browser-busy'}
     }));
-    await page.getByRole('button', {name:'Check connection', exact:true}).click();
+    await page.getByRole('button', {name:'Connect / refresh', exact:true}).click();
     await page.waitForFunction(() => document.querySelector('[role=status]').textContent.includes('wait a few seconds'));
     const busyMessage = await page.getByRole('status').textContent();
     if (!busyMessage.includes('browser-busy') || busyMessage.includes('private-server-detail')) throw Error('Unsafe or missing error details');
-    await page.unroute('**/api/status');
+    await page.unroute('**/api/words?**');
     console.log('PASS malformed replies and busy service show safe, actionable errors');
     await page.reload();
     await page.getByLabel('Access token', {exact:true}).waitFor();

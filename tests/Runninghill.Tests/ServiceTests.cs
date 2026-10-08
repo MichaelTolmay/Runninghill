@@ -121,7 +121,7 @@ public sealed class ServiceTests
         Marshallers.Create<StringValue>(Google.Protobuf.MessageExtensions.ToByteArray, bytes => StringValue.Parser.ParseFrom(bytes)));
 }
 
-public sealed class ServiceFactory(bool ready = true, bool missingConnection = false, Exception? failure = null) : WebApplicationFactory<Program>
+public sealed class ServiceFactory(bool ready = true, bool missingConnection = false, Exception? failure = null, IWordRepository? repository = null) : WebApplicationFactory<Program>
 {
     private const string Key = "test-only-signing-key-at-least-32-bytes-long";
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -138,6 +138,11 @@ public sealed class ServiceFactory(bool ready = true, bool missingConnection = f
         {
             services.RemoveAll<IDatabaseReadiness>();
             services.AddSingleton<IDatabaseReadiness>(new StubDatabase(ready));
+            if (repository is not null)
+            {
+                services.RemoveAll<IWordRepository>();
+                services.AddSingleton(repository);
+            }
             if (failure is not null)
             {
                 services.RemoveAll<IRunninghillApplication>();

@@ -1,13 +1,27 @@
+using Runninghill.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Runninghill.Maui;
 
+/// <summary>
+/// Builds the shared native app and registers its fonts, pages and platform customizations.
+/// </summary>
 public static class MauiProgram
 {
+    /// <summary>
+    /// Configures native styling and dependency injection, then builds the MAUI application host.
+    /// </summary>
     public static MauiApp CreateMauiApp()
     {
+#if WINDOWS
+        WinUI.DesktopAppearance.Configure();
+#endif
         var builder = MauiApp.CreateBuilder();
+        var recentLogs = new RecentLogStore();
+        builder.Services.AddSingleton(recentLogs);
+        builder.Logging.AddProvider(recentLogs);
+        builder.Logging.AddProvider(new RollingFileLoggerProvider(Path.Combine(FileSystem.AppDataDirectory, "logs")));
         builder.UseMauiApp<App>()
             .ConfigureFonts(fonts =>
             {

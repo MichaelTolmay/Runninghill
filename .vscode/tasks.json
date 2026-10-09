@@ -676,6 +676,27 @@
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "build: Windows desktop (Debug)",
+      "type": "process",
+      "command": "python",
+      "args": [
+        "${workspaceFolder}/scripts/build.py",
+        "build",
+        "--target",
+        "maui",
+        "-c",
+        "Debug",
+        "--framework",
+        "net10.0-windows10.0.19041.0",
+        "--rid",
+        "win-x64"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile"
     }
   ]
 }

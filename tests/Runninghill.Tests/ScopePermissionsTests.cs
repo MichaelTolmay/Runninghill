@@ -4,8 +4,15 @@ using Xunit;
 
 namespace Runninghill.Tests;
 
+/// <summary>
+/// Checks exact permission matching across space-separated and repeated token claims.
+/// </summary>
 public sealed class ScopePermissionsTests
 {
+    /// <summary>
+    /// Verifies that only a complete case-sensitive scope matches, including when surrounded by spaces
+    /// or other scopes.
+    /// </summary>
     [Theory]
     [InlineData("status.read", true)]
     [InlineData("words.write status.read words.read", true)]
@@ -20,6 +27,9 @@ public sealed class ScopePermissionsTests
         Assert.Equal(expected, ScopePermissions.HasScope(user, "status.read"));
     }
 
+    /// <summary>
+    /// Verifies that the permission check examines later scope claims as well as the first one.
+    /// </summary>
     [Fact]
     public void PermissionCanBeInALaterClaim()
     {

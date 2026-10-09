@@ -10,6 +10,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Sqlite
 {
+    /// <summary>
+    /// Records the Sqlite EF model after adding the initial collection tables; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(SqliteContext))]
     [Migration("20261008141610_InitialCollection")]
     partial class InitialCollection

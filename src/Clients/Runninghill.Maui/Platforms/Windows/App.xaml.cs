@@ -19,6 +19,9 @@ public partial class App : MauiWinUIApplication
 		this.InitializeComponent();
 	}
 
+	/// <summary>
+	/// Starts the shared MAUI host when Windows launches the native application.
+	/// </summary>
 	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }
 

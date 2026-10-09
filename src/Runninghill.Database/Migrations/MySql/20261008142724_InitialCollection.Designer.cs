@@ -10,6 +10,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.MySql
 {
+    /// <summary>
+    /// Records the MySql EF model after adding the initial collection tables; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(MySqlContext))]
     [Migration("20261008142724_InitialCollection")]
     partial class InitialCollection

@@ -8,9 +8,17 @@ using Xunit;
 
 namespace Runninghill.Tests;
 
+/// <summary>
+/// Checks the storage contract against SQLite and any explicitly configured provider test
+/// databases.
+/// </summary>
 public sealed class DatabaseProviderTests
 {
     // SQLite always runs. CI/local container checks add the other providers explicitly.
+    /// <summary>
+    /// Always supplies SQLite and adds other engines only when their test connection settings are
+    /// present.
+    /// </summary>
     public static IEnumerable<object[]> Providers()
     {
         yield return ["SQLite"];
@@ -19,6 +27,10 @@ public sealed class DatabaseProviderTests
                 yield return [provider];
     }
 
+    /// <summary>
+    /// Exercises migrations, Unicode lookup, CRUD and concurrent sentence retries against a real
+    /// database, including immutable saved wording.
+    /// </summary>
     [Theory]
     [MemberData(nameof(Providers))]
     public async Task RealDatabasePreservesCollectionContract(string provider)
@@ -59,6 +71,9 @@ public sealed class DatabaseProviderTests
         Assert.Equal(second, await app.GetAsync(second.Id, ct));
     }
 
+    /// <summary>
+    /// Verifies that a look-ahead page and its next bookmark return every test word without omissions.
+    /// </summary>
     [Theory]
     [MemberData(nameof(Providers))]
     public async Task PagingIsBoundedInTheDatabase(string provider)
@@ -73,6 +88,10 @@ public sealed class DatabaseProviderTests
         Assert.Equal(ids.Skip(50), (await app.ListAsync(first[49].Id, "word", null, default)).Select(w => w.Id));
     }
 
+    /// <summary>
+    /// Verifies that adopting the old PostgreSQL schema preserves word IDs, retry receipts and
+    /// duplicate-word rules.
+    /// </summary>
     [Theory]
     [MemberData(nameof(Providers))]
     public async Task LegacyPostgresUpgradePreservesIdsAndSentenceRetries(string provider)
@@ -105,8 +124,14 @@ public sealed class DatabaseProviderTests
         Assert.Equal(409, (await Assert.ThrowsAsync<CollectionException>(() => repository.CreateAsync("CAFÉ", "Noun", default))).StatusCode);
     }
 
+    /// <summary>
+    /// Represents the earlier PostgreSQL word table before normalized search keys existed.
+    /// </summary>
     private sealed class LegacyTestContext(DbContextOptions<LegacyTestContext> options) : CollectionDbContext(options)
     {
+        /// <summary>
+        /// Reuses collection mappings but omits the search key to match the legacy test schema.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder model)
         {
             base.OnModelCreating(model);
@@ -114,6 +139,9 @@ public sealed class DatabaseProviderTests
         }
     }
 
+    /// <summary>
+    /// Checks that rejected database settings explain the problem without echoing a password.
+    /// </summary>
     [Theory]
     [InlineData("unknown", "Database=private-password")]
     [InlineData("SQLite", "Data Source=:memory:")]
@@ -126,9 +154,17 @@ public sealed class DatabaseProviderTests
         Assert.DoesNotContain("private-password", exception.Message);
     }
 
+    /// <summary>
+    /// Owns an isolated provider test database and its services, cleaning them up after the test.
+    /// </summary>
     private sealed class Fixture(ServiceProvider services, string? file) : IAsyncDisposable
     {
         public ServiceProvider Services => services;
+
+        /// <summary>
+        /// Creates a fresh test database and optionally migrates it. Non-SQLite databases must have the
+        /// dedicated test-name prefix before deletion is permitted.
+        /// </summary>
         public static async Task<Fixture> CreateAsync(string provider, bool migrate = true)
         {
             var connection = Environment.GetEnvironmentVariable("RUNNINGHILL_TEST_" + provider.ToUpperInvariant()) ?? "";
@@ -157,6 +193,11 @@ public sealed class DatabaseProviderTests
             }
             catch { await fixture.DisposeAsync(); throw; }
         }
+
+        /// <summary>
+        /// Deletes the isolated test database, disposes its services and removes the temporary SQLite file
+        /// when used.
+        /// </summary>
         public async ValueTask DisposeAsync()
         {
             await using (var db = await services.GetRequiredService<CollectionContextFactory>().CreateAsync())

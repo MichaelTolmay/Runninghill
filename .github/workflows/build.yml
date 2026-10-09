@@ -64,6 +64,7 @@ jobs:
       - run: node tests/browser/smoke.cjs
       - run: node tests/browser/collection.cjs
       - run: node tests/browser/collection-regressions.cjs
+      - run: node tests/browser/logs.cjs
       - name: Check database outage isolation
         run: |
           docker compose stop database
@@ -84,8 +85,22 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - run: dotnet workload install maui-windows
-      - name: Compile native WinUI collection screen
-        run: dotnet build src/Clients/Runninghill.Maui -c Debug -f net10.0-windows10.0.19041.0 -p:MauiTargetFrameworks=net10.0-windows10.0.19041.0
+      - name: Compile native WinUI collection screen with debugger symbols
+        run: python scripts/build.py build --target maui -c Debug --framework net10.0-windows10.0.19041.0 --rid win-x64
+      - name: Publish self-contained WinUI desktop app
+        run: python scripts/build.py publish --target maui --framework net10.0-windows10.0.19041.0 --rid win-x64
+      - name: Verify Windows publish output
+        shell: pwsh
+        run: |
+          $publish = 'artifacts/Release/maui/win-x64'
+          if (!(Test-Path "$publish/Runninghill.Maui.exe")) { throw 'Desktop executable is missing.' }
+          if (!(Test-Path "$publish/Microsoft.UI.Xaml.dll")) { throw 'Bundled WinUI runtime is missing.' }
+          if (!(Test-Path "$publish/coreclr.dll")) { throw 'Bundled .NET runtime is missing.' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runninghill-desktop-win-x64
+          path: artifacts/Release/maui/win-x64/
+          if-no-files-found: error
 
   database-providers:
     runs-on: ubuntu-latest

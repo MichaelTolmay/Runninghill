@@ -4,8 +4,14 @@ using Xunit;
 
 namespace Runninghill.Tests;
 
+/// <summary>
+/// Checks collection validation and storage requests without requiring a database.
+/// </summary>
 public sealed class WordCollectionTests
 {
+    /// <summary>
+    /// Verifies that invalid spelling or type is rejected before the repository is called.
+    /// </summary>
     [Theory]
     [InlineData(null, "Noun")]
     [InlineData("", "Noun")]
@@ -23,6 +29,10 @@ public sealed class WordCollectionTests
         Assert.False(repository.WasCalled);
     }
 
+    /// <summary>
+    /// Checks all public word types and verifies that whitespace and equivalent accented spellings are
+    /// normalized.
+    /// </summary>
     [Fact]
     public async Task EveryPublicTypeIsAcceptedAndTextIsNormalized()
     {
@@ -35,6 +45,10 @@ public sealed class WordCollectionTests
         }
     }
 
+    /// <summary>
+    /// Verifies support for accented, non-Latin and supplementary Unicode letters, plus allowed
+    /// punctuation.
+    /// </summary>
     [Theory]
     [InlineData("café")]
     [InlineData("can't")]
@@ -47,6 +61,9 @@ public sealed class WordCollectionTests
         Assert.Equal(word, saved.Word);
     }
 
+    /// <summary>
+    /// Verifies that an oversized word is rejected before storage is called.
+    /// </summary>
     [Fact]
     public async Task LongWordIsRejectedBeforeStorage()
     {
@@ -55,6 +72,9 @@ public sealed class WordCollectionTests
         Assert.False(repository.WasCalled);
     }
 
+    /// <summary>
+    /// Verifies that empty sentences and drafts over 50 words are rejected before storage.
+    /// </summary>
     [Theory]
     [InlineData(0)]
     [InlineData(51)]
@@ -65,6 +85,10 @@ public sealed class WordCollectionTests
         Assert.False(repository.WasCalled);
     }
 
+    /// <summary>
+    /// Checks that ordered IDs, repetitions, request ID and cancellation are passed unchanged to
+    /// storage.
+    /// </summary>
     [Fact]
     public async Task SentencePreservesOrderRepeatedWordsAndCancellation()
     {
@@ -78,6 +102,9 @@ public sealed class WordCollectionTests
         Assert.Equal(cancellation.Token, repository.Cancellation);
     }
 
+    /// <summary>
+    /// Verifies that a missing selected word returns a conflict with guidance to refresh.
+    /// </summary>
     [Fact]
     public async Task MissingSentenceWordHasActionableConflict()
     {
@@ -87,6 +114,9 @@ public sealed class WordCollectionTests
         Assert.Contains("Refresh", error.Message);
     }
 
+    /// <summary>
+    /// Checks filter cleanup, the 51-row look-ahead limit and rejection of invalid bookmarks or types.
+    /// </summary>
     [Fact]
     public async Task ListIsBoundedAndChecksTypes()
     {
@@ -99,8 +129,59 @@ public sealed class WordCollectionTests
         await Assert.ThrowsAsync<CollectionException>(() => collection.ListAsync(-1, null, null, default));
         await Assert.ThrowsAsync<CollectionException>(() => collection.ListAsync(0, null, "Other", default));
     }
+
+    /// <summary>
+    /// Verifies that an incomplete Unicode character produces helpful validation before storage is
+    /// called.
+    /// </summary>
+    [Fact]
+    public async Task BrokenUnicodeSearchHasHelpfulValidationInsteadOfAnOutage()
+    {
+        var repository = new RecordingRepository();
+        var invalidText = new string((char)0xD800, 1); // Half of a UTF-16 character.
+        var error = await Assert.ThrowsAsync<CollectionException>(() =>
+            new WordCollection(repository).ListAsync(0, invalidText, null, default));
+        Assert.Equal(400, error.StatusCode);
+        Assert.Contains("Retype", error.Message);
+        Assert.False(repository.WasCalled);
+    }
+
+    /// <summary>
+    /// Checks word and search lengths again after Unicode normalization can expand their
+    /// representation.
+    /// </summary>
+    [Fact]
+    public async Task NormalizationCannotExpandTextPastTheStorageLimit()
+    {
+        var repository = new RecordingRepository();
+        var collection = new WordCollection(repository);
+        // This accent expands to two combining marks under Unicode normalization.
+        var word = "a" + new string('\u0344', 79);
+        Assert.True(word.Normalize().Length > 80);
+        var error = await Assert.ThrowsAsync<CollectionException>(() => collection.CreateAsync(word, "Noun", default));
+        Assert.Equal(400, error.StatusCode);
+        await Assert.ThrowsAsync<CollectionException>(() => collection.ListAsync(0, word, null, default));
+        Assert.False(repository.WasCalled);
+    }
+
+    /// <summary>
+    /// Verifies that an excessively long type list is rejected without querying storage.
+    /// </summary>
+    [Fact]
+    public async Task OversizedTypeFilterNeverReachesStorage()
+    {
+        var repository = new RecordingRepository();
+        var types = string.Join(',', Enumerable.Repeat("Noun", 10000));
+        var error = await Assert.ThrowsAsync<CollectionException>(() =>
+            new WordCollection(repository).ListAsync(0, null, types, default));
+        Assert.Equal(400, error.StatusCode);
+        Assert.False(repository.WasCalled);
+    }
 }
 
+/// <summary>
+/// Records application requests and returns simple test results without touching a database.
+/// </summary>
 internal sealed class RecordingRepository : IWordRepository
 {
     public bool WasCalled, Missing;
@@ -110,14 +191,43 @@ internal sealed class RecordingRepository : IWordRepository
     public int Take;
     public string? Search;
     public string[]? Types;
+
+    /// <summary>
+    /// Records the requested search, types and row limit, then returns an empty word page.
+    /// </summary>
     public Task<WordEntry[]> ListAsync(long after, string search, string[] types, int take, CancellationToken cancellation)
     { WasCalled = true; Take = take; Search = search; Types = types; return Task.FromResult(Array.Empty<WordEntry>()); }
+
+    /// <summary>
+    /// Returns no word so tests can exercise missing-record behaviour.
+    /// </summary>
     public Task<WordEntry?> GetAsync(long id, CancellationToken cancellation) => Task.FromResult<WordEntry?>(null);
+
+    /// <summary>
+    /// Records that storage was called and returns the supplied word with a fixed test ID.
+    /// </summary>
     public Task<WordEntry> CreateAsync(string word, string type, CancellationToken cancellation)
     { WasCalled = true; return Task.FromResult(new WordEntry(1, word, type)); }
+
+    /// <summary>
+    /// Returns no updated word to simulate a missing record.
+    /// </summary>
     public Task<WordEntry?> UpdateAsync(long id, string word, string type, CancellationToken cancellation) => Task.FromResult<WordEntry?>(null);
+
+    /// <summary>
+    /// Reports that no word was deleted, simulating a missing record.
+    /// </summary>
     public Task<bool> DeleteAsync(long id, CancellationToken cancellation) => Task.FromResult(false);
+
+    /// <summary>
+    /// Records ordered IDs, request ID and cancellation, then returns a test sentence or a simulated
+    /// missing-word result.
+    /// </summary>
     public Task<SentenceEntry?> SaveSentenceAsync(long[] wordIds, Guid requestId, CancellationToken cancellation)
     { WasCalled = true; WordIds = wordIds; RequestId = requestId; Cancellation = cancellation; return Task.FromResult<SentenceEntry?>(Missing ? null : new(1, "test", DateTimeOffset.UtcNow)); }
+
+    /// <summary>
+    /// Returns an empty history page without reading a database.
+    /// </summary>
     public Task<SentenceEntry[]> ListSentencesAsync(long after, int take, CancellationToken cancellation) => Task.FromResult(Array.Empty<SentenceEntry>());
 }

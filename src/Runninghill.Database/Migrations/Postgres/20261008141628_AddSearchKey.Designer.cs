@@ -11,6 +11,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Postgres
 {
+    /// <summary>
+    /// Records the Postgres EF model after adding the nullable search-key column; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(PostgresContext))]
     [Migration("20261008141628_AddSearchKey")]
     partial class AddSearchKey

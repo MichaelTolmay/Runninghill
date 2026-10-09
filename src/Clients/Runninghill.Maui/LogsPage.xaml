@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Runninghill.Maui.LogsPage" Title="Event logs" Shell.NavBarIsVisible="False" SafeAreaEdges="All" BackgroundColor="#F0F2F5">
+    <ContentPage.Resources>
+        <Style TargetType="Label"><Setter Property="TextColor" Value="#2D3748" /><Setter Property="FontSize" Value="14" /></Style>
+        <Style TargetType="Button"><Setter Property="BackgroundColor" Value="#2868B1" /><Setter Property="TextColor" Value="White" /><Setter Property="CornerRadius" Value="6" /><Setter Property="MinimumHeightRequest" Value="48" /><Setter Property="Margin" Value="0,0,8,8" /></Style>
+        <Style TargetType="Entry"><Setter Property="TextColor" Value="#2D3748" /><Setter Property="BackgroundColor" Value="White" /><Setter Property="MinimumHeightRequest" Value="48" /></Style>
+        <Style TargetType="Picker"><Setter Property="TextColor" Value="#2D3748" /><Setter Property="BackgroundColor" Value="White" /><Setter Property="MinimumHeightRequest" Value="48" /></Style>
+        <Style TargetType="Border"><Setter Property="BackgroundColor" Value="White" /><Setter Property="Stroke" Value="#E2E8F0" /><Setter Property="StrokeShape" Value="RoundRectangle 12" /><Setter Property="Padding" Value="16" /></Style>
+    </ContentPage.Resources>
+    <!-- One vertical scroll surface works on narrow phones and resized native desktop windows. -->
+    <ScrollView>
+        <VerticalStackLayout Padding="16,24" Spacing="20" MaximumWidthRequest="1100">
+            <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Center">
+                <Label Text="Runninghill · DIAGNOSTICS" FontAttributes="Bold" Margin="0,0,12,12" />
+                <Button Text="Back to collection" Clicked="OnClose" />
+            </FlexLayout>
+            <Label Text="Event logs" FontSize="30" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="Find an action, check its outcome, and share its reference with support." />
+            <Border>
+                <VerticalStackLayout x:Name="Filters" Spacing="10">
+                    <Label Text="Source" /><Picker x:Name="Source" Title="Log source" SelectedIndexChanged="OnSourceChanged" />
+                    <Label Text="Severity" /><Picker x:Name="Severity" Title="Severity" />
+                    <Label Text="Search message or category" /><Entry x:Name="Search" MaxLength="120" Placeholder="Action name or request reference" Completed="OnRefresh" />
+                    <VerticalStackLayout x:Name="ServiceSettings" Spacing="8" IsVisible="False">
+                        <Label x:Name="ServiceAddress" LineBreakMode="CharacterWrap" />
+                        <Label Text="Service access token with logs.read permission" />
+                        <Entry x:Name="Token" IsPassword="True" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" SemanticProperties.Description="Service access token with logs.read permission" />
+                        <Label Text="Kept in memory only. Collection permissions alone do not grant log access. Change the service address on the collection screen." />
+                    </VerticalStackLayout>
+                    <FlexLayout Wrap="Wrap"><Button Text="Refresh logs" Clicked="OnRefresh" /><Button Text="Reset filters" Clicked="OnReset" /></FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+            <ActivityIndicator x:Name="Loading" IsVisible="False" IsRunning="False" Color="#2868B1" />
+            <Label x:Name="Feedback" Text="Showing recent events from this app session." />
+            <Border>
+                <VerticalStackLayout Spacing="16">
+                    <Label x:Name="ResultTitle" Text="App events" FontSize="20" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level2" />
+                    <Label Text="Newest first · up to 1,000 recent records from this app session or service instance. Refresh to see new events. Long messages are shortened to 1,500 characters." />
+                    <VerticalStackLayout x:Name="Rows" Spacing="12" />
+                    <Label x:Name="Count" />
+                    <FlexLayout Wrap="Wrap"><Button x:Name="Newest" Text="Newest" Clicked="OnRefresh" /><Button x:Name="Older" Text="Older events" Clicked="OnOlder" /></FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,6 +1,12 @@
 # Runninghill word collection
 
-See [database configuration and EF Core 10 migrations](docs/databases.md) for PostgreSQL, MSSQL, SQLite and MySQL.
+This is a dotnet 10 application, and will require it to be installed on the pc.
+Python 3 is also a requirement to create an API key.
+
+To generate an API key that is required run this, in the root folder of the project:
+python3 scripts/dev-token.py (Windows python3 scripts\dev-token.py) keep the token as you will need it, everytime you come back to the application.
+
+Start with the [Starter quick guide](docs/starter-quick-guide.md) to run the website, API and included PostgreSQL database.
 
 # Requirements
 

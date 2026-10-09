@@ -1,9 +1,13 @@
+using Runninghill.Diagnostics;
 using Runninghill.Clients;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Runninghill.Web.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+var recentLogs = new RecentLogStore();
+builder.Services.AddSingleton(recentLogs);
+builder.Logging.AddProvider(recentLogs);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 // Reuse one client. Requests stay on this web origin; nginx forwards /api to the service.

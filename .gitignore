@@ -9,6 +9,8 @@ TestResults/
 *.db-shm
 *.db-wal
 artifacts/
+*.log
+*.jsonl
 .env
 .env.*
 !.env.example

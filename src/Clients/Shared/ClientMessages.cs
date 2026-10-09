@@ -1,8 +1,15 @@
 using System.Net;
+using System.Net.Http.Json;
+using System.Text.Json;
+using Runninghill.Contracts;
 
 namespace Runninghill.Clients;
 
-// Shared wording, compiled into each client. This contains no network calls or business rules.
+// Shared error wording, compiled into each client without another assembly.
+// Reading a reply here does not send a request or retry a write.
+/// <summary>
+/// Provides shared, user-friendly error descriptions and safe support references for all clients.
+/// </summary>
 internal static class ClientMessages
 {
 #if DEBUG
@@ -15,6 +22,10 @@ internal static class ClientMessages
     public const string TimedOut = "The service took too long to reply. Check your connection and try again.";
     public const string Unexpected = "Something went wrong in this app. Please try again. If it continues, contact support and describe what you were doing.";
 
+    /// <summary>
+    /// Explains an HTTP status with a suggested next step, or describes an unreachable service when no
+    /// status exists.
+    /// </summary>
     public static string ForStatus(HttpStatusCode? status) => status switch
     {
         HttpStatusCode.Unauthorized => "Your access token is missing, expired, or invalid. Please enter a new access token and try again.",
@@ -27,6 +38,10 @@ internal static class ClientMessages
         _ => "The service could not complete the request. Please try again. If it continues, contact support."
     };
 
+    /// <summary>
+    /// Turns network, certificate and reply failures into specific guidance without exposing private
+    /// exception text.
+    /// </summary>
     public static string ForRequestFailure(HttpRequestException error) => error.HttpRequestError switch
     {
         HttpRequestError.ConfigurationLimitExceeded => "The service reply was larger than this app allows. Contact support and report this message.",
@@ -36,9 +51,47 @@ internal static class ClientMessages
         _ => ForStatus(error.StatusCode)
     };
 
+    /// <summary>
+    /// Adds an available request reference and support guidance to an existing message.
+    /// </summary>
     public static string WithReference(string message, string? requestId) =>
         requestId is null ? message : $"{message} Request reference: {requestId}. Share this reference with support.";
 
+    /// <summary>
+    /// Explains that a write succeeded but the following screen refresh failed, helping the user avoid
+    /// repeating the write.
+    /// </summary>
+    public static string AfterConfirmedChange(string? confirmedChange, string error) =>
+        confirmedChange is null ? error :
+            $"{confirmedChange} The screen could not finish updating. {error} Refresh the collection before making another change.";
+
+    /// <summary>
+    /// Reads trusted validation wording when available, otherwise keeps the status explanation. Invalid
+    /// JSON does not discard the support reference, and cancellation still propagates.
+    /// </summary>
+    public static async Task<string> ReadErrorAsync(HttpResponseMessage response, CancellationToken cancellation)
+    {
+        var detail = ForStatus(response.StatusCode);
+        // Only validation/conflict replies contain messages deliberately written for users.
+        // A proxy might instead send HTML or broken JSON. Keep the status explanation and
+        // request reference in that case; do not replace them with a JSON parser error.
+        if ((int)response.StatusCode is 400 or 404 or 409)
+        {
+            try
+            {
+                var problem = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.ApiProblem, cancellation);
+                if (!string.IsNullOrWhiteSpace(problem?.Detail)) detail = problem.Detail;
+            }
+            catch (JsonException) { /* The status and header still give us a useful error. */ }
+        }
+        // Do not catch cancellation: leaving a page must still stop its pending work.
+        return WithReference(detail, ReadReference(response));
+    }
+
+    /// <summary>
+    /// Reads a short request reference containing only allowed characters, rejecting header text that
+    /// could disrupt a screen or terminal.
+    /// </summary>
     public static string? ReadReference(HttpResponseMessage response)
     {
         if (!response.Headers.TryGetValues("X-Request-ID", out var values))

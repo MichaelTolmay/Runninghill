@@ -5,9 +5,16 @@ using Npgsql;
 
 namespace Runninghill.Database;
 
+/// <summary>
+/// Recognizes expected database constraint errors across the supported providers.
+/// </summary>
 internal static class DatabaseFailures
 {
     // Constraint codes, not message parsing: messages vary with language and server version.
+    /// <summary>
+    /// Walks the exception chain for provider-specific duplicate-key codes instead of relying on
+    /// translated error text.
+    /// </summary>
     public static bool IsUniqueViolation(Exception exception)
     {
         for (Exception? current = exception; current is not null; current = current.InnerException)

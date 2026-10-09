@@ -10,4 +10,7 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12" PrivateAssets="all" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/OperationLog.cs" Link="OperationLog.cs" />
+  </ItemGroup>
 </Project>

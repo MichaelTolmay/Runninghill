@@ -10,9 +10,15 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.SqlServer
 {
+    /// <summary>
+    /// Records the latest SqlServer collection model so EF can detect changes for the next migration.
+    /// </summary>
     [DbContext(typeof(SqlServerContext))]
     partial class SqlServerContextModelSnapshot : ModelSnapshot
     {
+        /// <summary>
+        /// Recreates the saved SqlServer model for EF migration comparisons.
+        /// </summary>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

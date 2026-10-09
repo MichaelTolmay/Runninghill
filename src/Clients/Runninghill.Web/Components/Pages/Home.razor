@@ -1,11 +1,18 @@
 @page "/"
 @implements IDisposable
 
+@if (showLogs)
+{
+    <Logs InitialToken="@token" OnClose="CloseLogs" />
+}
+else
+{
 <PageTitle>Word collection · Runninghill</PageTitle>
 <a class="skip-link" href="#collection">Skip to word collection</a>
 <div class="workspace">
     <header class="topbar">
         <a class="brand" href="/" aria-label="Runninghill home"><span class="brand-mark">W</span><span>Runninghill<small>WORD COLLECTION</small></span></a>
+        <button class="secondary" @onclick="OpenLogs" disabled="@busy">Logs</button>
         <span class="connection-badge">@(connected ? "Connected" : "Connect to get started")</span>
     </header>
     <main>
@@ -38,7 +45,7 @@
                             <div class="dropdown-heading"><strong>Filter by word type</strong><button type="button" class="text-button" data-close-dropdown aria-label="Close word types">Close</button></div>
                             <p class="muted">Choose types, then apply filters.</p>
                             @foreach (var type in WordTypes.All) { <label><input type="checkbox" disabled="@busy" checked="@selectedTypes.Contains(type)" @onchange="() => ToggleType(type)" /> @type</label> }
-                            <button type="button" class="text-button" disabled="@busy" @onclick="() => selectedTypes.Clear()">Clear type selection</button>
+                            <button type="button" class="text-button" disabled="@busy" @onclick="ClearTypes">Clear type selection</button>
                             <button type="submit" class="full-width" disabled="@(!connected || busy)">Apply selected types</button>
                         </div>
                     </details>
@@ -56,10 +63,10 @@
                         @foreach (var word in words)
                         {
                             <li @key="word.Id"><div class="word-description"><strong>@word.Word</strong><span class="tag @TypeClass(word.Type)">@word.Type</span></div>
-                                <div class="row-actions"><button class="secondary" @onclick="() => AddToSentence(word)" disabled="@(busy || chosen.Count >= 50)" aria-label="Add @word.Word to sentence">+ Add to sentence</button><button class="text-button" @onclick="() => EditAsync(word)" disabled="@busy" aria-label="Edit @word.Word">Edit</button><button class="text-button danger" @onclick="() => pendingDelete = word.Id" disabled="@busy" aria-label="Delete @word.Word">Delete</button></div>
+                                <div class="row-actions"><button class="secondary" @onclick="() => AddToSentence(word)" disabled="@(busy || chosen.Count >= 50)" aria-label="Add @word.Word to sentence">+ Add to sentence</button><button class="text-button" @onclick="() => EditAsync(word)" disabled="@busy" aria-label="Edit @word.Word">Edit</button><button class="text-button danger" @onclick="() => ConfirmDelete(word.Id)" disabled="@busy" aria-label="Delete @word.Word">Delete</button></div>
                                 @if (pendingDelete == word.Id)
                                 {
-                                    <div class="delete-confirm" role="group" aria-label="Confirm deletion"><p>Delete “@word.Word”? Saved sentences will stay unchanged.</p><button class="danger-button" disabled="@busy" @onclick="() => DeleteAsync(word)">Confirm delete</button><button class="secondary" disabled="@busy" @onclick="() => pendingDelete = null">Keep word</button></div>
+                                    <div class="delete-confirm" role="group" aria-label="Confirm deletion"><p>Delete “@word.Word”? Saved sentences will stay unchanged.</p><button class="danger-button" disabled="@busy" @onclick="() => DeleteAsync(word)">Confirm delete</button><button class="secondary" disabled="@busy" @onclick="() => ConfirmDelete(null)">Keep word</button></div>
                                 }
                             </li>
                         }
@@ -97,3 +104,5 @@
         <footer>One collection. Nine word types. Endless ways to express yourself.</footer>
     </main>
 </div>
+
+}

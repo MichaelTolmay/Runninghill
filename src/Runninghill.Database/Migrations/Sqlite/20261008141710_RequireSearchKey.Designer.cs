@@ -10,6 +10,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Sqlite
 {
+    /// <summary>
+    /// Records the Sqlite EF model after adding the required search-key column and unique index; used
+    /// by migration tooling.
+    /// </summary>
     [DbContext(typeof(SqliteContext))]
     [Migration("20261008141710_RequireSearchKey")]
     partial class RequireSearchKey

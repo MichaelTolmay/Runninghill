@@ -10,6 +10,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Sqlite
 {
+    /// <summary>
+    /// Records the Sqlite EF model after adding the nullable search-key column; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(SqliteContext))]
     [Migration("20261008141639_AddSearchKey")]
     partial class AddSearchKey

@@ -11,6 +11,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.SqlServer
 {
+    /// <summary>
+    /// Records the SqlServer EF model after adding the nullable search-key column; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(SqlServerContext))]
     [Migration("20261008141634_AddSearchKey")]
     partial class AddSearchKey

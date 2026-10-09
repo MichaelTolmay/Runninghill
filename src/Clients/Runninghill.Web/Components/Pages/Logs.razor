@@ -1,0 +1,46 @@
+@page "/logs"
+@implements IDisposable
+
+<PageTitle>Event logs · Runninghill</PageTitle>
+<main class="workspace logs-workspace">
+    <header class="topbar">
+        <span class="brand"><span class="brand-mark">W</span><span>Runninghill<small>DIAGNOSTICS</small></span></span>
+        <button class="secondary" @onclick="CloseAsync">Back to collection</button>
+    </header>
+    <section class="intro"><div><p class="eyebrow">UNDERSTAND WHAT HAPPENED</p><h1>Event logs</h1><p>Find an action, check its outcome, and share its reference with support.</p></div></section>
+    <section class="panel" aria-label="Log filters">
+        <form @onsubmit="RefreshAsync" @onsubmit:preventDefault>
+            <fieldset class="log-filters" disabled="@busy">
+                <div class="field"><label for="log-source">Source</label><select id="log-source" @bind="source"><option value="app">This browser</option><option value="service">Service</option></select></div>
+                <div class="field"><label for="log-level">Severity</label><select id="log-level" @bind="level"><option value="">All levels</option>@foreach (var value in Levels) { <option>@value</option> }</select></div>
+                <div class="field log-search"><label for="log-search">Search message or category</label><input id="log-search" type="search" maxlength="120" @bind="search" placeholder="Action name or request reference" /></div>
+                <button type="submit">@(busy ? "Loading…" : "Refresh logs")</button>
+                <button type="button" class="secondary" @onclick="ResetAsync">Reset filters</button>
+            </fieldset>
+            @if (source == "service")
+            {
+                <div class="field log-token"><label for="log-token">Service access token with logs.read permission</label><input id="log-token" type="password" autocomplete="off" spellcheck="false" @bind="token" disabled="@busy" /><small>Kept in memory only. Collection permissions alone do not grant log access.</small></div>
+            }
+        </form>
+    </section>
+    <p class="feedback @(error ? "error" : "")" role="status" aria-live="polite">@message</p>
+    <section class="panel" aria-label="Log results" aria-busy="@busy">
+        <div class="section-heading"><h2>@(appliedSource == "service" ? "Service events" : "Browser events")</h2><span class="count">@(page.Items.Length) shown</span></div>
+        <p class="muted">Newest first · up to 1,000 recent records from the current session or service instance. Refresh to see new events. Messages longer than 1,500 characters are shortened.</p>
+        @if (page.Items.Length == 0)
+        {
+            <div class="log-empty"><h3>No matching events</h3><p>Try another severity or search, perform an action, then refresh.</p></div>
+        }
+        <ol class="log-list">
+            @foreach (var entry in page.Items)
+            {
+                <li @key="entry.Id" class="log-entry">
+                    <div class="log-meta"><span class="log-level level-@entry.Level.ToLowerInvariant()">@entry.Level</span><time datetime="@entry.Timestamp.ToString("O")">@entry.Timestamp.ToLocalTime().ToString("dd MMM yyyy HH:mm:ss.fff")</time><span>Event @entry.EventId</span></div>
+                    <p class="log-category">@entry.Category</p>
+                    <pre>@entry.Message</pre>
+                </li>
+            }
+        </ol>
+        <div class="pagination"><button class="secondary" @onclick="RefreshAsync" disabled="@busy">Newest</button><span>@(page.RetainedCount) retained</span><button class="secondary" @onclick="OlderAsync" disabled="@(busy || page.NextBefore is null)">Older events</button></div>
+    </section>
+</main>

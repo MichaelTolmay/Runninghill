@@ -1,6 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Runninghill.Application;
+using Runninghill.Diagnostics;
 
 namespace Runninghill.Service;
 
@@ -8,8 +9,13 @@ namespace Runninghill.Service;
 public sealed partial class ApplicationGrpcService(IRunninghillApplication application, ILogger<ApplicationGrpcService> logger)
     : Grpc.Application.ApplicationBase
 {
+    /// <summary>
+    /// Returns application status over gRPC with caller cancellation and a service deadline,
+    /// translating outages and failures into friendly gRPC errors.
+    /// </summary>
     public override async Task<StringValue> GetStatus(Empty request, ServerCallContext context)
     {
+        using var operation = new OperationLog(logger, "Grpc.GetStatus", reference: context.GetHttpContext().TraceIdentifier);
         // A linked token stops work when EITHER the caller leaves OR our ten-second limit ends.
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(context.CancellationToken);
 #if DEBUG
@@ -20,7 +26,7 @@ public sealed partial class ApplicationGrpcService(IRunninghillApplication appli
             deadline.CancelAfter(TimeSpan.FromSeconds(10));
         try
         {
-            return new StringValue { Value = await application.GetStatusAsync(deadline.Token) };
+            return operation.Complete(new StringValue { Value = await application.GetStatusAsync(deadline.Token) });
         }
         catch (ApplicationUnavailableException)
         {
@@ -39,11 +45,14 @@ public sealed partial class ApplicationGrpcService(IRunninghillApplication appli
         }
         catch (Exception exception)
         {
-            LogFailure(logger, context.GetHttpContext().TraceIdentifier, exception);
+            LogFailure(logger, context.GetHttpContext().TraceIdentifier, exception.GetType().Name, exception.StackTrace);
             throw Error(context, StatusCode.Internal, "Something went wrong in the service. Please try again or contact support.");
         }
     }
 
+    /// <summary>
+    /// Builds a gRPC error containing the same support reference in its message and response trailers.
+    /// </summary>
     private static RpcException Error(ServerCallContext context, StatusCode code, string message)
     {
         var reference = context.GetHttpContext().TraceIdentifier;
@@ -52,9 +61,16 @@ public sealed partial class ApplicationGrpcService(IRunninghillApplication appli
             new Metadata { { "request-id", reference } });
     }
 
+    /// <summary>
+    /// Logs a database outage with the affected gRPC request reference.
+    /// </summary>
     [LoggerMessage(Level = LogLevel.Warning, Message = "Database unavailable for gRPC status request. Request reference: {RequestId}")]
     private static partial void LogUnavailable(ILogger logger, string requestId);
 
-    [LoggerMessage(Level = LogLevel.Error, Message = "Unexpected gRPC failure. Request reference: {RequestId}")]
-    private static partial void LogFailure(ILogger logger, string requestId, Exception exception);
+    /// <summary>
+    /// Logs an unexpected gRPC failure and request reference without sending exception details to the
+    /// caller.
+    /// </summary>
+    [LoggerMessage(Level = LogLevel.Error, Message = "Unexpected gRPC failure. Request reference: {RequestId}; type: {ErrorType}; stack: {StackTrace}")]
+    private static partial void LogFailure(ILogger logger, string requestId, string errorType, string? stackTrace);
 }

@@ -24,4 +24,8 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.19.0" />
     <Protobuf Include="Protos/application.proto" GrpcServices="Server" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/OperationLog.cs" Link="OperationLog.cs" />
+  </ItemGroup>
+  <ItemGroup><Compile Include="../Shared/RecentLogStore.cs" Link="RecentLogStore.cs" /></ItemGroup>
 </Project>

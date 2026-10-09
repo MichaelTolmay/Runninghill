@@ -9,9 +9,15 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.MySql
 {
+    /// <summary>
+    /// Records the latest MySql collection model so EF can detect changes for the next migration.
+    /// </summary>
     [DbContext(typeof(MySqlContext))]
     partial class MySqlContextModelSnapshot : ModelSnapshot
     {
+        /// <summary>
+        /// Recreates the saved MySql model for EF migration comparisons.
+        /// </summary>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

@@ -3,6 +3,7 @@
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import argparse
+import json
 import os
 import subprocess
 import threading
@@ -60,6 +61,11 @@ try:
                                 text=True, timeout=15)
         output = result.stdout + result.stderr
         assert result.returncode == exit_code and expected in output, (status, expected, output)
+        events = [json.loads(line) for line in result.stderr.splitlines() if line.startswith('{')]
+        assert any(event.get('State', {}).get('Outcome') == 'Started' for event in events), result.stderr
+        assert any(event.get('State', {}).get('Outcome') in ('Completed', 'Failed') for event in events), result.stderr
+        if body == b'{"message":"Ready"}':
+            assert result.stdout.strip() == 'Ready', 'Diagnostic records must not pollute command output.'
         assert 'private-server-detail' not in output and 'test-only-token' not in output
         if status >= 400:
             assert 'smoke-reference' in output

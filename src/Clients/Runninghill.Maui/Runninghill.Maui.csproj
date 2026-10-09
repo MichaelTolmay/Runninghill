@@ -58,10 +58,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#2868B1" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2868B1" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -79,12 +79,31 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
 
+  <!-- A Windows publish is a portable folder: bundle both runtimes, keep WinUI native,
+       and use ReadyToRun for Release startup. Debug stays managed for breakpoints. -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <PublishSelfContained>true</PublishSelfContained>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../Runninghill.Contracts/Runninghill.Contracts.csproj" />
-    <!-- Share only display messages, without adding a wrapper or another assembly. -->
+    <!-- Share error descriptions, without adding a request wrapper or another assembly. -->
     <Compile Include="../Shared/ClientMessages.cs" Link="ClientMessages.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug' And ($([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' Or $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst')">
     <PartialAppManifest Include="Platforms/DebugLocalNetwork.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../Shared/OperationLog.cs" Link="OperationLog.cs" />
+  </ItemGroup>
+  <ItemGroup><Compile Include="../../Shared/RecentLogStore.cs" Link="RecentLogStore.cs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/AppThemes.cs" Link="AppThemes.cs" />
+    <EmbeddedResource Include="../../../themes/*.json" LogicalName="Runninghill.Themes.%(Filename).json" />
+    <EmbeddedResource Include="../../../themes/*_icon.webp" LogicalName="Runninghill.Themes.%(Filename).webp" />
+    <!-- Keep original WebP files in themes. Package PNGs for consistent native decoding and lowercase Android names. -->
+    <MauiImage Include="../../../themes/*_icon.webp" Link="Resources/Images/$([System.String]::Copy('%(Filename)').ToLowerInvariant()).png" Resize="True" />
+    <!-- Tint the transparent white artwork once during the build, with no runtime pixel processing. -->
+    <MauiImage Update="../../../themes/Runninghill_light_icon.webp" TintColor="#1F2937" />
   </ItemGroup>
 </Project>

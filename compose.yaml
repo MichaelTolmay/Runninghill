@@ -1,6 +1,12 @@
 name: runninghill
+x-event-logging: &event-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
 services:
   database:
+    logging: *event-logging
     build:
       context: .
       dockerfile: Dockerfile.database
@@ -20,6 +26,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 30s
   service:
+    logging: *event-logging
     build:
       context: .
       dockerfile: Dockerfile.service
@@ -48,6 +55,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 35s
   web:
+    logging: *event-logging
     build:
       context: .
       dockerfile: Dockerfile.web

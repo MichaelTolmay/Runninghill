@@ -3,6 +3,18 @@
 (() => {
     const openDropdowns = 'details[data-dismiss-dropdown][open]';
 
+    // Record browser-owned interactions without reading input values or visible word text.
+    document.addEventListener('toggle', event => {
+        if (event.target instanceof HTMLDetailsElement) {
+            console.info('[Runninghill.UI]', {
+                event: event.target.hasAttribute('data-dismiss-dropdown') ? 'TypeFilterToggled' : 'ConnectionPanelToggled',
+                open: event.target.open,
+                timestamp: new Date().toISOString()
+            });
+        }
+    }, true);
+    window.addEventListener('pagehide', () => console.info('[Runninghill.UI]', { event: 'PageHidden' }));
+
     function close(dropdown, returnFocus = false) {
         dropdown.open = false;
         if (returnFocus) dropdown.querySelector('summary')?.focus();

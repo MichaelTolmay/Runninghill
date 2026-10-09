@@ -1,0 +1,12 @@
+@namespace Runninghill.Dashboard
+
+<ErrorBoundary>
+    <ChildContent><Dashboard /></ChildContent>
+    <ErrorContent Context="error">
+        <main class="dashboard"><div class="feedback" role="alert">
+            <h1>@T("Monitoring dashboard")</h1>
+            <p>@T("Close and reopen the dashboard. Share the error code and error type with support. Check the certificate file if one was configured.")</p>
+            <p>@ClientMessages.WithCode(error.GetType().Name, "RH-DASHBOARD-RENDER")</p>
+        </div></main>
+    </ErrorContent>
+</ErrorBoundary>

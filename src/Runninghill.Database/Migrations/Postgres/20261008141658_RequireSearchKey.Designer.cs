@@ -11,6 +11,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Postgres
 {
+    /// <summary>
+    /// Records the Postgres EF model after adding the required search-key column and unique index; used
+    /// by migration tooling.
+    /// </summary>
     [DbContext(typeof(PostgresContext))]
     [Migration("20261008141658_RequireSearchKey")]
     partial class RequireSearchKey

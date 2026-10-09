@@ -9,9 +9,15 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Sqlite
 {
+    /// <summary>
+    /// Records the latest Sqlite collection model so EF can detect changes for the next migration.
+    /// </summary>
     [DbContext(typeof(SqliteContext))]
     partial class SqliteContextModelSnapshot : ModelSnapshot
     {
+        /// <summary>
+        /// Recreates the saved Sqlite model for EF migration comparisons.
+        /// </summary>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

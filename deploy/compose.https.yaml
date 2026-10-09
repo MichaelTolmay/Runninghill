@@ -1,0 +1,28 @@
+# Add after compose.yaml (and after any ordinary host/provider overrides).
+# Generate certificates first: python3 scripts/dev-certificate.py
+services:
+  web:
+    ports:
+      - "127.0.0.1:5443:8443"
+    volumes:
+      - type: bind
+        source: ./deploy/nginx.https.conf
+        target: /etc/nginx/conf.d/default.conf
+        read_only: true
+      - type: bind
+        source: ./deploy/nginx.https-common.conf
+        target: /etc/nginx/runninghill/https-common.conf
+        read_only: true
+      # Individual mounts let nginx read the files without opening the private host directory.
+      - type: bind
+        source: ./.run/tls/localhost.crt
+        target: /etc/nginx/tls/localhost.crt
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./.run/tls/localhost.key
+        target: /etc/nginx/tls/localhost.key
+        read_only: true
+        bind:
+          create_host_path: false

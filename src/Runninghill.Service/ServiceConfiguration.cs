@@ -5,8 +5,15 @@ namespace Runninghill.Service;
 
 // Validate once at startup. Refusing bad settings is safer than starting a service that
 // looks healthy but cannot store data or check who is allowed to use it.
+/// <summary>
+/// Holds validated database and authentication settings loaded once during service startup.
+/// </summary>
 public sealed record ServiceConfiguration(string ConnectionString, string Audience, string? Authority, string? DevelopmentSigningKey, DatabaseSettings Database)
 {
+    /// <summary>
+    /// Validates the database, audience and authentication issuer before startup, allowing a shared
+    /// signing key only in Development.
+    /// </summary>
     public static ServiceConfiguration Load(IConfiguration configuration, IHostEnvironment environment)
     {
         var database = DatabaseSettings.Parse(configuration["Database:Provider"], configuration.GetConnectionString("Runninghill"));

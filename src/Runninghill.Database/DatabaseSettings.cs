@@ -5,10 +5,20 @@ using Npgsql;
 
 namespace Runninghill.Database;
 
+/// <summary>
+/// Identifies one of the four supported database engines.
+/// </summary>
 public enum DatabaseProvider { PostgreSql, SqlServer, Sqlite, MySql }
 
+/// <summary>
+/// Holds the selected database engine and its validated connection string.
+/// </summary>
 public sealed record DatabaseSettings(DatabaseProvider Provider, string ConnectionString)
 {
+    /// <summary>
+    /// Resolves a provider name and validates its connection string without exposing credentials.
+    /// SQLite must use a persistent file.
+    /// </summary>
     public static DatabaseSettings Parse(string? provider, string? connectionString)
     {
         var selected = (provider ?? "Postgres").Trim().ToLowerInvariant() switch

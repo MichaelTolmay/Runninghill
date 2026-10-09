@@ -11,6 +11,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Postgres
 {
+    /// <summary>
+    /// Records the Postgres EF model after adding the initial collection tables; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(PostgresContext))]
     [Migration("20261008141519_InitialCollection")]
     partial class InitialCollection

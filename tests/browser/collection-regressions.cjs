@@ -14,6 +14,7 @@ async function checkViewport(browser, width) {
     page.setDefaultTimeout(15000);
     const errors = [], requests = [], sentencePosts = [];
     const words = [], sentences = [];
+    let failWordRefresh = false, failHistoryRefresh = false, malformedSaveError = false;
     page.on('pageerror', error => errors.push(error.message));
     // Debug normally uses a separate API port. Keep all test traffic on this origin.
     await page.route('**/appsettings.Development.json', route => route.fulfill({
@@ -25,6 +26,10 @@ async function checkViewport(browser, width) {
         const method = request.method();
         requests.push({ method, url });
         if (url.pathname === '/api/words' && method === 'GET') {
+            if (failWordRefresh) {
+                failWordRefresh = false;
+                return route.fulfill({ status: 503, headers: { 'X-Request-ID': 'words-refresh-test' } });
+            }
             const search = url.searchParams.get('search') || '';
             const types = (url.searchParams.get('types') || '').split(',').filter(Boolean);
             return route.fulfill({ json: {
@@ -33,6 +38,11 @@ async function checkViewport(browser, width) {
             } });
         }
         if (url.pathname === '/api/words' && method === 'POST') {
+            if (malformedSaveError) {
+                malformedSaveError = false;
+                return route.fulfill({ status: 409, body: '<html>proxy error</html>',
+                    headers: { 'Content-Type': 'text/html', 'X-Request-ID': 'bad-json-test' } });
+            }
             const word = { id: words.length + 1, ...request.postDataJSON() };
             words.push(word);
             return route.fulfill({ status: 201, json: word });
@@ -43,6 +53,10 @@ async function checkViewport(browser, width) {
             return route.fulfill({ json: word });
         }
         if (url.pathname === '/api/sentences' && method === 'GET') {
+            if (failHistoryRefresh) {
+                failHistoryRefresh = false;
+                return route.fulfill({ status: 503, headers: { 'X-Request-ID': 'history-refresh-test' } });
+            }
             return route.fulfill({ json: { items: sentences, nextAfter: null } });
         }
         if (url.pathname === '/api/sentences' && method === 'POST') {
@@ -157,10 +171,41 @@ async function checkViewport(browser, width) {
         await page.getByRole('button', { name: 'Close word types', exact: true }).click();
         assert.equal(await isOpen(), false);
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Page overflow at ${width}px`);
+        // A write and its subsequent refresh are separate requests. Losing the second
+        // reply must not tell the user to submit the already-saved word/sentence again.
+        await page.getByLabel('Add a word', { exact: true }).fill('bright');
+        failWordRefresh = true;
+        const writesBefore = requests.filter(r => r.method === 'POST' && r.url.pathname === '/api/words').length;
+        await page.getByRole('button', { name: 'Add word', exact: true }).click();
+        await status('Word saved. The screen could not finish updating.');
+        assert.match(await page.getByRole('status').innerText(), /words-refresh-test/);
+        assert.equal(requests.filter(r => r.method === 'POST' && r.url.pathname === '/api/words').length, writesBefore + 1);
+        await apply();
+        await status('Filters applied');
+        assert.equal(await rows.count(), 4);
+
+        await page.getByRole('button', { name: 'Add bright to sentence', exact: true }).click();
+        failHistoryRefresh = true;
+        await saveSentence.click();
+        await status('Sentence saved. The screen could not finish updating.');
+        assert.match(await page.getByRole('status').innerText(), /history-refresh-test/);
+        assert.ok(await saveSentence.isDisabled(), 'Confirmed save clears the draft even if refresh fails');
+        assert.equal(sentencePosts.length, 2);
+        await page.locator('.history').getByRole('button', { name: 'Refresh', exact: true }).click();
+        await status('Saved sentences refreshed');
+        assert.equal(await page.locator('.history li').count(), 2);
+
+        malformedSaveError = true;
+        await page.getByLabel('Add a word', { exact: true }).fill('unchanged');
+        await page.getByRole('button', { name: 'Add word', exact: true }).click();
+        await status('bad-json-test');
+        assert.equal(await page.getByLabel('Add a word', { exact: true }).inputValue(), 'unchanged');
+        assert.doesNotMatch(await page.getByRole('status').innerText(), /<html>|Word saved/);
+
         fs.mkdirSync(screenshotDirectory, { recursive: true });
         await page.screenshot({ path: path.join(screenshotDirectory, `regressions-${width}.png`), fullPage: true });
         assert.deepEqual(errors, []);
-        console.log(`Collection UI regressions passed at ${width}px: multiple words, filter dismissal, edits, sentence POST.`);
+        console.log(`Collection UI regressions passed at ${width}px: multiple words, filters, sentence POST, confirmed saves with failed refresh, malformed errors.`);
     } finally { await context.close(); }
 }
 

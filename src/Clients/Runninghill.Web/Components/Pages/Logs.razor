@@ -1,0 +1,47 @@
+@page "/logs"
+@implements IDisposable
+
+<PageTitle>@T("Event logs · Runninghill")</PageTitle>
+<main class="workspace logs-workspace">
+    <header class="topbar">
+        <span class="brand"><span class="brand-mark">W</span><span>Runninghill<small>@T("DIAGNOSTICS")</small></span></span>
+        <div class="appearance-toolbar"><ThemeSelectors /><button class="secondary" @onclick="CloseAsync">@T("Back to collection")</button></div>
+        <LanguageSelector Disabled="@busy" />
+    </header>
+    <section class="intro"><div><p class="eyebrow">@T("UNDERSTAND WHAT HAPPENED")</p><h1>@T("Event logs")</h1><p>@T("Find an action, check its outcome, and share its reference with support.")</p></div></section>
+    <section class="panel" aria-label="@T("Log filters")">
+        <form @onsubmit="RefreshAsync" @onsubmit:preventDefault>
+            <fieldset class="log-filters" disabled="@busy">
+                <div class="field"><label for="log-source">@T("Source")</label><select id="log-source" @bind="source"><option value="app">@T("This browser")</option><option value="service">@T("Service")</option></select></div>
+                <div class="field"><label for="log-level">@T("Severity")</label><select id="log-level" @bind="level"><option value="">@T("All levels")</option>@foreach (var value in Levels) { <option value="@value">@T(value)</option> }</select></div>
+                <div class="field log-search"><label for="log-search">@T("Search message or category")</label><input id="log-search" type="search" maxlength="120" @bind="search" placeholder="@T("Action name or request reference")" /></div>
+                <button type="submit">@(busy ? T("Loading…") : T("Refresh logs"))</button>
+                <button type="button" class="secondary" @onclick="ResetAsync">@T("Reset filters")</button>
+            </fieldset>
+            @if (source == "service")
+            {
+                <div class="field log-token"><label for="log-token">@T("Service access token with logs.read permission")</label><input id="log-token" type="password" autocomplete="off" spellcheck="false" @bind="token" disabled="@busy" /><small>@T("Kept in memory only. Collection permissions alone do not grant log access.")</small></div>
+            }
+        </form>
+    </section>
+    <p class="feedback @(error ? "error" : "")" role="status" aria-live="polite">@message</p>
+    <section class="panel" aria-label="@T("Log results")" aria-busy="@busy">
+        <div class="section-heading"><h2>@(appliedSource == "service" ? T("Service events") : T("Browser events"))</h2><span class="count">@F($"{page.Items.Length} shown")</span></div>
+        <p class="muted">@T("Newest first · up to 1,000 recent records from the current session or service instance. Refresh to see new events. Messages longer than 1,500 characters are shortened.")</p>
+        @if (page.Items.Length == 0)
+        {
+            <div class="log-empty"><h3>@T("No matching events")</h3><p>@T("Try another severity or search, perform an action, then refresh.")</p></div>
+        }
+        <ol class="log-list">
+            @foreach (var entry in page.Items)
+            {
+                <li @key="entry.Id" class="log-entry">
+                    <div class="log-meta"><span class="log-level level-@entry.Level.ToLowerInvariant()">@T(entry.Level)</span><time datetime="@entry.Timestamp.ToString("O")">@entry.Timestamp.ToLocalTime().ToString("dd MMM yyyy HH:mm:ss.fff", AppText.Culture)</time><span>@F($"Event {entry.EventId}")</span></div>
+                    <p class="log-category">@entry.Category</p>
+                    <pre>@entry.Message</pre>
+                </li>
+            }
+        </ol>
+        <div class="pagination"><button class="secondary" @onclick="RefreshAsync" disabled="@busy">@T("Newest")</button><span>@F($"{page.RetainedCount} retained")</span><button class="secondary" @onclick="OlderAsync" disabled="@(busy || page.NextBefore is null)">@T("Older events")</button></div>
+    </section>
+</main>

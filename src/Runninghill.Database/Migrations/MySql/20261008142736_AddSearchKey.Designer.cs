@@ -10,6 +10,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.MySql
 {
+    /// <summary>
+    /// Records the MySql EF model after adding the nullable search-key column; used by migration
+    /// tooling.
+    /// </summary>
     [DbContext(typeof(MySqlContext))]
     [Migration("20261008142736_AddSearchKey")]
     partial class AddSearchKey

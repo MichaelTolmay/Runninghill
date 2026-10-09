@@ -6,8 +6,14 @@ using Xunit;
 
 namespace Runninghill.Tests;
 
+/// <summary>
+/// Checks HTTP collection permissions, response shapes and user-friendly validation errors.
+/// </summary>
 public sealed class WordEndpointTests
 {
+    /// <summary>
+    /// Verifies that unrelated, read-only and similarly named scopes cannot create a word.
+    /// </summary>
     [Theory]
     [InlineData("status.read")]
     [InlineData("words.read")]
@@ -21,6 +27,9 @@ public sealed class WordEndpointTests
         Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
     }
 
+    /// <summary>
+    /// Checks that creating a word returns 201, its resource URL and the documented response fields.
+    /// </summary>
     [Fact]
     public async Task CreateReturnsSmallContractAndLocation()
     {
@@ -33,6 +42,10 @@ public sealed class WordEndpointTests
         Assert.Equal(new WordResponse(1, "hello", "Noun"), await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.WordResponse));
     }
 
+    /// <summary>
+    /// Checks that invalid words produce clear guidance with the same request reference in headers and
+    /// JSON.
+    /// </summary>
     [Fact]
     public async Task ValidationReturnsHelpfulProblemAndMatchingReference()
     {
@@ -46,6 +59,9 @@ public sealed class WordEndpointTests
         Assert.Equal(response.Headers.GetValues("X-Request-ID").Single(), error.RequestId);
     }
 
+    /// <summary>
+    /// Verifies that broken JSON returns a 400 reply with useful guidance and a support reference.
+    /// </summary>
     [Fact]
     public async Task MalformedJsonIsAClientErrorRatherThanAnOutage()
     {
@@ -59,6 +75,9 @@ public sealed class WordEndpointTests
         Assert.Equal(response.Headers.GetValues("X-Request-ID").Single(), problem.RequestId);
     }
 
+    /// <summary>
+    /// Verifies that read permissions permit listing but do not authorize saving a sentence.
+    /// </summary>
     [Fact]
     public async Task ReadScopeCanListButNotSubmitSentences()
     {

@@ -10,9 +10,15 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.Postgres
 {
+    /// <summary>
+    /// Records the latest Postgres collection model so EF can detect changes for the next migration.
+    /// </summary>
     [DbContext(typeof(PostgresContext))]
     partial class PostgresContextModelSnapshot : ModelSnapshot
     {
+        /// <summary>
+        /// Recreates the saved Postgres model for EF migration comparisons.
+        /// </summary>
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

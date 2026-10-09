@@ -1,0 +1,26 @@
+@inject Microsoft.JSInterop.IJSRuntime JavaScript
+@inject ILogger<LanguageSelector> Logger
+@using Microsoft.JSInterop
+
+<label class="language-selector">
+    <span>@T("Language")</span>
+    <select aria-label="@T("Language")" value="@AppText.Language" @onchange="ChangeAsync" disabled="@Disabled">
+        @for (var i = 0; i < AppText.Languages.Count; i++)
+        {
+            <option value="@AppText.Languages[i]">@AppText.LanguageNames[i]</option>
+        }
+    </select>
+</label>
+
+@code {
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Saves only the language preference; tokens and drafts never enter browser storage.</summary>
+    private async Task ChangeAsync(ChangeEventArgs change)
+    {
+        var language = AppText.Normalize(change.Value?.ToString());
+        await JavaScript.InvokeVoidAsync("runninghillLanguage.set", language);
+        AppText.SetClientLanguage(language);
+        Runninghill.Diagnostics.OperationLog.Event(Logger, "LanguageChanged");
+    }
+}

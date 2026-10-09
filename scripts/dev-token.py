@@ -26,6 +26,6 @@ def encode(value):
 header = encode(json.dumps({"alg": "HS256", "typ": "JWT"}).encode())
 # Expire in 15 minutes so a copied development token does not remain useful indefinitely.
 payload = encode(json.dumps({"iss": "runninghill-development", "aud": "runninghill", "sub": "local-developer",
-                            "scope": "status.read words.read words.write sentences.read sentences.write", "exp": int(time.time()) + 900}).encode())
+                            "scope": "status.read words.read words.write sentences.read sentences.write logs.read", "exp": int(time.time()) + 900}).encode())
 message = header + b"." + payload
 print((message + b"." + encode(hmac.new(key.encode(), message, hashlib.sha256).digest())).decode())

@@ -1,0 +1,78 @@
+@namespace Runninghill.Dashboard
+@implements IAsyncDisposable
+
+<main class="dashboard">
+    <header>
+        <div><span class="eyebrow">RUNNINGHILL</span><h1>@T("Monitoring dashboard")</h1></div>
+        <div class="appearance">
+            <label>@T("System theme")<select class="system-theme" value="@mode" @onchange="ChangeModeAsync"><option value="Light">@T("Light")</option><option value="Dark">@T("Dark")</option><option value="System">@T("System")</option></select></label>
+            <label>@T("App theme")<select value="@theme.Id" @onchange="ChangeCompanyAsync">@foreach (var item in AppThemes.All.Where(item => item.Mode == theme.Mode)) { <option value="@item.Id">@item.Id</option> }</select></label>
+            <label>@T("Language")<select value="@AppText.Language" @onchange="ChangeLanguageAsync">@for (var i = 0; i < AppText.Languages.Count; i++) { <option value="@AppText.Languages[i]">@AppText.LanguageNames[i]</option> }</select></label>
+        </div>
+    </header>
+
+    <section class="panel controls" aria-label="@T("Monitoring settings")">
+        <label class="interval">@T("Health check interval (seconds)")<input id="interval" type="number" min="1" max="3600" step="1" @bind="intervalText" disabled="@running" /></label>
+        <button id="start" @onclick="StartAsync" disabled="@(running || stopping || loadBusy)">@T("Start monitoring")</button>
+        <button class="secondary" @onclick="StopAsync" disabled="@(!running || stopping)">@T("Stop monitoring")</button>
+        <span class="state">@(running ? T("Monitoring") : T("Paused"))</span>
+        <p class="hint">@T("Each cycle checks the service and website once. Stop monitoring to change connection settings or the interval.")</p>
+        <details>
+            <summary>@T("Connection settings")</summary>
+            <div class="connection-grid">
+                <label>@T("Service URL")<input id="service-url" type="url" @bind="serviceUrl" disabled="@running" spellcheck="false" /></label>
+                <label>@T("Website URL")<input id="website-url" type="url" @bind="websiteUrl" disabled="@running" spellcheck="false" /></label>
+                <label class="token">@T("Access token")<input id="token" type="password" @bind="token" disabled="@running" autocomplete="off" /></label>
+            </div>
+            <p class="hint">@T("The token stays in memory. Totals need words.read and sentences.read; service logs need logs.read; load tests need status.read.")</p>
+        </details>
+    </section>
+    @if (!string.IsNullOrEmpty(message)) { <p class="feedback" role="alert">@message</p> }
+
+    <section class="metrics" aria-label="@T("Dashboard totals")">
+        <article class="panel metric"><span>@T("Health checks")</span><strong id="check-count">@checks.ToString("N0", AppText.Culture)</strong><small>@T("Completed endpoint checks this session")</small></article>
+        <article class="panel metric"><span>@T("Failures")</span><strong id="failure-count" class="@(failures > 0 ? "failure" : "")">@failures.ToString("N0", AppText.Culture)</strong><small>@T("Failed health checks this session")</small></article>
+        <article class="panel metric"><span>@T("Saved words")</span><strong id="word-count">@(statistics?.Words.ToString("N0", AppText.Culture) ?? "—")</strong><small>@T("Current database total")</small></article>
+        <article class="panel metric"><span>@T("Saved sentences")</span><strong id="sentence-count">@(statistics?.Sentences.ToString("N0", AppText.Culture) ?? "—")</strong><small>@T("Current database total")</small></article>
+    </section>
+    @if (!string.IsNullOrEmpty(statisticsError)) { <p class="feedback" role="status">@statisticsError</p> }
+    @if (statistics is not null) { <p class="hint">@T("Totals checked at") @statistics.CheckedAt.ToLocalTime().ToString("G", AppText.Culture)</p> }
+
+    <section class="status-grid">
+        <article class="panel endpoint"><h2>@T("Service")</h2><p class="health @(serviceHealth?.Healthy == false ? "failure" : "")">@HealthLabel(serviceHealth)</p><p>@serviceHealth?.Detail</p><small>@T("Database readiness") · @Latency(serviceHealth)</small></article>
+        <article class="panel endpoint"><h2>@T("Website")</h2><p class="health @(websiteHealth?.Healthy == false ? "failure" : "")">@HealthLabel(websiteHealth)</p><p>@websiteHealth?.Detail</p><small>@T("Web server health") · @Latency(websiteHealth)</small></article>
+        <article class="panel load">
+            <h2>@T("Service load test")</h2>
+            <div class="gauge" style="--fill:@GaugeDegrees()deg" role="meter" aria-label="@T("Response time under load")" aria-valuemin="0" aria-valuemax="2000" aria-valuenow="@Math.Min(load?.P95Milliseconds ?? 0, 2000).ToString(System.Globalization.CultureInfo.InvariantCulture)" aria-valuetext="@LoadValue()"><div><strong>@LoadValue()</strong><span>@T("95th percentile")</span></div></div>
+            <p class="hint">@T("Response time, not CPU usage. Gauge range: 0–2,000 ms. Lower is better.")</p>
+            <button id="load-test" @onclick="RunLoadAsync" disabled="@(!running || loadBusy || string.IsNullOrWhiteSpace(activeToken))">@(loadBusy ? T("Testing…") : T("Run load test"))</button>
+            @if (load is not null)
+            {
+                <p>@F($"{load.Requests} requests; {load.Failures} failures; {load.RequestsPerSecond:F1} requests/second.")</p>
+                @if (load.Detail.Length > 0) { <p class="failure">@load.Detail</p> }
+            }
+            <p class="hint">@T("A test sends at most 24 read-only requests, with four running at once. It stops within 20 seconds.")</p>
+        </article>
+    </section>
+    <p class="hint">@T("Last health check") · @(lastCheck?.ToLocalTime().ToString("G", AppText.Culture) ?? "—")</p>
+
+    <section class="panel logs" aria-label="@T("Logs")">
+        <h2>@T("Logs")</h2>
+        <div class="log-controls">
+            <label>@T("Log source")<select @bind="logSource" disabled="@logBusy"><option value="app">@T("Dashboard logs")</option><option value="service">@T("Service logs")</option></select></label>
+            <label>@T("Severity")<select @bind="logLevel" disabled="@logBusy"><option value="">@T("All levels")</option>@foreach (var level in LogLevels) { <option value="@level">@T(level)</option> }</select></label>
+            <label>@T("Search")<input @bind="logSearch" maxlength="120" disabled="@logBusy" /></label>
+            <button class="secondary" @onclick="RefreshLogsAsync" disabled="@logBusy">@T("Refresh logs")</button>
+        </div>
+        <p class="hint">@T("Recent retained events only. Older pages let you browse the available history; restarting the service clears its in-memory logs.")</p>
+        @if (logError.Length > 0) { <p class="feedback" role="status">@logError</p> }
+        <ul class="log-list">
+            @foreach (var entry in logPage.Items)
+            {
+                <li @key="entry.Id" class="log-entry"><div class="log-meta"><span class="level">@T(entry.Level)</span><time>@entry.Timestamp.ToLocalTime().ToString("G", AppText.Culture)</time><span>@entry.Category</span><span>#@entry.Id</span></div><pre>@entry.Message</pre></li>
+            }
+        </ul>
+        @if (logPage.Items.Length == 0) { <p>@T("No events to display.")</p> }
+        <div class="log-navigation"><button class="secondary" @onclick="RefreshLogsAsync" disabled="@logBusy">@T("Newest events")</button><span>@F($"{logPage.RetainedCount} events retained.")</span><button class="secondary" @onclick="OlderLogsAsync" disabled="@(logBusy || logPage.NextBefore is null)">@T("Older events")</button></div>
+    </section>
+</main>

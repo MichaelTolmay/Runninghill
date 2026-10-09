@@ -6,6 +6,11 @@
     <PublishAot>false</PublishAot>
     <PublishTrimmed>false</PublishTrimmed>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Release'">true</PublishReadyToRun>
+    <!-- ReadyToRun starts quickly; tiered PGO further optimises frequently used code
+         as this long-running service learns its actual workload. -->
+    <TieredCompilation>true</TieredCompilation>
+    <TieredPGO>true</TieredPGO>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
     <!-- Include the runtime when publishing; ordinary builds need no runtime identifier. -->
     <PublishSelfContained Condition="'$(Configuration)' == 'Release'">true</PublishSelfContained>
     <!-- Real words need Unicode normalization; invariant mode silently skips it. -->
@@ -24,4 +29,8 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.19.0" />
     <Protobuf Include="Protos/application.proto" GrpcServices="Server" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/OperationLog.cs" Link="OperationLog.cs" />
+  </ItemGroup>
+  <ItemGroup><Compile Include="../Shared/RecentLogStore.cs" Link="RecentLogStore.cs" /></ItemGroup>
 </Project>

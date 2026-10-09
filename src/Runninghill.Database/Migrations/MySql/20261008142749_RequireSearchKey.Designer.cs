@@ -10,6 +10,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.MySql
 {
+    /// <summary>
+    /// Records the MySql EF model after adding the required search-key column and unique index; used by
+    /// migration tooling.
+    /// </summary>
     [DbContext(typeof(MySqlContext))]
     [Migration("20261008142749_RequireSearchKey")]
     partial class RequireSearchKey

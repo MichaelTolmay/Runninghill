@@ -1,0 +1,50 @@
+:root { font-family:'Segoe UI',system-ui,sans-serif; color:var(--Text); background:var(--Background); font-synthesis:none; }
+* { box-sizing:border-box; }
+body { margin:0; }
+.dashboard { max-width:1500px; margin:auto; padding:28px 36px; }
+header { display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:24px; }
+h1 { color:var(--Heading); font-size:clamp(24px,3vw,34px); margin:6px 0; }
+h2 { font-size:19px; margin:0 0 18px; }
+.eyebrow { font-size:12px; font-weight:700; letter-spacing:3px; }
+.appearance,.controls,.log-controls { display:flex; align-items:end; flex-wrap:wrap; gap:14px; }
+label { display:flex; flex-direction:column; gap:8px; font-size:13px; font-weight:600; min-width:0; }
+input,select,button { font:inherit; min-height:44px; border-radius:7px; padding:10px 12px; }
+input,select { background:var(--Surface); color:var(--Text); border:1px solid var(--InputBorder); width:100%; }
+button { border:1px solid transparent; background:var(--Accent); color:var(--OnAccent); font-weight:650; cursor:pointer; }
+button:hover { background:var(--AccentHover); }
+button.secondary { background:var(--Surface); color:var(--SecondaryText); border-color:var(--SecondaryBorder); }
+button:disabled { opacity:.55; cursor:default; }
+:focus-visible { outline:3px solid var(--AccentText); outline-offset:3px; }
+.panel { background:var(--Surface); border:1px solid var(--Line); border-radius:14px; padding:24px; }
+.hint,small { font-size:13px; line-height:1.6; color:var(--Muted); }
+.controls { margin-bottom:20px; }
+.controls .hint,.controls details { flex-basis:100%; margin:0; }
+.interval { max-width:260px; }
+.state { align-self:center; font-weight:600; padding:10px; }
+summary { cursor:pointer; padding:12px 0; }
+.connection-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px; }
+.token { grid-column:1/-1; }
+.metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+.metric { display:flex; flex-direction:column; gap:12px; }
+.metric strong { font-size:38px; line-height:1.1; color:var(--Heading); }
+.metric>span { font-size:14px; font-weight:650; }
+.status-grid { display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:18px; margin-top:24px; align-items:start; }
+.health { font-size:24px; font-weight:650; }
+.failure,.metric .failure { color:var(--DangerText); }
+.feedback { padding:14px; border-radius:8px; background:var(--ErrorBackground); color:var(--ErrorText); overflow-wrap:anywhere; }
+.load { text-align:center; }
+.gauge { width:170px; height:170px; border-radius:50%; margin:0 auto 16px; background:conic-gradient(var(--Accent) var(--fill), var(--Line) 0); padding:13px; }
+.gauge>div { width:100%; height:100%; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--Surface); gap:8px; }
+.gauge strong { font-size:25px; }
+.gauge span { font-size:12px; }
+.logs { margin-top:24px; }
+.log-controls label:last-of-type { flex:1; min-width:150px; }
+.log-list { padding:0; list-style:none; }
+.log-entry { border-bottom:1px solid var(--Line); padding:18px 0; }
+.log-meta { display:flex; flex-wrap:wrap; gap:12px; align-items:center; color:var(--Muted); font-size:12px; }
+.level { border-radius:16px; background:var(--BadgeBackground); color:var(--BadgeText); padding:5px 10px; font-weight:650; }
+pre { white-space:pre-wrap; overflow-wrap:anywhere; font:13px/1.6 ui-monospace,monospace; margin-bottom:0; }
+.log-navigation { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+.endpoint p { overflow-wrap:anywhere; }
+@media(max-width:1000px) { .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } .status-grid { grid-template-columns:1fr 1fr; } .load { grid-column:1/-1; } }
+@media(max-width:560px) { .dashboard { padding:18px 14px; } .panel { padding:18px; } .appearance>label { flex:1; } .appearance { width:100%; } .appearance>label:last-child { flex-basis:100%; } .metrics,.status-grid,.connection-grid { grid-template-columns:1fr; } .controls>label { max-width:none; width:100%; } .controls>button,.log-controls>label,.log-controls>button { flex:1 1 100%; } }

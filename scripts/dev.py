@@ -55,7 +55,7 @@ def token():
     key = credentials()['key']
     header = encode(b'{"alg":"HS256","typ":"JWT"}')
     payload = encode(json.dumps({'iss': 'runninghill-development', 'aud': 'runninghill',
-        'sub': 'local-debugger', 'scope': 'status.read words.read words.write sentences.read sentences.write', 'exp': int(time.time()) + 900}).encode())
+        'sub': 'local-debugger', 'scope': 'status.read words.read words.write sentences.read sentences.write logs.read', 'exp': int(time.time()) + 900}).encode())
     message = header + b'.' + payload
     return (message + b'.' + encode(hmac.new(key.encode(), message, hashlib.sha256).digest())).decode()
 

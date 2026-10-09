@@ -676,6 +676,43 @@
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "build: Windows desktop (Debug)",
+      "type": "process",
+      "command": "python",
+      "args": [
+        "${workspaceFolder}/scripts/build.py",
+        "build",
+        "--target",
+        "maui",
+        "-c",
+        "Debug",
+        "--framework",
+        "net10.0-windows10.0.19041.0",
+        "--rid",
+        "win-x64"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build: dashboard (Debug)",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/Clients/Runninghill.Dashboard",
+        "-c",
+        "Debug",
+        "-m:1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile"
     }
   ]
 }

@@ -1,21 +1,107 @@
+# .NET build and publish output
 **/bin/
 **/obj/
+artifacts/
+/release/
+*.binlog
+*.nupkg
+*.snupkg
+
+# Generated application packages
+*.apk
+*.aab
+*.ipa
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.appxsym
+
+# IDE state (keep shared .vscode tasks, settings and launch configurations)
 .vs/
 .idea/
-TestResults/
+.vscodecsdt/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+*.sln.ide
+
+# Test results, coverage and browser reports (keep tests and fixtures)
+TestResults/
+test-results/
+playwright-report/
+blob-report/
+coverage/
+.coverage
+.coverage.*
+htmlcov/
+*.coverage
+*.coveragexml
+*.trx
+
+# Local databases and their transaction files
 *.db
 *.db-shm
 *.db-wal
-artifacts/
+*.db-journal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite-journal
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+*.sqlite3-journal
+
+# Local credentials and machine-specific configuration
 .env
 .env.*
 !.env.example
-**/__pycache__/
-**/node_modules/
-
-# Local build paths and generated debugger credentials
 Directory.Build.local.props
 .run/
-src/Runninghill.Service/appsettings.Development.local.json
+**/appsettings.*.local.json
+*.pfx
+*.p12
+*.pem
+*.key
+*.snk
+*.jks
+*.keystore
+*.mobileprovision
+*.provisionprofile
+
+# Logs and diagnostic captures can contain private device/user information
+*.log
+*.jsonl
+*.dmp
+*.mdmp
+*.nettrace
+*.netperf
+*.gcdump
+bugreport-*.zip
+bugreport-*.txt
+
+# Downloaded dependencies and tool caches (keep lockfiles and tool manifests)
+**/node_modules/
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.nuget/packages/
+.gradle/
+
+# Operating-system metadata and editor temporary files
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.swp
+*.swo
+*~
+*.tmp
+*.temp

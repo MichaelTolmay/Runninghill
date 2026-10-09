@@ -11,6 +11,10 @@ using Runninghill.Database;
 
 namespace Runninghill.Database.Migrations.SqlServer
 {
+    /// <summary>
+    /// Records the SqlServer EF model after adding the required search-key column and unique index;
+    /// used by migration tooling.
+    /// </summary>
     [DbContext(typeof(SqlServerContext))]
     [Migration("20261008141705_RequireSearchKey")]
     partial class RequireSearchKey

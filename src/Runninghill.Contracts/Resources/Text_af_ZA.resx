@@ -1,0 +1,1110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Text_b608253c48dc" xml:space="preserve">
+    <value>+ Voeg by sin</value>
+  </data>
+  <data name="Text_8935d2851aad" xml:space="preserve">
+    <value>0 / 50 woorde</value>
+  </data>
+  <data name="Text_0db35f78ade8" xml:space="preserve">
+    <value>0 op hierdie bladsy</value>
+  </data>
+  <data name="Text_6705b22afd2e" xml:space="preserve">
+    <value>’N BIETJIE TAAL, BAIE MOONTLIKHEDE</value>
+  </data>
+  <data name="Text_1528258360b5" xml:space="preserve">
+    <value>'n Gekose woord is uitgevee. Verfris jou versameling en bou die sin weer.</value>
+  </data>
+  <data name="Text_33a37a212932" xml:space="preserve">
+    <value>'n Sinversoek-ID word vereis. Verfris die toepassing en probeer weer.</value>
+  </data>
+  <data name="Text_bbb86bcb941f" xml:space="preserve">
+    <value>AKSIES</value>
+  </data>
+  <data name="Text_f69d5c7e6ea9" xml:space="preserve">
+    <value>Toegangsteken</value>
+  </data>
+  <data name="Text_9d1e6d0cb9b8" xml:space="preserve">
+    <value>Aksienaam of versoekverwysing</value>
+  </data>
+  <data name="Text_35c2eb2cb531" xml:space="preserve">
+    <value>Voeg ’n woord by</value>
+  </data>
+  <data name="Text_109dfb68f2cd" xml:space="preserve">
+    <value>Voeg minstens een woord by met Voeg by sin in die woordlys om te kan stoor.</value>
+  </data>
+  <data name="Text_b5daa8a90b4c" xml:space="preserve">
+    <value>Voeg woord by</value>
+  </data>
+  <data name="Text_53156e1192f4" xml:space="preserve">
+    <value>Voeg woorde uit jou versameling by om jou sin hier te sien.</value>
+  </data>
+  <data name="Text_37532e7f1218" xml:space="preserve">
+    <value>Voeg jou eerste woord hierbo by, of probeer 'n ander soektog of woordsoort.</value>
+  </data>
+  <data name="Text_86862370f03d" xml:space="preserve">
+    <value>Voeg {0} by sin</value>
+  </data>
+  <data name="Text_218dee462203" xml:space="preserve">
+    <value>{0} by jou sin gevoeg.</value>
+  </data>
+  <data name="Text_39e85465e865" xml:space="preserve">
+    <value>Byvoeglike naamwoord</value>
+  </data>
+  <data name="Text_7915dabafff0" xml:space="preserve">
+    <value>Bywoord</value>
+  </data>
+  <data name="Text_4229bffabe67" xml:space="preserve">
+    <value>Afrikaans (ZA)</value>
+  </data>
+  <data name="Text_6a72085653e4" xml:space="preserve">
+    <value>Almal</value>
+  </data>
+  <data name="Text_6b4fde372a29" xml:space="preserve">
+    <value>Alle vlakke</value>
+  </data>
+  <data name="Text_4444a27dbde4" xml:space="preserve">
+    <value>’n Onverwagte fout het voorgekom.</value>
+  </data>
+  <data name="Text_8adf2f9b0d4d" xml:space="preserve">
+    <value>Toepassingsgebeurtenisse</value>
+  </data>
+  <data name="Text_926161d3e620" xml:space="preserve">
+    <value>Pas filters toe</value>
+  </data>
+  <data name="Text_c1eaee2e22c9" xml:space="preserve">
+    <value>Pas gekose soorte toe</value>
+  </data>
+  <data name="Text_61f81dde78c0" xml:space="preserve">
+    <value>Terug na versameling</value>
+  </data>
+  <data name="Text_f7bb0f7a522a" xml:space="preserve">
+    <value>Blaaiergebeurtenisse</value>
+  </data>
+  <data name="Text_dd770e03d7ab" xml:space="preserve">
+    <value>Bou ’n sin</value>
+  </data>
+  <data name="Text_5b6b41489fae" xml:space="preserve">
+    <value>Bou ’n sin ↗</value>
+  </data>
+  <data name="Text_b8f944abaa35" xml:space="preserve">
+    <value>Kanselleer wysiging</value>
+  </data>
+  <data name="Text_a1bf92eff40d" xml:space="preserve">
+    <value>Gekanselleer</value>
+  </data>
+  <data name="Text_84cc3d77c8bb" xml:space="preserve">
+    <value>Kan nie Debug-instellings lees nie. Gaan lêertoestemmings in .run na.</value>
+  </data>
+  <data name="Text_5f4a1b000b4b" xml:space="preserve">
+    <value>Gaan die JSON-velde en bladsyposisie na en probeer weer.</value>
+  </data>
+  <data name="Text_f57d3581a6b4" xml:space="preserve">
+    <value>Gaan die opdrag en argumente na. Uitvee vereis --yes.</value>
+  </data>
+  <data name="Text_fbe2d491c29f" xml:space="preserve">
+    <value>Gaan die lysopsies in die hulp hieronder na.</value>
+  </data>
+  <data name="Text_7d9fb1441662" xml:space="preserve">
+    <value>Gaan die logboekfilters na.</value>
+  </data>
+  <data name="Text_a9f2197ef784" xml:space="preserve">
+    <value>Gaan jou toegang en diensadres na. Deel die versoekverwysing as die probleem voortduur.</value>
+  </data>
+  <data name="Text_a7793f1832a1" xml:space="preserve">
+    <value>Kies + Voeg by sin langs ’n woord. Gebruik dit weer wanneer jy dit nodig het.</value>
+  </data>
+  <data name="Text_a8530c53fa0c" xml:space="preserve">
+    <value>Kies 'n versamelingsopdrag.</value>
+  </data>
+  <data name="Text_4edeb1848e89" xml:space="preserve">
+    <value>Kies 'n woordsoort uit die lys.</value>
+  </data>
+  <data name="Text_1e4ec09ff8df" xml:space="preserve">
+    <value>Kies enige soorte. Geen keuse wys alle woorde.</value>
+  </data>
+  <data name="Text_681b4c8052cf" xml:space="preserve">
+    <value>Kies tussen 1 en 50 gestoorde woorde vir jou sin.</value>
+  </data>
+  <data name="Text_4762cad2067d" xml:space="preserve">
+    <value>Kies tussen 1 en 50 woord-ID's.</value>
+  </data>
+  <data name="Text_dc9d72b50efc" xml:space="preserve">
+    <value>Kies een of meer van die nege woordsoorte.</value>
+  </data>
+  <data name="Text_55c7846e4051" xml:space="preserve">
+    <value>Kies soorte en pas dan filters toe.</value>
+  </data>
+  <data name="Text_719ea396ad92" xml:space="preserve">
+    <value>Vee uit</value>
+  </data>
+  <data name="Text_412226715c56" xml:space="preserve">
+    <value>Vee filters uit</value>
+  </data>
+  <data name="Text_6dbc15d59481" xml:space="preserve">
+    <value>Vee soortkeuse uit</value>
+  </data>
+  <data name="Text_bbfa773e5a63" xml:space="preserve">
+    <value>Sluit</value>
+  </data>
+  <data name="Text_8a3b2930b1a8" xml:space="preserve">
+    <value>Sluit woordsoorte</value>
+  </data>
+  <data name="Text_b98e8f6a12ab" xml:space="preserve">
+    <value>Versamel woorde volgens soort en voeg hulle dan in ’n sin saam.</value>
+  </data>
+  <data name="Text_1798b3ba42ee" xml:space="preserve">
+    <value>Voltooi</value>
+  </data>
+  <data name="Text_c9f2829e382c" xml:space="preserve">
+    <value>Bevestig uitvee</value>
+  </data>
+  <data name="Text_e53e762e5697" xml:space="preserve">
+    <value>Bevestig uitvee</value>
+  </data>
+  <data name="Text_c5a715320080" xml:space="preserve">
+    <value>Bevestig uitvee van {0}</value>
+  </data>
+  <data name="Text_8458445d8d97" xml:space="preserve">
+    <value>Voegwoord</value>
+  </data>
+  <data name="Text_2d7e570cac65" xml:space="preserve">
+    <value>Koppel / verfris</value>
+  </data>
+  <data name="Text_870284e6b217" xml:space="preserve">
+    <value>Koppel om te begin</value>
+  </data>
+  <data name="Text_de34173811aa" xml:space="preserve">
+    <value>Koppel om jou versameling te laai.</value>
+  </data>
+  <data name="Text_ab8cace3373a" xml:space="preserve">
+    <value>Koppel aan jou versameling voordat jy ’n sin stoor.</value>
+  </data>
+  <data name="Text_c2f9b7b4897f" xml:space="preserve">
+    <value>Gekoppel</value>
+  </data>
+  <data name="Text_0ad66dcaa0d5" xml:space="preserve">
+    <value>Kopieer ’n geldige toegangsteken en koppel weer.</value>
+  </data>
+  <data name="Text_774910a0e263" xml:space="preserve">
+    <value>Kon nie hierdie skerm sluit nie. Probeer Terug weer.</value>
+  </data>
+  <data name="Text_c4faabc3811e" xml:space="preserve">
+    <value>Kon nie na daardie afdeling spring nie. Jy kan steeds daarheen blaai.</value>
+  </data>
+  <data name="Text_517530ecfb37" xml:space="preserve">
+    <value>Kon nie logboeke laai nie. Verfris en deel die tyd van hierdie fout met ondersteuning as dit voortduur.</value>
+  </data>
+  <data name="Text_f02f6d116719" xml:space="preserve">
+    <value>Kon nie die diens bereik nie. Gaan jou internetverbinding en diensadres na en probeer weer.</value>
+  </data>
+  <data name="Text_f3e1c0f38804" xml:space="preserve">
+    <value>Kon nie Debug-instellings lees nie. Voer eers python scripts/dev.py prepare uit.</value>
+  </data>
+  <data name="Text_2ff9391be0e0" xml:space="preserve">
+    <value>Kon nie 'n veilige verbinding bevestig nie. Gaan jou toestel se datum en tyd na en vra ondersteuning om die dienssertifikaat na te gaan.</value>
+  </data>
+  <data name="Text_04b7b26c8ca2" xml:space="preserve">
+    <value>Kritiek</value>
+  </data>
+  <data name="Text_7563ce76d342" xml:space="preserve">
+    <value>FOUTOPSPORING</value>
+  </data>
+  <data name="Text_bd604d99e75e" xml:space="preserve">
+    <value>Ontfout</value>
+  </data>
+  <data name="Text_391b6ccfe9e9" xml:space="preserve">
+    <value>Ontfoutnabootser</value>
+  </data>
+  <data name="Text_f6fdbe48dc54" xml:space="preserve">
+    <value>Vee uit</value>
+  </data>
+  <data name="Text_a92ece760a79" xml:space="preserve">
+    <value>Vee {0} uit</value>
+  </data>
+  <data name="Text_977b5828d9d5" xml:space="preserve">
+    <value>Vee “{0}” uit? Gestoorde sinne sal onveranderd bly.</value>
+  </data>
+  <data name="Text_c79ca7ec69f0" xml:space="preserve">
+    <value>Bepaler</value>
+  </data>
+  <data name="Text_ed28e0686e12" xml:space="preserve">
+    <value>Ontkoppel</value>
+  </data>
+  <data name="Text_380783deac9f" xml:space="preserve">
+    <value>Ontkoppel. Jou gestoorde woorde is veilig in die databasis.</value>
+  </data>
+  <data name="Text_a659269a5b85" xml:space="preserve">
+    <value>Docker-nabootser</value>
+  </data>
+  <data name="Text_46b92baf6afa" xml:space="preserve">
+    <value>Docker-diens</value>
+  </data>
+  <data name="Text_5301648dcf6b" xml:space="preserve">
+    <value>Wysig</value>
+  </data>
+  <data name="Text_f8bcdad7f461" xml:space="preserve">
+    <value>Wysig woord</value>
+  </data>
+  <data name="Text_523b184ecbf3" xml:space="preserve">
+    <value>Wysig {0}</value>
+  </data>
+  <data name="Text_daa711a3ae2a" xml:space="preserve">
+    <value>Nabootser: gebruik 10.0.2.2 om jou rekenaar te bereik. Vir ’n foon wat met USB gekoppel is, stuur poort 5080 aan met adb en kies USB-toestel. Plak ’n nuwe toegangsteken van die webwerf se diens.</value>
+  </data>
+  <data name="Text_7981bfd5ce9c" xml:space="preserve">
+    <value>English (ZA)</value>
+  </data>
+  <data name="Text_f709b143b819" xml:space="preserve">
+    <value>Voer eers ’n geldige diens-URL op die versamelingskerm in.</value>
+  </data>
+  <data name="Text_72fecfdec274" xml:space="preserve">
+    <value>Voer ’n geldige diens-URL op die versamelingskerm in en maak Logboeke weer oop.</value>
+  </data>
+  <data name="Text_0035a84312c3" xml:space="preserve">
+    <value>Voer ’n HTTPS-diens-URL en ’n toegangsteken in.</value>
+  </data>
+  <data name="Text_c2e9875cd05d" xml:space="preserve">
+    <value>Voer 'n toegangstoken in en koppel om jou gestoorde woorde te laai.</value>
+  </data>
+  <data name="Text_57de80877251" xml:space="preserve">
+    <value>Voer ’n toegangsteken met logs.read-toestemming in en verfris dan.</value>
+  </data>
+  <data name="Text_e1fa41e1978b" xml:space="preserve">
+    <value>Voer een woord van hoogstens 80 karakters in. Gebruik letters, afkappingstekens of koppeltekens; geen spasies of syfers nie.</value>
+  </data>
+  <data name="Text_7f2f6a15cf8d" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="Text_7b433c33dc55" xml:space="preserve">
+    <value>Foutsoort: {0}</value>
+  </data>
+  <data name="Text_89679ea1551f" xml:space="preserve">
+    <value>Gebeurtenislogboeke</value>
+  </data>
+  <data name="Text_6ddcb0c6164b" xml:space="preserve">
+    <value>Gebeurtenislogboeke · Runninghill</value>
+  </data>
+  <data name="Text_8c090106c833" xml:space="preserve">
+    <value>Gebeurtenis {0}</value>
+  </data>
+  <data name="Text_09fef5d8d9a3" xml:space="preserve">
+    <value>Misluk</value>
+  </data>
+  <data name="Text_133b48a000b0" xml:space="preserve">
+    <value>Filtreer volgens woordsoort</value>
+  </data>
+  <data name="Text_b9ab9081d012" xml:space="preserve">
+    <value>Filtreer {0}</value>
+  </data>
+  <data name="Text_b3a6f8432d24" xml:space="preserve">
+    <value>Filters toegepas.</value>
+  </data>
+  <data name="Text_3a8488ec78a2" xml:space="preserve">
+    <value>Filters uitgevee.</value>
+  </data>
+  <data name="Text_5777b4f4af1e" xml:space="preserve">
+    <value>Soek ’n aksie, kyk na die uitslag en deel die verwysing met ondersteuning.</value>
+  </data>
+  <data name="Text_916a78d701de" xml:space="preserve">
+    <value>Eerste</value>
+  </data>
+  <data name="Text_a0c15efce128" xml:space="preserve">
+    <value>Gaan na gestoorde sinne</value>
+  </data>
+  <data name="Text_63c5b4d0ad73" xml:space="preserve">
+    <value>Gaan na sinbouer</value>
+  </data>
+  <data name="Text_70e6d0eca92c" xml:space="preserve">
+    <value>Gaan na woordversameling</value>
+  </data>
+  <data name="Text_90ccd6497400" xml:space="preserve">
+    <value>Geskiedenis</value>
+  </data>
+  <data name="Text_70f8bb9a8a53" xml:space="preserve">
+    <value>Tuis</value>
+  </data>
+  <data name="Text_744ec7eeba75" xml:space="preserve">
+    <value>IDE-diens</value>
+  </data>
+  <data name="Text_0eb5ed506e49" xml:space="preserve">
+    <value>Inligting</value>
+  </data>
+  <data name="Text_d2c10ab88f74" xml:space="preserve">
+    <value>Tussenwerpsel</value>
+  </data>
+  <data name="Text_e6ade6a1632c" xml:space="preserve">
+    <value>Ongeldige logboekfilter.</value>
+  </data>
+  <data name="Text_a7de5eaa5dc0" xml:space="preserve">
+    <value>Behou woord</value>
+  </data>
+  <data name="Text_df2f1e44d436" xml:space="preserve">
+    <value>Behou {0}</value>
+  </data>
+  <data name="Text_41f88e7c6b64" xml:space="preserve">
+    <value>Slegs in geheue gehou. Versamelingstoestemmings alleen gee nie logboektoegang nie.</value>
+  </data>
+  <data name="Text_3f1673453970" xml:space="preserve">
+    <value>Slegs in geheue gehou. Versamelingstoestemmings alleen gee nie logboektoegang nie. Verander die diensadres op die versamelingskerm.</value>
+  </data>
+  <data name="Text_89b86ab0e66f" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="Text_2a8ff40134a0" xml:space="preserve">
+    <value>Taal verander.</value>
+  </data>
+  <data name="Text_96df352a57cf" xml:space="preserve">
+    <value>Taal: --language en-ZA|af-ZA|xh-ZA|zu-ZA|tn-ZA, of RUNNINGHILL_LANGUAGE.</value>
+  </data>
+  <data name="Text_9623e2d1ebbb" xml:space="preserve">
+    <value>Laai Runninghill…</value>
+  </data>
+  <data name="Text_3f1ce5b33748" xml:space="preserve">
+    <value>Laai logboeke…</value>
+  </data>
+  <data name="Text_33ce417454bf" xml:space="preserve">
+    <value>Laai tans…</value>
+  </data>
+  <data name="Text_527cf7115310" xml:space="preserve">
+    <value>Logboekfilters</value>
+  </data>
+  <data name="Text_5d2892f30c36" xml:space="preserve">
+    <value>Logboeklaai is gekanselleer of het uitgetel. Probeer verfris.</value>
+  </data>
+  <data name="Text_3cd037d65ea5" xml:space="preserve">
+    <value>Logboekresultate</value>
+  </data>
+  <data name="Text_c4b34f58cd0a" xml:space="preserve">
+    <value>Logboekbron</value>
+  </data>
+  <data name="Text_126dd3b70a5c" xml:space="preserve">
+    <value>Logboeke</value>
+  </data>
+  <data name="Text_53b27d15d3d5" xml:space="preserve">
+    <value>Maak plek vir 'n nuwe woord</value>
+  </data>
+  <data name="Text_b03d2fd89262" xml:space="preserve">
+    <value>Meer sinne: sentences list --after {0}</value>
+  </data>
+  <data name="Text_50af2164021c" xml:space="preserve">
+    <value>Meer woorde: herhaal hierdie opdrag met --after {0} en dieselfde filters.</value>
+  </data>
+  <data name="Text_12da3161422c" xml:space="preserve">
+    <value>Skuif woord {0} vroeër</value>
+  </data>
+  <data name="Text_651979ae15d6" xml:space="preserve">
+    <value>Skuif woord {0} later</value>
+  </data>
+  <data name="Text_d0442824723c" xml:space="preserve">
+    <value>Nuutste</value>
+  </data>
+  <data name="Text_47354a475adc" xml:space="preserve">
+    <value>Nuutste eerste · tot 1 000 onlangse rekords uit die huidige sessie of diensinstansie. Verfris om nuwe gebeurtenisse te sien. Boodskappe langer as 1 500 karakters word verkort.</value>
+  </data>
+  <data name="Text_413493f2ef47" xml:space="preserve">
+    <value>Nuutste eerste · tot 1 000 onlangse rekords uit hierdie toepassingsessie of diensinstansie. Verfris om nuwe gebeurtenisse te sien. Lang boodskappe word tot 1 500 karakters verkort.</value>
+  </data>
+  <data name="Text_bc981983e7f5" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="Text_36be0043c714" xml:space="preserve">
+    <value>Volgende bladsy gelaai.</value>
+  </data>
+  <data name="Text_651db22e2e12" xml:space="preserve">
+    <value>Volgende sinne gelaai.</value>
+  </data>
+  <data name="Text_f7be5465ff0c" xml:space="preserve">
+    <value>Geen ooreenstemmende gebeurtenisse nie</value>
+  </data>
+  <data name="Text_0fc46d200668" xml:space="preserve">
+    <value>Geen ooreenstemmende gebeurtenisse nie. Probeer ’n ander erns of soektog, voer ’n aksie uit en verfris dan.</value>
+  </data>
+  <data name="Text_795958df8066" xml:space="preserve">
+    <value>Nog geen sinne nie. Kies woord-ID's en gebruik sentences add.</value>
+  </data>
+  <data name="Text_468c56039ee7" xml:space="preserve">
+    <value>Geen woorde gevind nie. Voeg 'n woord by of probeer 'n ander filter.</value>
+  </data>
+  <data name="Text_8b02f3de3906" xml:space="preserve">
+    <value>Nie gekoppel nie</value>
+  </data>
+  <data name="Text_4ac734372124" xml:space="preserve">
+    <value>Selfstandige naamwoord</value>
+  </data>
+  <data name="Text_4e6685afd0a6" xml:space="preserve">
+    <value>Ouer gebeurtenisse</value>
+  </data>
+  <data name="Text_f7a3bdec827f" xml:space="preserve">
+    <value>Een versameling. Nege woordsoorte. Eindelose maniere om jouself uit te druk.</value>
+  </data>
+  <data name="Text_c9a1d9770973" xml:space="preserve">
+    <value>SPAN JOU WOORDE IN</value>
+  </data>
+  <data name="Text_0cd2664cb285" xml:space="preserve">
+    <value>Bladsy 1</value>
+  </data>
+  <data name="Text_bc3023b36063" xml:space="preserve">
+    <value>Bladsy nie gevind nie</value>
+  </data>
+  <data name="Text_02431c5464ea" xml:space="preserve">
+    <value>Bladsy {0}</value>
+  </data>
+  <data name="Text_81b8fce9546f" xml:space="preserve">
+    <value>Uitgevoer</value>
+  </data>
+  <data name="Text_b7008a02867a" xml:space="preserve">
+    <value>Gaan asseblief die versoek na.</value>
+  </data>
+  <data name="Text_f6d7a3689991" xml:space="preserve">
+    <value>Gaan asseblief jou versameling na.</value>
+  </data>
+  <data name="Text_a09eee371bde" xml:space="preserve">
+    <value>Probeer asseblief binnekort weer. As stoor onderbreek is, verfris jou versameling voordat jy weer stoor.</value>
+  </data>
+  <data name="Text_9e47493897f0" xml:space="preserve">
+    <value>Probeer asseblief binnekort weer. As dit voortduur, deel die versoekverwysing met ondersteuning.</value>
+  </data>
+  <data name="Text_43ffb80524a5" xml:space="preserve">
+    <value>Probeer asseblief weer. As dit aanhou gebeur, deel die versoekverwysing met ondersteuning.</value>
+  </data>
+  <data name="Text_5d38732753af" xml:space="preserve">
+    <value>Wag asseblief totdat die huidige versoek voltooi is.</value>
+  </data>
+  <data name="Text_5afeca73bef6" xml:space="preserve">
+    <value>Wag asseblief…</value>
+  </data>
+  <data name="Text_ad3287ccdd92" xml:space="preserve">
+    <value>Voorsetsel</value>
+  </data>
+  <data name="Text_50f94286ba30" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="Text_35d3b960b5fa" xml:space="preserve">
+    <value>Vorige bladsy gelaai.</value>
+  </data>
+  <data name="Text_f01f76f5c38c" xml:space="preserve">
+    <value>Voornaamwoord</value>
+  </data>
+  <data name="Text_20c7c5522fc2" xml:space="preserve">
+    <value>Gereed</value>
+  </data>
+  <data name="Text_56e3badc4e6c" xml:space="preserve">
+    <value>Verfris</value>
+  </data>
+  <data name="Text_f970c362e4c8" xml:space="preserve">
+    <value>Verfris logboeke</value>
+  </data>
+  <data name="Text_cce7155371fc" xml:space="preserve">
+    <value>Herlaai</value>
+  </data>
+  <data name="Text_328141695a00" xml:space="preserve">
+    <value>Verwyder woord {0}</value>
+  </data>
+  <data name="Text_d35c6de793ba" xml:space="preserve">
+    <value>Versoek gekanselleer.</value>
+  </data>
+  <data name="Text_cb49de37971a" xml:space="preserve">
+    <value>Die vereiste databasisskema is nie beskikbaar nie.</value>
+  </data>
+  <data name="Text_56553100b028" xml:space="preserve">
+    <value>Herstel filters</value>
+  </data>
+  <data name="Text_85e6ea5e7cb1" xml:space="preserve">
+    <value>Runninghill-tuisblad</value>
+  </data>
+  <data name="Text_251fbc61f21a" xml:space="preserve">
+    <value>Runninghill is gereed. Databasisskema bevestig.</value>
+  </data>
+  <data name="Text_e18e7207c42d" xml:space="preserve">
+    <value>Runninghill-woordversameling
+  status
+  words list [--search prefix] [--types Noun,Verb] [--after ID]
+  words get ID
+  words add WORD TYPE
+  words update ID WORD TYPE
+  words delete ID --yes
+  sentences list [--after ID]
+  sentences add ID [ID ...] [--request-id UUID]
+
+Woordsoorte (gebruik die Engelse name in opdragte):
+Noun, Verb, Adjective, Adverb, Pronoun, Preposition,
+Interjection, Conjunction, Determiner.
+Sin-ID’s is woord-ID’s in die volgorde wat jy wil hê; jy mag 'n ID herhaal.
+Hou die gedrukte versoek-ID om 'n onsekere sinstoor veilig te herhaal.
+Stel RUNNINGHILL_SERVICE_URL en RUNNINGHILL_ACCESS_TOKEN op.</value>
+  </data>
+  <data name="Text_d56837c5e7f7" xml:space="preserve">
+    <value>Runninghill · FOUTOPSPORING</value>
+  </data>
+  <data name="Text_179359b39edb" xml:space="preserve">
+    <value>Stoor wysigings</value>
+  </data>
+  <data name="Text_6600f0c494a1" xml:space="preserve">
+    <value>Stoor sin</value>
+  </data>
+  <data name="Text_3a98f2af4006" xml:space="preserve">
+    <value>Gestoorde sinne</value>
+  </data>
+  <data name="Text_1d433a86996b" xml:space="preserve">
+    <value>Gestoorde sinne behou hul bewoording wanneer jou versameling verander.</value>
+  </data>
+  <data name="Text_ebfd329b926f" xml:space="preserve">
+    <value>Gestoorde sinne verfris.</value>
+  </data>
+  <data name="Text_cbdfd43e83fa" xml:space="preserve">
+    <value>Soek volgens die begin van ’n woord…</value>
+  </data>
+  <data name="Text_0ab6b4991a7e" xml:space="preserve">
+    <value>Deursoek versameling</value>
+  </data>
+  <data name="Text_0ddc597488d4" xml:space="preserve">
+    <value>Soek boodskap of kategorie</value>
+  </data>
+  <data name="Text_53a114767909" xml:space="preserve">
+    <value>Soek met 80 karakters of minder.</value>
+  </data>
+  <data name="Text_c3bb9c5cd95b" xml:space="preserve">
+    <value>Stuur hierdie versoek as application/json.</value>
+  </data>
+  <data name="Text_87193316865f" xml:space="preserve">
+    <value>Stuur geldige JSON met die gedokumenteerde velde en waardes en probeer weer.</value>
+  </data>
+  <data name="Text_1bb1f30ec48f" xml:space="preserve">
+    <value>Sin</value>
+  </data>
+  <data name="Text_fdb95bf5a6c2" xml:space="preserve">
+    <value>Sin #{0} gestoor: {1}</value>
+  </data>
+  <data name="Text_64e653d03fd3" xml:space="preserve">
+    <value>Sin ({0})</value>
+  </data>
+  <data name="Text_2afd6b5863a9" xml:space="preserve">
+    <value>Sinvoorskou</value>
+  </data>
+  <data name="Text_a99d192cc666" xml:space="preserve">
+    <value>Sinversoek-ID: {0}</value>
+  </data>
+  <data name="Text_dc4b75894187" xml:space="preserve">
+    <value>Sin gestoor.</value>
+  </data>
+  <data name="Text_329cb8b6ba8c" xml:space="preserve">
+    <value>Diens</value>
+  </data>
+  <data name="Text_077225837f3d" xml:space="preserve">
+    <value>Diens-URL</value>
+  </data>
+  <data name="Text_1f200d9a2e41" xml:space="preserve">
+    <value>Dienstoegangsteken met logs.read-toestemming</value>
+  </data>
+  <data name="Text_661966c01680" xml:space="preserve">
+    <value>Diensverbinding</value>
+  </data>
+  <data name="Text_91a0a5cdcde2" xml:space="preserve">
+    <value>Diensverbinding ▾</value>
+  </data>
+  <data name="Text_c1080200e036" xml:space="preserve">
+    <value>Diensgebeurtenisse</value>
+  </data>
+  <data name="Text_be0ba8c30fd3" xml:space="preserve">
+    <value>Diens: {0}</value>
+  </data>
+  <data name="Text_98719e20c0f6" xml:space="preserve">
+    <value>Stel RUNNINGHILL_SERVICE_URL (HTTPS, of plaaslike HTTP vir ontwikkeling) en RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_f1270b290cd2" xml:space="preserve">
+    <value>Setswana (ZA)</value>
+  </data>
+  <data name="Text_de314fa0c9d9" xml:space="preserve">
+    <value>Ernstigheid</value>
+  </data>
+  <data name="Text_cc93ae477c0f" xml:space="preserve">
+    <value>Wys onlangse gebeurtenisse uit hierdie toepassingsessie.</value>
+  </data>
+  <data name="Text_f2a0e3cba287" xml:space="preserve">
+    <value>Wys onlangse gebeurtenisse uit hierdie blaaiertab.</value>
+  </data>
+  <data name="Text_11c4adaf0b7d" xml:space="preserve">
+    <value>Spring na woordversameling</value>
+  </data>
+  <data name="Text_47f279970b56" xml:space="preserve">
+    <value>Sommige teks bevat 'n onleesbare karakter. Tik die woord of soektog oor en probeer weer.</value>
+  </data>
+  <data name="Text_716dbae5af58" xml:space="preserve">
+    <value>Iets het in die diens verkeerd geloop.</value>
+  </data>
+  <data name="Text_f8e95094c181" xml:space="preserve">
+    <value>Iets het in die diens verkeerd geloop. Probeer weer of kontak ondersteuning.</value>
+  </data>
+  <data name="Text_3a3418677fa1" xml:space="preserve">
+    <value>Iets het in hierdie toepassing verkeerd geloop. Probeer weer. As dit voortduur, kontak ondersteuning en beskryf wat jy gedoen het.</value>
+  </data>
+  <data name="Text_6da13addb000" xml:space="preserve">
+    <value>Bron</value>
+  </data>
+  <data name="Text_faa9e7e7ef5a" xml:space="preserve">
+    <value>Begin</value>
+  </data>
+  <data name="Text_e713c9b40e02" xml:space="preserve">
+    <value>Daardie woord bestaan reeds met hierdie woordsoort. Kies 'n ander woord of woordsoort.</value>
+  </data>
+  <data name="Text_592f75b6341c" xml:space="preserve">
+    <value>Die toegangstoken bevat ongeldige karakters. Kopieer 'n nuwe token en probeer weer.</value>
+  </data>
+  <data name="Text_e3621184fc03" xml:space="preserve">
+    <value>Die toegangsteken is ongeldig. Kopieer ’n nuwe teken en verfris.</value>
+  </data>
+  <data name="Text_09566dcf8b54" xml:space="preserve">
+    <value>Die toepassing is tydelik nie beskikbaar nie.</value>
+  </data>
+  <data name="Text_66aef6a688a2" xml:space="preserve">
+    <value>Die bladsyposisie is ongeldig. Keer terug na die eerste bladsy.</value>
+  </data>
+  <data name="Text_d017fd0e6715" xml:space="preserve">
+    <value>Die versoek kon nie voltooi word nie.</value>
+  </data>
+  <data name="Text_a12929662a1c" xml:space="preserve">
+    <value>Die versoek is gekanselleer of die tydsbeperking is bereik.</value>
+  </data>
+  <data name="Text_3791db0bf63b" xml:space="preserve">
+    <value>Die diensadres het verander. Koppel weer voordat jy woorde wysig.</value>
+  </data>
+  <data name="Text_b72774a7566e" xml:space="preserve">
+    <value>Die diensadres kon nie gevind word nie. Gaan die adres en jou internetverbinding na.</value>
+  </data>
+  <data name="Text_6ae32309b5d5" xml:space="preserve">
+    <value>Die diensadres is bereik, maar hierdie funksie is nie gevind nie. Gaan die diens-URL en toepassingweergawe na.</value>
+  </data>
+  <data name="Text_40a1581fcefd" xml:space="preserve">
+    <value>Die diens kan tans nie sy data bereik nie.</value>
+  </data>
+  <data name="Text_079fee839dcb" xml:space="preserve">
+    <value>Die diens kan tans nie sy data bereik nie. Probeer asseblief binnekort weer.</value>
+  </data>
+  <data name="Text_7ddc1c09cde9" xml:space="preserve">
+    <value>Die diens kon nie die versoek voltooi nie. Probeer weer. As dit voortduur, kontak ondersteuning.</value>
+  </data>
+  <data name="Text_1da7e731c7c3" xml:space="preserve">
+    <value>Die diens is besig. Wag asseblief 'n paar sekondes en probeer weer.</value>
+  </data>
+  <data name="Text_0b6dd49a2aa4" xml:space="preserve">
+    <value>Die diens is besig. Wag 'n paar sekondes en probeer weer.</value>
+  </data>
+  <data name="Text_f5eb154f47b9" xml:space="preserve">
+    <value>Die diensantwoord was groter as wat hierdie toepassing toelaat. Kontak ondersteuning en rapporteer hierdie boodskap.</value>
+  </data>
+  <data name="Text_e2c3684501c3" xml:space="preserve">
+    <value>Die diens het 'n antwoord gestuur wat hierdie toepassing nie kan lees nie. Probeer weer. As dit voortduur, sê vir ondersteuning watter toepassingweergawe jy gebruik.</value>
+  </data>
+  <data name="Text_01f5f4ffc36c" xml:space="preserve">
+    <value>Die diens het te lank geneem om te antwoord. Gaan jou verbinding na en probeer weer.</value>
+  </data>
+  <data name="Text_edc4476b5b4a" xml:space="preserve">
+    <value>Die diens het te lank geneem om te antwoord. Probeer asseblief weer.</value>
+  </data>
+  <data name="Text_5b9e214a45b2" xml:space="preserve">
+    <value>Die woord is gereed om te wysig. Tik op die woordveld om voort te gaan.</value>
+  </data>
+  <data name="Text_f0a535fd0020" xml:space="preserve">
+    <value>Die woord of soektog is te lank nadat sy aksente gekombineer is. Gebruik 'n korter woord of soektog van hoogstens 80 karakters.</value>
+  </data>
+  <data name="Text_c078223b5c36" xml:space="preserve">
+    <value>Hierdie toepassing</value>
+  </data>
+  <data name="Text_345929da4348" xml:space="preserve">
+    <value>Hierdie blaaier</value>
+  </data>
+  <data name="Text_6111e466e538" xml:space="preserve">
+    <value>Hierdie versoek is te groot. Gebruik een woord of hoogstens 50 woorde in 'n sin.</value>
+  </data>
+  <data name="Text_8eab1c1c372e" xml:space="preserve">
+    <value>Hierdie sinversoek is reeds gebruik. Begin 'n nuwe sin voordat jy ander woorde stoor.</value>
+  </data>
+  <data name="Text_dff8bfea7cef" xml:space="preserve">
+    <value>Hierdie diens bied nog nie die logboekkyker nie. Ontplooi die bygewerkte diens en probeer weer.</value>
+  </data>
+  <data name="Text_030a254c7e9c" xml:space="preserve">
+    <value>Hierdie toegangsteken kan nie dienslogboeke lees nie. Vra ’n administrateur vir logs.read-toestemming.</value>
+  </data>
+  <data name="Text_f5deb08bab8a" xml:space="preserve">
+    <value>Hierdie woord bestaan nie meer nie. Verfris jou versameling.</value>
+  </data>
+  <data name="Text_2f38169a712e" xml:space="preserve">
+    <value>Naspoor</value>
+  </data>
+  <data name="Text_ff09937615e2" xml:space="preserve">
+    <value>Probeer ’n ander erns of soektog, voer ’n aksie uit en verfris dan.</value>
+  </data>
+  <data name="Text_86d0a8c523ac" xml:space="preserve">
+    <value>Woordsoorte (gebruik die Engelse name in opdragte):</value>
+  </data>
+  <data name="Text_9e8861d36d26" xml:space="preserve">
+    <value>VERSTAAN WAT GEBEUR HET</value>
+  </data>
+  <data name="Text_b47ff0fabaf6" xml:space="preserve">
+    <value>USB-toestel</value>
+  </data>
+  <data name="Text_d54cd78cfa95" xml:space="preserve">
+    <value>Gebruik --language met en-ZA, af-ZA, xh-ZA, zu-ZA of tn-ZA.</value>
+  </data>
+  <data name="Text_0a3bb440c0dc" xml:space="preserve">
+    <value>Gebruik 'n geldige ernsvlak, 'n positiewe bladsymerker en soekteks van hoogstens 120 karakters.</value>
+  </data>
+  <data name="Text_1c1f2fb5d6a3" xml:space="preserve">
+    <value>Gebruik 'n geldige, nieleë UUID vir --request-id.</value>
+  </data>
+  <data name="Text_9b969431f93f" xml:space="preserve">
+    <value>Gebruik dieselfde diens en toegangsteken as die webwerf. Toegangstekens word nooit op hierdie toestel gestoor nie.</value>
+  </data>
+  <data name="Text_33817a63b651" xml:space="preserve">
+    <value>Werkwoord</value>
+  </data>
+  <data name="Text_413ffea05e7e" xml:space="preserve">
+    <value>WOORD EN SOORT</value>
+  </data>
+  <data name="Text_33cead23d9ac" xml:space="preserve">
+    <value>WOORDVERSAMELING</value>
+  </data>
+  <data name="Text_e9c45563358e" xml:space="preserve">
+    <value>Waarskuwing</value>
+  </data>
+  <data name="Text_44363ccb8230" xml:space="preserve">
+    <value>Woord</value>
+  </data>
+  <data name="Text_5258676b8aa1" xml:space="preserve">
+    <value>Woord- en bladsy-ID's moet positiewe heelgetalle wees.</value>
+  </data>
+  <data name="Text_84147dd9ede0" xml:space="preserve">
+    <value>Woordversameling</value>
+  </data>
+  <data name="Text_f8f8617a5852" xml:space="preserve">
+    <value>Woordversameling · Runninghill</value>
+  </data>
+  <data name="Text_5cfe106c9f58" xml:space="preserve">
+    <value>Woord uitgevee.</value>
+  </data>
+  <data name="Text_4c5da31079d6" xml:space="preserve">
+    <value>Woord uitgevee. Gestoorde sinne is onveranderd.</value>
+  </data>
+  <data name="Text_c9140c7edd43" xml:space="preserve">
+    <value>Woord uitgevee. Gestoorde sinne het nie verander nie.</value>
+  </data>
+  <data name="Text_9a0381b05ce4" xml:space="preserve">
+    <value>Woord gestoor.</value>
+  </data>
+  <data name="Text_bdad4062d920" xml:space="preserve">
+    <value>Woord gestoor. Jou versameling is verfris.</value>
+  </data>
+  <data name="Text_f8fe9d54d138" xml:space="preserve">
+    <value>Woordsoort</value>
+  </data>
+  <data name="Text_4728511f4e32" xml:space="preserve">
+    <value>Woordsoorte</value>
+  </data>
+  <data name="Text_72df03b458ad" xml:space="preserve">
+    <value>Woordsoorte · Almal ▾</value>
+  </data>
+  <data name="Text_ff5a79c25e80" xml:space="preserve">
+    <value>Woordsoorte · {0} ▾</value>
+  </data>
+  <data name="Text_d26d55c7f815" xml:space="preserve">
+    <value>Woorde</value>
+  </data>
+  <data name="Text_13b7bfcac438" xml:space="preserve">
+    <value>Besig…</value>
+  </data>
+  <data name="Text_61829ca0ea6d" xml:space="preserve">
+    <value>JOU PERSOONLIKE WOORDEBANK</value>
+  </data>
+  <data name="Text_d7fe5df50d2a" xml:space="preserve">
+    <value>Jou toegangstoken ontbreek, het verval of is ongeldig. Voer 'n nuwe toegangstoken in en probeer weer.</value>
+  </data>
+  <data name="Text_559402bef2e7" xml:space="preserve">
+    <value>Jou toegangsteken bly slegs in geheue</value>
+  </data>
+  <data name="Text_6dbfa588169b" xml:space="preserve">
+    <value>Jou rekening het nie toestemming vir hierdie handeling nie. Vra 'n administrateur vir die vereiste toegang (status.read, words.read/write of sentences.read/write).</value>
+  </data>
+  <data name="Text_46aafa670a81" xml:space="preserve">
+    <value>Jou versameling is tydelik nie beskikbaar nie.</value>
+  </data>
+  <data name="Text_14a772f34bb5" xml:space="preserve">
+    <value>Jou versameling is op datum.</value>
+  </data>
+  <data name="Text_12b98488716a" xml:space="preserve">
+    <value>Jou versameling begin hier</value>
+  </data>
+  <data name="Text_9e80345ff96d" xml:space="preserve">
+    <value>Jou versameling begin hier. Voeg ’n woord hier bo by, of probeer ’n ander soektog of soort.</value>
+  </data>
+  <data name="Text_4441235c0693" xml:space="preserve">
+    <value>Jou gestoorde sinne sal hier verskyn.</value>
+  </data>
+  <data name="Text_aae41b798d57" xml:space="preserve">
+    <value>Jou sin is gereed om te stoor. Gebruik die pyltjies om die woordorde te verander.</value>
+  </data>
+  <data name="Text_87124b59f118" xml:space="preserve">
+    <value>Jou sin is gereed om te stoor. Jy kan die woordorde met die pyltjies hier bo verander.</value>
+  </data>
+  <data name="Text_459514301364" xml:space="preserve">
+    <value>Jou woorde. Nuwe moontlikhede.</value>
+  </data>
+  <data name="Text_d18eb90e230e" xml:space="preserve">
+    <value>bv. moontlikheid</value>
+  </data>
+  <data name="Text_3dbf03ae674a" xml:space="preserve">
+    <value>isiXhosa (ZA)</value>
+  </data>
+  <data name="Text_99730a4251c6" xml:space="preserve">
+    <value>isiZulu (ZA)</value>
+  </data>
+  <data name="Text_d5889b4f44fa" xml:space="preserve">
+    <value>{0} / 50 woorde</value>
+  </data>
+  <data name="Text_4faf2a305db6" xml:space="preserve">
+    <value>{0} Versoekverwysing: {1}.</value>
+  </data>
+  <data name="Text_4505371265f2" xml:space="preserve">
+    <value>{0} Versoekverwysing: {1}. Deel hierdie verwysing met ondersteuning.</value>
+  </data>
+  <data name="Text_c21f6ab32f6b" xml:space="preserve">
+    <value>{0} Die skerm kon nie klaar bywerk nie. {1} Verfris die versameling voordat jy nog 'n verandering maak.</value>
+  </data>
+  <data name="Text_c067b5f03627" xml:space="preserve">
+    <value>{0} gebeurtenisse gewys. Verfris om vir nuwe gebeurtenisse te kyk.</value>
+  </data>
+  <data name="Text_039c806474a0" xml:space="preserve">
+    <value>{0} op hierdie bladsy</value>
+  </data>
+  <data name="Text_3169edd50aa9" xml:space="preserve">
+    <value>{0} behou</value>
+  </data>
+  <data name="Text_4017c46cb57c" xml:space="preserve">
+    <value>{0} gewys</value>
+  </data>
+  <data name="Text_de9d8189d0a8" xml:space="preserve">
+    <value>{0} gewys · {1} behou</value>
+  </data>
+  <data name="Text_2e8bb1d46292" xml:space="preserve">
+    <value>{0} · {1:dd MMM yyyy HH:mm:ss.fff} · Gebeurtenis {2}</value>
+  </data>
+  <data name="Text_29211387ab36" xml:space="preserve">
+    <value>Stelseltema</value>
+  </data>
+  <data name="Text_3d0ba3f991b8" xml:space="preserve">
+    <value>Toepassingtema</value>
+  </data>
+  <data name="Text_a36ef8aba229" xml:space="preserve">
+    <value>Lig</value>
+  </data>
+  <data name="Text_ae1ef0143294" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="Text_bc0792d8dc81" xml:space="preserve">
+    <value>Stelsel</value>
+  </data>
+  <data name="Text_5272a4015141" xml:space="preserve">
+    <value>Sommige toepassingtemas kon nie gelaai word nie. Vra jou administrateur om die temalêers na te gaan.</value>
+  </data>
+  <data name="Text_29731a29e24c" xml:space="preserve">
+    <value>{0} Foutkode: {1}.</value>
+  </data>
+  <data name="Text_448da3a27190" xml:space="preserve">
+    <value>Die handeling kon nie voltooi word nie omdat die toepassing ’n probleem ondervind het. Verfris die versameling voordat jy weer stoor. As dit voortduur, stuur die foutkode, fouttipe, verwysing en die stappe wat jy gevolg het aan ondersteuning.</value>
+  </data>
+  <data name="Text_460ab8c0af05" xml:space="preserve">
+    <value>Runninghill kon nie klaar laai nie. Herlaai die bladsy. As dit voortduur, probeer ’n privaat blaaiervenster en deel die diagnostiese besonderhede met ondersteuning.</value>
+  </data>
+  <data name="Text_196fad5535d0" xml:space="preserve">
+    <value>Hierdie bladsy kon nie vertoon word nie.</value>
+  </data>
+  <data name="Text_44b3e48553e2" xml:space="preserve">
+    <value>Herlaai die bladsy. Ongestoorde veranderings kan verlore gaan. Voordat jy weer stoor, kyk of dit reeds geslaag het.</value>
+  </data>
+  <data name="Text_1eb251da13db" xml:space="preserve">
+    <value>’n Lêer wat hierdie bladsy benodig kon nie gelaai word nie. Kontroleer jou verbinding en herlaai. As dit voortduur, deel die lêernaam en diagnostiese besonderhede met ondersteuning.</value>
+  </data>
+  <data name="Text_d565aeadaf9d" xml:space="preserve">
+    <value>Hierdie blaaier kan nie die toepassing laat loop nie. Werk jou blaaier by en maak seker JavaScript en WebAssembly word toegelaat; herlaai dan.</value>
+  </data>
+  <data name="Text_6dcf3b79be21" xml:space="preserve">
+    <value>Diagnostiese besonderhede</value>
+  </data>
+  <data name="Text_c489054c7a8c" xml:space="preserve">
+    <value>Kopieer diagnostiese besonderhede</value>
+  </data>
+  <data name="Text_788517e7d908" xml:space="preserve">
+    <value>Diagnostiese besonderhede gekopieer.</value>
+  </data>
+  <data name="Text_5f3585ef5649" xml:space="preserve">
+    <value>Kon nie outomaties kopieer nie. Kies en kopieer die diagnostiese besonderhede hieronder.</value>
+  </data>
+  <data name="Text_3b5ba7a90fe1" xml:space="preserve">
+    <value>Deel hierdie besonderhede met ondersteuning. Moenie jou toegangsteken insluit nie.</value>
+  </data>
+  <data name="Text_31fbfa58c6ba" xml:space="preserve">
+    <value>Moniteringskontrolepaneel</value>
+  </data>
+  <data name="Text_5a71188bf57d" xml:space="preserve">
+    <value>Moniteringsinstellings</value>
+  </data>
+  <data name="Text_b4ddb3c1ca6c" xml:space="preserve">
+    <value>Verbindingsinstellings</value>
+  </data>
+  <data name="Text_1ae6e2835d04" xml:space="preserve">
+    <value>Kontrolepaneeltotale</value>
+  </data>
+  <data name="Text_c10d09e7b07b" xml:space="preserve">
+    <value>Tyd tussen gesondheidstoetse (sekondes)</value>
+  </data>
+  <data name="Text_0f4d8a4a0006" xml:space="preserve">
+    <value>Begin monitering</value>
+  </data>
+  <data name="Text_42608b8d426c" xml:space="preserve">
+    <value>Stop monitering</value>
+  </data>
+  <data name="Text_1dc83f605edf" xml:space="preserve">
+    <value>Monitering</value>
+  </data>
+  <data name="Text_e159b06187d3" xml:space="preserve">
+    <value>Onderbreek</value>
+  </data>
+  <data name="Text_e0fde244452a" xml:space="preserve">
+    <value>Elke siklus toets die diens en webwerf een keer. Stop monitering om verbindingsinstellings of die tydsinterval te verander.</value>
+  </data>
+  <data name="Text_eb650fa1243e" xml:space="preserve">
+    <value>Webwerf-URL</value>
+  </data>
+  <data name="Text_4da75dca52ab" xml:space="preserve">
+    <value>Die toegangsteken bly in die geheue. Totale vereis words.read en sentences.read; dienslogboeke vereis logs.read; lastoetse vereis status.read.</value>
+  </data>
+  <data name="Text_3ac906f5758c" xml:space="preserve">
+    <value>Gesondheidstoetse</value>
+  </data>
+  <data name="Text_a731fabd7bee" xml:space="preserve">
+    <value>Voltooide eindpunttoetse in hierdie sessie</value>
+  </data>
+  <data name="Text_7bd31a025d29" xml:space="preserve">
+    <value>Mislukkings</value>
+  </data>
+  <data name="Text_2f507b79ca35" xml:space="preserve">
+    <value>Mislukte gesondheidstoetse in hierdie sessie</value>
+  </data>
+  <data name="Text_36b9d71ed1c6" xml:space="preserve">
+    <value>Gestoorde woorde</value>
+  </data>
+  <data name="Text_347fbf7748e8" xml:space="preserve">
+    <value>Huidige databasistotaal</value>
+  </data>
+  <data name="Text_3292c07fdda7" xml:space="preserve">
+    <value>Totale nagegaan om</value>
+  </data>
+  <data name="Text_efeb097d6ea7" xml:space="preserve">
+    <value>Databasisgereedheid</value>
+  </data>
+  <data name="Text_b5a229ac8bec" xml:space="preserve">
+    <value>Webwerf</value>
+  </data>
+  <data name="Text_b11e7e279ac2" xml:space="preserve">
+    <value>Webbedienergesondheid</value>
+  </data>
+  <data name="Text_31ade2a02404" xml:space="preserve">
+    <value>Dienslastoets</value>
+  </data>
+  <data name="Text_1eaeb59b443b" xml:space="preserve">
+    <value>Reaksietyd onder las</value>
+  </data>
+  <data name="Text_56e56e703898" xml:space="preserve">
+    <value>95ste persentiel</value>
+  </data>
+  <data name="Text_b852f4395064" xml:space="preserve">
+    <value>Reaksietyd, nie SVE-gebruik nie. Meterbereik: 0–2,000 ms. Laer is beter.</value>
+  </data>
+  <data name="Text_407b7a04662f" xml:space="preserve">
+    <value>Besig om te toets…</value>
+  </data>
+  <data name="Text_3695c242dbd6" xml:space="preserve">
+    <value>Voer lastoets uit</value>
+  </data>
+  <data name="Text_03e8bead9361" xml:space="preserve">
+    <value>'n Toets stuur hoogstens 24 leesalleenversoeke, met vier wat gelyktydig loop. Dit stop binne 20 sekondes.</value>
+  </data>
+  <data name="Text_9d7ece7dec91" xml:space="preserve">
+    <value>Laaste gesondheidstoets</value>
+  </data>
+  <data name="Text_7e318f15a1db" xml:space="preserve">
+    <value>Kontrolepaneellogboeke</value>
+  </data>
+  <data name="Text_10f639e7d15b" xml:space="preserve">
+    <value>Dienslogboeke</value>
+  </data>
+  <data name="Text_49c266baaaa7" xml:space="preserve">
+    <value>Soek</value>
+  </data>
+  <data name="Text_0184905d7451" xml:space="preserve">
+    <value>Slegs onlangse bewaarde gebeure. Ouer bladsye wys die beskikbare geskiedenis; herbegin van die diens maak sy geheuelogboeke skoon.</value>
+  </data>
+  <data name="Text_5525724957cc" xml:space="preserve">
+    <value>Geen gebeure om te wys nie.</value>
+  </data>
+  <data name="Text_37d3ab857e50" xml:space="preserve">
+    <value>Nuutste gebeure</value>
+  </data>
+  <data name="Text_931b9f282d0f" xml:space="preserve">
+    <value>Kontrolepaneel oopgemaak.</value>
+  </data>
+  <data name="Text_e9556fcfce00" xml:space="preserve">
+    <value>Voer 'n heelgetal sekondes van 1 tot 3,600 in.</value>
+  </data>
+  <data name="Text_334776b3cd96" xml:space="preserve">
+    <value>Voer 'n HTTPS-adres in, of HTTP op localhost. Moenie wagwoorde, navraagstringe of fragmente insluit nie.</value>
+  </data>
+  <data name="Text_c76c907d0fe6" xml:space="preserve">
+    <value>Monitering begin.</value>
+  </data>
+  <data name="Text_3e7c8783297c" xml:space="preserve">
+    <value>Monitering gestop.</value>
+  </data>
+  <data name="Text_38adb336b7a7" xml:space="preserve">
+    <value>Lastoets begin.</value>
+  </data>
+  <data name="Text_4015de90be9e" xml:space="preserve">
+    <value>Lastoets voltooi.</value>
+  </data>
+  <data name="Text_d22857f2203d" xml:space="preserve">
+    <value>Lastoets gekanselleer.</value>
+  </data>
+  <data name="Text_d16948e73a68" xml:space="preserve">
+    <value>Nog nie getoets nie</value>
+  </data>
+  <data name="Text_7f1e323b6272" xml:space="preserve">
+    <value>Gesond</value>
+  </data>
+  <data name="Text_ca1844969742" xml:space="preserve">
+    <value>Onbeskikbaar</value>
+  </data>
+  <data name="Text_53d21e94df96" xml:space="preserve">
+    <value>Voer 'n toegangsteken met status.read-toestemming in om 'n lastoets uit te voer.</value>
+  </data>
+  <data name="Text_3b3c9067ffe6" xml:space="preserve">
+    <value>Voer 'n toegangsteken in om versamelingtotale en dienslogboeke te lees.</value>
+  </data>
+  <data name="Text_39e9193553c5" xml:space="preserve">
+    <value>{0} versoeke; {1} mislukkings; {2:F1} versoeke/sekonde.</value>
+  </data>
+  <data name="Text_5c53997d0518" xml:space="preserve">
+    <value>{0} gebeure bewaar.</value>
+  </data>
+  <data name="Text_ead737b6c270" xml:space="preserve">
+    <value>Maak die kontrolepaneel toe en heropen dit. Deel die foutkode en fouttipe met ondersteuning. Gaan die sertifikaatlêer na indien een ingestel is.</value>
+  </data>
+  <data name="Text_fec8d8da75de" xml:space="preserve">
+    <value>Die HTTPS-sertifikaat kon nie geverifieer word nie; die toegangstoken is nog nie nagegaan nie. Vir localhost, stel RUNNINGHILL_DASHBOARD_CA_CERT op die volle pad van .run/tls/localhost.crt en heropen die kontrolepaneel. As dit reeds gestel is, maak seker dat nginx daardie sertifikaat gebruik en dat die gasheernaam en datums geldig is. Foutkode: HttpRequestError.SecureConnectionError.</value>
+  </data>
+</root>

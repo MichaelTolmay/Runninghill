@@ -15,6 +15,7 @@ PROJECTS = {
     'service': 'src/Runninghill.Service/Runninghill.Service.csproj',
     'cli': 'src/Clients/Runninghill.Cli/Runninghill.Cli.csproj',
     'web': 'src/Clients/Runninghill.Web/Runninghill.Web.csproj',
+    'dashboard': 'src/Clients/Runninghill.Dashboard/Runninghill.Dashboard.csproj',
     'maui': 'src/Clients/Runninghill.Maui/Runninghill.Maui.csproj',
     'tests': 'tests/Runninghill.Tests/Runninghill.Tests.csproj',
 }
@@ -27,10 +28,13 @@ def main():
     parser.add_argument('--target', choices=['all', 'core', *PROJECTS], default='all')
     parser.add_argument('--framework', help='MAUI target, for example net10.0-android36.1')
     parser.add_argument('--rid', help='Publish runtime, for example linux-x64 or android-arm64')
+    parser.add_argument('--output-root', type=Path, help='Publish folder, relative to the repository root or absolute; each app gets its own subfolder')
     parser.add_argument('--jobs', type=int, default=1, help='MSBuild worker count; dependencies still build before their callers')
     parser.add_argument('--property', action='append', default=[], help='Extra MSBuild Name=Value (repeatable)')
     args = parser.parse_args()
     args.configuration = args.configuration or ('Release' if args.action == 'publish' else 'Debug')
+    if args.output_root and args.action != 'publish':
+        parser.error('--output-root applies only to publish')
     if args.jobs < 1:
         parser.error('--jobs must be at least 1')
     if args.framework and args.target not in ('maui', 'all'):
@@ -43,10 +47,11 @@ def main():
     if args.action == 'publish':
         targets = ['service', 'cli', 'web'] if args.target in ('all', 'core') else [args.target]
         if args.target == 'all':
+            targets.append('dashboard')
             targets.append('maui')
         if 'maui' in targets and (not args.framework or not args.rid):
             parser.error('MAUI publishing requires --framework and --rid for one selected device platform')
-        if any(target not in ('service', 'cli', 'web', 'maui') for target in targets):
+        if any(target not in ('service', 'cli', 'web', 'maui', 'dashboard') for target in targets):
             parser.error('Publish an executable client/service. Libraries are included with their host; use test for tests.')
         host_os = {'Linux': 'linux', 'Windows': 'win', 'Darwin': 'osx'}[platform.system()]
         host_arch = 'arm64' if platform.machine().lower() in ('arm64', 'aarch64') else 'x64'
@@ -59,7 +64,8 @@ def main():
                 command += ['-r', rid]
             if target == 'maui':
                 command += maui
-            output = ROOT / 'artifacts' / args.configuration / target
+            output_root = ROOT / args.output_root if args.output_root else ROOT / 'artifacts' / args.configuration
+            output = output_root / target
             if target != 'web':
                 output /= rid
             run([*command, '-o', str(output)])

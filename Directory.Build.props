@@ -5,6 +5,12 @@
     <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
     <IlcTreatWarningsAsErrors>true</IlcTreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- Prefer execution speed over smaller binaries. Symbols remain available for
+         diagnosing failures; they do not disable compiler optimisations. -->
+    <Optimize>true</Optimize>
+    <OptimizationPreference>Speed</OptimizationPreference>
+  </PropertyGroup>
   <!-- Per-machine SDK locations and installed Android version; never committed. -->
   <Import Project="$(MSBuildThisFileDirectory)Directory.Build.local.props" Condition="Exists('$(MSBuildThisFileDirectory)Directory.Build.local.props')" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -3,6 +3,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Release'">true</PublishReadyToRun>
+    <TieredCompilation>true</TieredCompilation>
+    <TieredPGO>true</TieredPGO>
     <!-- Photino/Blazor discovers components at runtime; preserve their metadata. -->
     <PublishTrimmed>false</PublishTrimmed>
     <PublishAot>false</PublishAot>

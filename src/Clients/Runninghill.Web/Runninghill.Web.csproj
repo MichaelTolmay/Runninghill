@@ -2,6 +2,10 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RunAOTCompilation Condition="'$(Configuration)' == 'Release'">true</RunAOTCompilation>
+    <!-- Favour runtime speed over download size; retain all runtime safety checks. -->
+    <EmccCompileOptimizationFlag Condition="'$(Configuration)' == 'Release'">-O3</EmccCompileOptimizationFlag>
+    <WasmBitcodeCompileOptimizationFlag Condition="'$(Configuration)' == 'Release'">-O3</WasmBitcodeCompileOptimizationFlag>
+    <EmccLinkOptimizationFlag Condition="'$(Configuration)' == 'Release'">-O3</EmccLinkOptimizationFlag>
     <IsAotCompatible>true</IsAotCompatible>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <!-- Content-based filenames prevent an older cached script from being used with a new assembly. -->

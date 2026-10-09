@@ -12,6 +12,8 @@ python3 scripts/dev-token.py (Windows python3 scripts\dev-token.py) The token wi
 
 Start with the [Starter quick guide](docs/starter-quick-guide.md) to run the website, API and included PostgreSQL database.
 
+See [Release builds](docs/release-builds.md) to publish all applications into the root `release/` folder with speed-focused compiler settings.
+
 The [Photino desktop dashboard](docs/desktop-dashboard.md) monitors service and
 website health, collection totals, response times under load, and application logs
 on Windows, macOS and Linux, with the same five languages and company themes.

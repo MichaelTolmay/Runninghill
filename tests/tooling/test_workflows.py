@@ -51,6 +51,14 @@ class BuildTests(unittest.TestCase):
         command, = self.commands('build', '--target', 'database', '-c', 'Release')
         self.assertIn(build.PROJECTS['database'], command)
 
+    def test_release_output_keeps_applications_and_platforms_separate(self):
+        """A shared destination must never cause one application's files to overwrite another's."""
+        with patch.object(build.platform, 'system', return_value='Linux'), patch.object(build.platform, 'machine', return_value='x86_64'):
+            commands = self.commands('publish', '--framework', 'net10.0-android36.1', '--rid', 'android-arm64', '--output-root', 'release')
+        outputs = [Path(command[command.index('-o') + 1]) for command in commands]
+        self.assertEqual(outputs, [ROOT / 'release' / relative for relative in (
+            'service/linux-x64', 'cli/linux-x64', 'web', 'dashboard/linux-x64', 'maui/android-arm64')])
+
 
 class DebugSettingsTests(unittest.TestCase):
     def test_compose_uses_configured_context_and_private_environment(self):

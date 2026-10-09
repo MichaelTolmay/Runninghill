@@ -28,10 +28,13 @@ def main():
     parser.add_argument('--target', choices=['all', 'core', *PROJECTS], default='all')
     parser.add_argument('--framework', help='MAUI target, for example net10.0-android36.1')
     parser.add_argument('--rid', help='Publish runtime, for example linux-x64 or android-arm64')
+    parser.add_argument('--output-root', type=Path, help='Publish folder, relative to the repository root or absolute; each app gets its own subfolder')
     parser.add_argument('--jobs', type=int, default=1, help='MSBuild worker count; dependencies still build before their callers')
     parser.add_argument('--property', action='append', default=[], help='Extra MSBuild Name=Value (repeatable)')
     args = parser.parse_args()
     args.configuration = args.configuration or ('Release' if args.action == 'publish' else 'Debug')
+    if args.output_root and args.action != 'publish':
+        parser.error('--output-root applies only to publish')
     if args.jobs < 1:
         parser.error('--jobs must be at least 1')
     if args.framework and args.target not in ('maui', 'all'):
@@ -61,7 +64,8 @@ def main():
                 command += ['-r', rid]
             if target == 'maui':
                 command += maui
-            output = ROOT / 'artifacts' / args.configuration / target
+            output_root = ROOT / args.output_root if args.output_root else ROOT / 'artifacts' / args.configuration
+            output = output_root / target
             if target != 'web':
                 output /= rid
             run([*command, '-o', str(output)])

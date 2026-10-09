@@ -104,9 +104,11 @@ def check_http(provider, connection):
 
 try:
     password = 'Test9!' + secrets.token_hex(24)
-    pg = start('Postgres', 'postgres:17-alpine', 5432, {'POSTGRES_PASSWORD': password},
+    # Match Compose: a role named like the application schema exposes search_path bugs
+    # that the default "postgres" role would hide during multi-stage migrations.
+    pg = start('Postgres', 'postgres:17-alpine', 5432, {'POSTGRES_USER': 'runninghill', 'POSTGRES_PASSWORD': password},
                ['postgres', '-p', '{port}', '-c', 'listen_addresses=' + ('127.0.0.1' if args.host_network else '*')], 'database system is ready to accept connections')
-    environment['RUNNINGHILL_TEST_POSTGRES'] = f'Host=127.0.0.1;Port={pg};Database=runninghill_test_collection;Username=postgres;Password={password};Timeout=5'
+    environment['RUNNINGHILL_TEST_POSTGRES'] = f'Host=127.0.0.1;Port={pg};Database=runninghill_test_collection;Username=runninghill;Password={password};Timeout=5'
     mysql = start('MySQL', 'mysql:8.4', 3306, {'MYSQL_ROOT_PASSWORD': password, 'MYSQL_ROOT_HOST': '%'},
                   ['--port={port}', '--bind-address=' + ('127.0.0.1' if args.host_network else '0.0.0.0')], 'ready for connections')
     environment['RUNNINGHILL_TEST_MYSQL'] = f'Server=127.0.0.1;Port={mysql};Database=runninghill_test_collection;User=root;Password={password};SslMode=Required'

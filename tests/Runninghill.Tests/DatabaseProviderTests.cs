@@ -14,6 +14,24 @@ namespace Runninghill.Tests;
 /// </summary>
 public sealed class DatabaseProviderTests
 {
+    /// <summary>Upgrading a previously working deployment must preserve data and its migration receipts.</summary>
+    [Theory]
+    [MemberData(nameof(Providers))]
+    public async Task PostgresHistoryInUserSchemaIsPreserved(string provider)
+    {
+        if (provider != "Postgres") return;
+        await using var fixture = await Fixture.CreateAsync(provider);
+        var repository = fixture.Services.GetRequiredService<IWordRepository>();
+        var word = await repository.CreateAsync("retained", "Noun", default);
+        await using var db = await fixture.Services.GetRequiredService<CollectionContextFactory>().CreateAsync(default);
+        // Reproduce a previous release's history location, without changing collection tables.
+        await db.Database.ExecuteSqlRawAsync("ALTER TABLE public.\"__EFMigrationsHistory\" SET SCHEMA runninghill");
+        await fixture.Services.GetRequiredService<DatabaseMigrator>().MigrateAsync();
+        await fixture.Services.GetRequiredService<DatabaseMigrator>().MigrateAsync();
+        Assert.Equal(word, await repository.GetAsync(word.Id, default));
+        Assert.Equal(3, (await db.Database.GetAppliedMigrationsAsync()).Count());
+    }
+
     // SQLite always runs. CI/local container checks add the other providers explicitly.
     /// <summary>
     /// Always supplies SQLite and adds other engines only when their test connection settings are

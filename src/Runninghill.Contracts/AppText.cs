@@ -39,7 +39,14 @@ public static partial class AppText
     }
 
     /// <summary>Looks up a complete English message using a cached key map and the current client/request culture.</summary>
-    public static string T(string english) => Keys.TryGetValue(english, out var key) ? Get(key) : english;
+    public static string T(string english)
+    {
+        if (Keys.TryGetValue(english, out var key)) return Get(key);
+        // Windows raw strings/resources can contain CRLF, while generated keys use LF.
+        // Only normalise on a miss so ordinary UI labels keep the allocation-free lookup.
+        return english.Contains('\r') && Keys.TryGetValue(english.Replace("\r\n", "\n"), out key)
+            ? Get(key) : english;
+    }
 
     /// <summary>Reads a stable resource key, also used by native XAML bindings.</summary>
     public static string Get(string key) => Resources[Language].GetString(key, CultureInfo.InvariantCulture) ?? key;

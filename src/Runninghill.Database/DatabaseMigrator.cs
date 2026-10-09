@@ -22,7 +22,10 @@ public sealed class DatabaseMigrator(CollectionContextFactory factory, DatabaseS
         await using var db = await factory.CreateAsync(cancellation);
         db.Database.SetCommandTimeout(120); // Deployment DDL can take longer than an API request.
         if (settings.Provider == DatabaseProvider.PostgreSql)
+        {
+            await AdoptPreviousPostgresHistoryAsync(db, cancellation);
             await AdoptLegacyPostgresAsync(db, cancellation);
+        }
         var migrations = db.Database.GetMigrations().ToArray();
         var applied = (await db.Database.GetAppliedMigrationsAsync(cancellation)).ToHashSet();
         var searchMigration = migrations.Single(m => m.EndsWith("_AddSearchKey", StringComparison.Ordinal));
@@ -50,6 +53,33 @@ public sealed class DatabaseMigrator(CollectionContextFactory factory, DatabaseS
         operation.Complete();
     }
 
+    /// <summary>Preserves upgrades from releases whose unqualified history table landed in the user's schema.</summary>
+    private async Task AdoptPreviousPostgresHistoryAsync(CollectionDbContext db, CancellationToken cancellation)
+    {
+        var options = new DbContextOptionsBuilder<PostgresContext>().UseNpgsql(settings.ConnectionString,
+            provider => provider.MigrationsHistoryTable("__EFMigrationsHistory", "runninghill")).Options;
+        await using var previous = new PostgresContext(options);
+        var oldIds = (await previous.Database.GetAppliedMigrationsAsync(cancellation)).ToArray();
+        if (oldIds.Length == 0) return;
+        var known = db.Database.GetMigrations().ToHashSet(StringComparer.Ordinal);
+        if (oldIds.Any(id => !known.Contains(id)))
+            throw new InvalidOperationException("The previous PostgreSQL migration history contains an unknown migration. Check the deployed service version before upgrading.");
+        var currentIds = (await db.Database.GetAppliedMigrationsAsync(cancellation)).ToHashSet(StringComparer.Ordinal);
+        var missing = oldIds.Where(id => !currentIds.Contains(id)).ToArray();
+        if (missing.Length == 0) return;
+
+        var historyOptions = new DbContextOptionsBuilder<LegacyHistoryContext>().UseNpgsql(settings.ConnectionString).Options;
+        await using var history = new LegacyHistoryContext(historyOptions);
+        await using var transaction = await history.Database.BeginTransactionAsync(cancellation);
+        // EF generates the provider-specific, safely quoted DDL. Keep the old table intact:
+        // only migration receipts move, never collection data or schema version markers.
+        await history.Database.ExecuteSqlRawAsync(db.GetService<IHistoryRepository>().GetCreateIfNotExistsScript(), cancellation);
+        history.AddRange(missing.Select(id => new LegacyHistoryRow { MigrationId = id, ProductVersion = "10.0.12" }));
+        await history.SaveChangesAsync(cancellation);
+        await transaction.CommitAsync(cancellation);
+        OperationLog.Event(logger, "PostgresHistoryAdopted");
+    }
+
     /// <summary>
     /// Recognizes the existing version-2 PostgreSQL schema and records its EF baseline without
     /// replacing collection tables or IDs.
@@ -69,7 +99,7 @@ public sealed class DatabaseMigrator(CollectionContextFactory factory, DatabaseS
         var options = new DbContextOptionsBuilder<LegacyHistoryContext>().UseNpgsql(settings.ConnectionString).Options;
         await using var baseline = new LegacyHistoryContext(options);
         await using var transaction = await baseline.Database.BeginTransactionAsync(cancellation);
-        await baseline.GetService<IRelationalDatabaseCreator>().CreateTablesAsync(cancellation);
+        await baseline.Database.ExecuteSqlRawAsync(db.GetService<IHistoryRepository>().GetCreateIfNotExistsScript(), cancellation);
         baseline.Add(new LegacyHistoryRow { MigrationId = db.Database.GetMigrations().First(), ProductVersion = "10.0.12" });
         await baseline.SaveChangesAsync(cancellation);
         await transaction.CommitAsync(cancellation);
@@ -99,7 +129,7 @@ internal sealed class LegacyHistoryContext(DbContextOptions<LegacyHistoryContext
     protected override void OnModelCreating(ModelBuilder model)
     {
         var row = model.Entity<LegacyHistoryRow>();
-        row.ToTable("__EFMigrationsHistory");
+        row.ToTable("__EFMigrationsHistory", "public");
         row.HasKey(r => r.MigrationId);
         row.Property(r => r.MigrationId).HasMaxLength(150);
         row.Property(r => r.ProductVersion).HasMaxLength(32).IsRequired();

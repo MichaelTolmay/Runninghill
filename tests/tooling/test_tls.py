@@ -22,7 +22,8 @@ class CertificateTests(unittest.TestCase):
             subprocess.run(command, check=True, capture_output=True)
             certificate, key = directory / 'localhost.crt', directory / 'localhost.key'
             before = (certificate.read_bytes(), key.read_bytes())
-            subprocess.run(['openssl', 'verify', '-CAfile', str(certificate), str(certificate)], check=True, capture_output=True)
+            verification = subprocess.run(['openssl', 'verify', '-CAfile', str(certificate), str(certificate)], capture_output=True, text=True)
+            self.assertEqual(verification.returncode, 0, verification.stdout + verification.stderr)
             for flag, value in [('-checkhost', 'localhost'), ('-checkip', '127.0.0.1'), ('-checkip', '::1')]:
                 subprocess.run(['openssl', 'x509', '-in', str(certificate), '-noout', flag, value], check=True, capture_output=True)
             if os.name != 'nt':

@@ -15,6 +15,28 @@ namespace Runninghill.Tests;
 /// <summary>Checks translation completeness, request isolation, and unchanged collection contracts.</summary>
 public sealed class LocalizationTests
 {
+    /// <summary>Raw strings from Windows and Unix must select the same complete translated message.</summary>
+    [Theory]
+    [InlineData("af-ZA")]
+    [InlineData("xh-ZA")]
+    [InlineData("zu-ZA")]
+    [InlineData("tn-ZA")]
+    public void MultilineMessagesAcceptBothLineEndings(string language)
+    {
+        var english = new ResourceManager("Runninghill.Contracts.Resources.Text", typeof(AppText).Assembly)
+            .GetResourceSet(CultureInfo.InvariantCulture, true, false)!;
+        var entry = english.Cast<DictionaryEntry>().First(item => ((string)item.Value!).Contains('\n'));
+        var previous = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(language);
+            var unix = ((string)entry.Value!).Replace("\r\n", "\n");
+            Assert.Equal(AppText.Get((string)entry.Key), AppText.T(unix));
+            Assert.Equal(AppText.Get((string)entry.Key), AppText.T(unix.Replace("\n", "\r\n")));
+        }
+        finally { CultureInfo.CurrentUICulture = previous; }
+    }
+
     /// <summary>gRPC metadata selects the same translated status and failure language as HTTP.</summary>
     [Theory]
     [InlineData("af-ZA")]

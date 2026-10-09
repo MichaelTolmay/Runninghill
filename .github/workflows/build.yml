@@ -27,6 +27,15 @@ jobs:
         id: dotnet
         with:
           dotnet-version: 10.0.x
+      - name: Select OpenSSL 3 on macOS
+        if: ${{ runner.os == 'macOS' }}
+        # Avoid runner-dependent system OpenSSL/LibreSSL trust behaviour.
+        run: |
+          if ! brew list --versions openssl@3 >/dev/null; then
+            brew install openssl@3
+          fi
+          echo "$(brew --prefix openssl@3)/bin" >> "$GITHUB_PATH"
+          "$(brew --prefix openssl@3)/bin/openssl" version
       - name: Check build and debug tooling
         if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
         run: python -m unittest discover -s tests/tooling -v

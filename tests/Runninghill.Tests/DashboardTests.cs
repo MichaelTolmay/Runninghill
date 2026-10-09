@@ -45,7 +45,7 @@ public sealed class DashboardTests
             var address = app.Services.GetRequiredService<IServer>().Features.Get<IServerAddressesFeature>()!.Addresses.Single();
             using var http = DashboardClient.CreateHttpClient(scenario == "unconfigured" ? null : path, localhostOnly: true);
             var result = await Client(http).ProbeAsync(new Uri(address + "/health/live"), default);
-            Assert.Equal(healthy, result.Healthy);
+            Assert.True(result.Healthy == healthy, $"TLS scenario {scenario}: {result.Detail}");
             if (!healthy)
             {
                 Assert.Contains("HttpRequestError.SecureConnectionError", result.Detail);
@@ -66,7 +66,11 @@ public sealed class DashboardTests
         names.AddDnsName(hostname);
         if (hostname == "localhost") names.AddIpAddress(IPAddress.Loopback);
         request.CertificateExtensions.Add(names.Build());
-        return request.CreateSelfSigned(DateTimeOffset.UtcNow.AddDays(-2), DateTimeOffset.UtcNow.AddDays(expired ? -1 : 1));
+        using var certificate = request.CreateSelfSigned(DateTimeOffset.UtcNow.AddDays(-2), DateTimeOffset.UtcNow.AddDays(expired ? -1 : 1));
+        // Schannel cannot serve TLS with CreateSelfSigned's ephemeral private-key handle.
+        // Import through PKCS#12 with default key storage, as a real Windows HTTPS host does.
+        // Disposing the imported certificate releases its temporary key container.
+        return X509CertificateLoader.LoadPkcs12(certificate.Export(X509ContentType.Pkcs12), null);
     }
 
     /// <summary>Both build-output and launch-directory discovery work, but unrelated folders grant no trust.</summary>

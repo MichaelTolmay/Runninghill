@@ -40,7 +40,10 @@ public static class DatabaseRegistration
         // Five seconds leaves time for the API to return a useful failure before its deadline.
         switch (settings.Provider)
         {
-            case DatabaseProvider.PostgreSql: options.UseNpgsql(settings.ConnectionString, p => p.CommandTimeout(5)); break;
+            // PostgreSQL's default search_path starts with the user's own schema. Creating
+            // "runninghill" must not move/shadow migration history halfway through an upgrade.
+            case DatabaseProvider.PostgreSql: options.UseNpgsql(settings.ConnectionString,
+                p => p.CommandTimeout(5).MigrationsHistoryTable("__EFMigrationsHistory", "public")); break;
             case DatabaseProvider.SqlServer: options.UseSqlServer(settings.ConnectionString, p => p.CommandTimeout(5)); break;
             case DatabaseProvider.Sqlite: options.UseSqlite(settings.ConnectionString, p => p.CommandTimeout(5)); break;
             case DatabaseProvider.MySql: options.UseMySQL(settings.ConnectionString, p => p.CommandTimeout(5)); break;

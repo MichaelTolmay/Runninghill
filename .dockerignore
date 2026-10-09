@@ -2,6 +2,7 @@
 **/obj
 .git
 artifacts
+/release/
 **/*.log
 **/*.jsonl
 .env

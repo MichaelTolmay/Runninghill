@@ -96,4 +96,40 @@ public sealed class ClientMessagesTests
         response.Headers.TryAddWithoutValidation("X-Request-ID", new string('x', 129));
         Assert.Null(ClientMessages.ReadReference(response));
     }
+
+    /// <summary>Real HTTP codes remain searchable even when trusted validation wording replaces the default text.</summary>
+    [Fact]
+    public async Task ValidationKeepsItsHttpCodeAndReference()
+    {
+        using var response = new HttpResponseMessage(HttpStatusCode.Conflict)
+        {
+            Content = new StringContent("{\"detail\":\"This word already exists.\"}")
+        };
+        response.Headers.Add("X-Request-ID", "code-test");
+        var message = await ClientMessages.ReadErrorAsync(response, default);
+        Assert.Contains("HTTP 409 (Conflict)", message);
+        Assert.Contains("This word already exists.", message);
+        Assert.Contains("code-test", message);
+    }
+
+    /// <summary>Connection failures name their real .NET category without inventing an HTTP reply.</summary>
+    [Fact]
+    public void TlsFailureHasSearchableCategoryWithoutPrivateDetails()
+    {
+        var message = ClientMessages.ForRequestFailure(new HttpRequestException(HttpRequestError.SecureConnectionError, "private-token"));
+        Assert.Contains("HttpRequestError.SecureConnectionError", message);
+        Assert.DoesNotContain("HTTP ", message);
+        Assert.DoesNotContain("private-token", message);
+    }
+
+    /// <summary>App failures expose a code and exception type but never raw exception messages.</summary>
+    [Fact]
+    public void AppFailureExplainsRecoveryWithoutLeakingExceptionMessages()
+    {
+        var message = ClientMessages.ForUnexpected(new InvalidOperationException("private-token"));
+        Assert.Contains("RH-APP-UNEXPECTED", message);
+        Assert.Contains("InvalidOperationException", message);
+        Assert.Contains("before repeating a save", message);
+        Assert.DoesNotContain("private-token", message);
+    }
 }

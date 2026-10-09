@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <base href="/" />
   <title>Runninghill</title>
+  <script type="importmap"></script>
+  <link rel="stylesheet" href="theme-defaults.css" />
   <link rel="stylesheet" href="app.css" />
+  <script id="startup-loader" src="startup-errors#[.{fingerprint}].js"></script>
+  <script src="appearance#[.{fingerprint}].js"></script>
 </head>
 <body>
-  <div id="app">Loading Runninghill…</div>
-  <div id="blazor-error-ui" style="display:none">An unexpected error occurred. <a href="/">Reload</a></div>
-  <script src="dropdown.js" defer></script>
-  <script src="_framework/blazor.webassembly.js"></script>
+  <div id="app"><span id="startup-loading">Loading Runninghill…</span></div>
+  <div id="blazor-error-ui" style="display:none" role="alert">
+    <p id="startup-error">Runninghill could not finish loading. Reload the page. If this continues, try a private browser window and share the diagnostic details with support.</p>
+    <p id="startup-code"></p>
+    <a id="startup-reload" href="/">Reload</a>
+    <button id="startup-copy" type="button">Copy diagnostic details</button>
+    <span id="startup-copy-status" role="status"></span>
+    <details><summary id="startup-details-label">Diagnostic details</summary><pre id="startup-details"></pre></details>
+    <p id="startup-share">Share these details with support. Do not include your access token.</p>
+  </div>
+  <script src="localization#[.{fingerprint}].js"></script>
+  <script src="dropdown#[.{fingerprint}].js" defer></script>
+  <script src="_framework/blazor.webassembly#[.{fingerprint}].js" autostart="false"></script>
 </body>
 </html>

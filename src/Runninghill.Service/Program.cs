@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.RateLimiting;
@@ -28,7 +29,7 @@ if (builder.Environment.IsDevelopment())
             .AddEnvironmentVariables().AddCommandLine(args);
     builder.Services.AddCors(options => options.AddPolicy("LocalDebugger", policy => policy
         .WithOrigins("http://localhost:5182", "http://127.0.0.1:5182")
-        .WithMethods("GET", "POST", "PUT", "DELETE").WithHeaders("Authorization", "Content-Type").WithExposedHeaders("X-Request-ID")));
+        .WithMethods("GET", "POST", "PUT", "DELETE").WithHeaders("Authorization", "Content-Type", "Accept-Language").WithExposedHeaders("X-Request-ID")));
 }
 // Migration mode needs only database settings. It never opens HTTP listeners or requires
 // an access-token issuer, so deployment tooling can use a separate DDL credential.
@@ -102,6 +103,27 @@ builder.Services.AddRateLimiter(options =>
 builder.Services.AddHealthChecks().AddCheck<DatabaseHealthCheck>("database", tags: ["ready"], timeout: TimeSpan.FromSeconds(6));
 
 var app = builder.Build();
+// Culture belongs to this request, never to a process-wide server setting.
+var localization = new RequestLocalizationOptions()
+    .SetDefaultCulture("en-ZA")
+    .AddSupportedCultures(AppText.Languages.ToArray())
+    .AddSupportedUICultures(AppText.Languages.ToArray());
+localization.RequestCultureProviders = [new AcceptLanguageHeaderRequestCultureProvider()];
+localization.ApplyCurrentCultureToResponseHeaders = true;
+app.UseRequestLocalization(localization);
+app.Use((context, next) =>
+{
+    // Exception handling clears response headers. Add the selected language when the reply
+    // actually starts so successful replies and error replies carry the same information.
+    var language = AppText.Language;
+    context.Response.OnStarting(() =>
+    {
+        context.Response.Headers.ContentLanguage = language;
+        context.Response.Headers.Append("Vary", "Accept-Language");
+        return Task.CompletedTask;
+    });
+    return next(context);
+});
 app.UseRequestEventLogging();
 app.Lifetime.ApplicationStarted.Register(() => app.Logger.LogInformation("Service started."));
 app.Lifetime.ApplicationStopping.Register(() => app.Logger.LogInformation("Service stopping; finishing active requests."));
@@ -156,7 +178,7 @@ app.MapGet("/api/status", async (IRunninghillApplication application, HttpContex
 {
     try
     {
-        return Results.Ok(new StatusResponse(await application.GetStatusAsync(cancellationToken)));
+        return Results.Ok(new StatusResponse(AppText.T(await application.GetStatusAsync(cancellationToken))));
     }
     catch (ApplicationUnavailableException)
     {

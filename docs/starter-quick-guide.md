@@ -67,10 +67,22 @@ docker --context default compose -f compose.yaml -f deploy/compose.host-network.
 python3 scripts/smoke-stack.py
 ```
 
+If a newer Docker builder asks for `--allow=network.host`, replace the build
+command with these two commands (the file contains build settings, not runtime credentials):
+
+```sh
+docker --context default compose -f compose.yaml -f deploy/compose.host-network.yaml build --print > .run/docker-build.json
+docker --context default buildx bake --allow=network.host -f .run/docker-build.json
+```
+
+Create `.run` first if it does not exist; the certificate setup also creates it.
+
 When using this mode, include `-f compose.yaml -f deploy/compose.host-network.yaml`
 in later Compose commands too. The website and API addresses remain the same.
 
 ## 4. Open the website and connect
+
+For **self-signed HTTPS on https://localhost:5443**, follow [HTTPS and nginx reverse proxy](https.md) after the build/migration steps above. It includes certificate generation, the Compose overrides for this Linux host, and browser trust instructions. Without those overrides, use HTTP below.
 
 1. Open **http://localhost:5082**.
 2. Generate a development access token:
@@ -88,12 +100,141 @@ Tokens expire after 15 minutes. Generate another when needed. The access token
 is different from the PostgreSQL password. Refreshing the browser clears the
 in-memory token; it does not delete saved words or sentences.
 
+### Choose your appearance
+
+The centered controls at the top appear in this order: **System theme → App theme → Logs**.
+**System theme** offers **Light**, **Dark**, and **System**. System follows your device's
+appearance and updates when the device changes between light and dark. Explicit Light
+or Dark choices stay fixed. Your preferences are remembered per browser or native app;
+changing them keeps your connection, filters, and sentence draft.
+
+**App theme** lists company palettes matching the current brightness. The initial pair
+is `Runninghill_light` and `Runninghill_dark`. Changing brightness automatically uses the
+same company's other variant. The Logs page uses the same palette.
+
+The collection page displays the company image below the header and above the
+introductory text. Place images in `themes/<companyname>_light_icon.webp` and
+`themes/<companyname>_dark_icon.webp`. Both Runninghill files initially contain the
+supplied white artwork unchanged; `IconBackground` gives it a charcoal backing.
+Images switch with the theme and fit inside a centered 256 × 128 box, shrinking on
+narrow screens without stretching or cropping. The web packages the original WebP;
+native builds generate compatible PNG resources automatically. Rebuild after replacing
+an image. A company without an image uses the matching Runninghill image.
+
+Company palettes live in the root **`themes/`** directory. Copy both Runninghill JSON
+files to `<companyname>_light.json` and `<companyname>_dark.json`, keep all colour-role
+names, and replace the `#RRGGBB` values. Company names may contain ASCII letters,
+digits, underscores, and hyphens. Filenames remain stable company identifiers;
+selector labels and brightness choices are translated into all five languages.
+
+Run `python3 scripts/check-themes.py`, then rebuild the web and native clients. The
+build embeds every `themes/*.json` file, so new company pairs appear without changing
+C# or Razor code. If you modify the built-in Runninghill palettes, first run
+`python3 scripts/check-themes.py --generate` to refresh the web's startup colours.
+Incomplete or invalid optional pairs are omitted with a translated message. Invalid
+theme packages fail the CI check. Theme JSON accepts colours only, with no executable CSS
+or remote URLs.
+
+### Choose your language
+
+Use the **Language** selector on the website or native app. English (ZA),
+Afrikaans (ZA), isiXhosa (ZA), isiZulu (ZA), and Setswana (ZA) are available.
+Your selection is remembered on that browser or device. Changing it keeps your
+connection and sentence draft. Labels, word-type names, instructions, feedback,
+accessibility descriptions, and the Logs interface use the selected language.
+
+Saved words and sentences keep the spelling you entered. API word types and CLI
+commands retain their English identifiers so integrations keep working. Raw
+diagnostic records also retain their original text, category, and reference for
+support; the surrounding log controls and severity labels are translated.
+
+For the CLI, pass `--language` anywhere in the command:
+
+If you already published an older CLI, update it first with
+`python3 scripts/build.py publish --target cli`. The setup scripts reuse an
+existing binary.
+
+```sh
+./scripts/setup-cli.sh --language af-ZA words list
+```
+
+```powershell
+.\scripts\setup-cli.ps1 --language zu-ZA words list
+```
+
+The available codes are `en-ZA`, `af-ZA`, `xh-ZA`, `zu-ZA`, and `tn-ZA`.
+Alternatively, set `RUNNINGHILL_LANGUAGE` before running the CLI. The command-line
+option takes precedence. Native CLI builds now require the normal ICU runtime on
+Linux; invariant globalization cannot format these cultures.
+
+Each client sends `Accept-Language` to the service. HTTP validation and status
+messages, and gRPC status/error descriptions, use that request's language;
+unsupported languages fall back to `en-ZA`. Changing languages does not require
+a database migration or another token. Rebuild existing container images to use
+the new interface and translated service responses.
+
+Translations are compiled from `src/Runninghill.Contracts/Resources/Text*.resx`.
+All five dictionaries ship together, so switching languages needs no translation
+download. When changing a message, update every dictionary, retain its numbered
+placeholders, and run:
+
+```sh
+python3 scripts/check-localization.py --generate
+python3 scripts/check-localization.py
+```
+
+The check also runs in CI. Translation completeness and formatting are tested;
+native-speaker review is still recommended for terminology and natural phrasing.
+
 | Component | Address |
 | --- | --- |
 | Website | `http://localhost:5082` |
+| SSL/TLS | 'https://localhost:5443' |
 | HTTP/JSON API | `http://localhost:5080` |
 | gRPC endpoint | `localhost:5081` |
 | Database readiness | `http://localhost:5080/health/ready` |
+
+## Use the CLI with HTTPS
+
+With the HTTPS containers running, these scripts use `https://localhost:5443/`,
+publish the native CLI if it is missing, generate a fresh development token, and
+run your command. No arguments means `status`.
+
+Linux/macOS (Bash):
+
+```sh
+./scripts/setup-cli.sh
+./scripts/setup-cli.sh words list
+./scripts/setup-cli.sh words add hello Noun
+```
+
+Windows (PowerShell):
+
+```powershell
+.\scripts\setup-cli.ps1
+.\scripts\setup-cli.ps1 words list
+.\scripts\setup-cli.ps1 words add hello Noun
+```
+
+Run the scripts directly, **not by sourcing/dot-sourcing them**. You can run them
+from any folder using their full path. Use the script for each command: its token
+is not printed or saved and the caller's environment is left unchanged. Tokens
+are generated again on every invocation, so you do not need to paste or refresh
+one manually. The commands still enforce the API's token permissions.
+
+The scripts require Python 3, this checkout's `.env`, and
+`.run/tls/localhost.crt`. Follow [HTTPS setup](https.md) first if these are missing.
+If no published CLI exists, .NET 10 and the platform's Native AOT build tools are
+needed. After changing CLI code, publish it again with
+`python3 scripts/build.py publish --target cli`; the setup scripts reuse an existing binary.
+
+On Linux, certificate trust applies only to the CLI process. On Windows, the
+PowerShell script imports the public localhost certificate into **Current User →
+Trusted Root Certification Authorities** if it is not already there. On macOS,
+the scripts trust it in your login keychain; macOS may ask for permission. These
+Windows/macOS trust entries persist until removed in certificate/keychain settings.
+Certificate validation stays enabled. Only trust a certificate generated for your
+own local service. The scripts do not start containers or reset the database.
 
 ## 5. PostgreSQL is included
 
@@ -122,14 +263,13 @@ docker --context default compose exec database psql -U runninghill -d runninghil
 ```
 
 In host-network mode, also add `-h 127.0.0.1 -p 55432` to both database commands.
-See [database configuration](databases.md) for other providers and migration details.
 
 ## 6. View logs and stop safely
 
 Choose **Logs** in the website or native app. Select local app events or **Service**.
 Service logs need `logs.read` permission, which newly generated development tokens
-include. Search, filter severity and refresh to inspect recent events. See
-[logging](logging.md) for retained files and console output.
+include. Search, filter severity and refresh to inspect recent events. Use the
+container log command below for server output.
 
 ```sh
 docker --context default compose ps
@@ -152,8 +292,42 @@ the saved database.
 | Token rejected or expired | Generate a fresh token with `scripts/dev-token.py` for this Docker stack and reconnect. |
 | Service logs report missing permission | Generate a new development token; for an external identity provider, ask its administrator for `logs.read`. |
 | Docker cannot create a bridge on Linux | Use the host-network sequence in step 3. |
+| The normal browser window fails but a private window works | Use **Ctrl+Shift+R** once after upgrading. This reloads cached files without deleting your preferences or database. Startup scripts have content-based versioned names, and nginx revalidates the entry page to prevent mixing releases. |
 
-For debugger setup and separate project builds, see [build and debug](build-and-debug.md).
-For native clients, see [Android](android.md) and [Windows desktop](windows-desktop.md).
+### Report an error
+
+The browser's error panel explains recovery and offers **Copy diagnostic details**.
+If clipboard access is blocked, expand **Diagnostic details** and copy the text.
+Send the code, reference, time, browser version, and steps that caused the error.
+Never send an access token. Reloading can discard an unsaved draft; check the
+collection before repeating a save that may have reached the service.
+
+HTTP codes and .NET error names below are standard identifiers you can search online.
+`RH-` codes are specific to Runninghill; this table is their reference, not a claim
+that a public internet error catalogue contains them.
+
+| Code | Meaning and next step |
+| --- | --- |
+| HTTP 401 (Unauthorized) | The token is missing, expired, or invalid. Generate a new token for the running service. |
+| HTTP 403 (Forbidden) | The token lacks permission. Ask the administrator for the required scope. |
+| HTTP 404 (NotFound) | Check the service URL and whether the app and service versions match. |
+| HTTP 409 (Conflict) | Follow the supplied validation message, then refresh before retrying. |
+| HTTP 429 (TooManyRequests) | Wait before trying again. |
+| HTTP 500 / 502 / 503 / 504 | The service or proxy could not complete the request. Report the HTTP code and request reference; administrators should check service health and logs. |
+| HttpRequestError.SecureConnectionError | TLS verification failed. Check the device clock and certificate trust. |
+| HttpRequestError.NameResolutionError | The hostname could not be resolved. Check the address and network connection. |
+| RH-NETWORK / RH-NETWORK-TIMEOUT | No usable reply arrived. Check connectivity; no HTTP status is invented when none was received. |
+| RH-REPLY-INVALID | The service reply is incompatible or incomplete. Report the app and service versions. |
+| RH-APP-UNEXPECTED | A client action failed. Report the exception type and reference; refresh before repeating a save. |
+| RH-WEB-ASSET | A startup script or stylesheet failed to load. Check the connection, reload, and report the file name. |
+| RH-WEB-START | The browser runtime did not finish starting. Hard-refresh, then try a private window and report the diagnostic details. |
+| RH-WEB-UNSUPPORTED | Update the browser and allow JavaScript and WebAssembly. |
+| RH-WEB-RENDER / RH-WEB-RUNTIME | The page could not render or stopped working. Report the exception type and reference before reloading. |
+
+Service request references match service logs. Client references match local app
+logs or the browser console; copy them before reloading. Diagnostic reports exclude
+tokens, form values, raw exception messages, response bodies, and URL query strings.
+
+For available build targets and platform options, run `python3 scripts/build.py --help`.
 Debug services use ports `5180`–`5182` and tokens from `scripts/dev.py token`;
 do not mix those tokens with the Docker setup above.

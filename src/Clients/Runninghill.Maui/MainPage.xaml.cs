@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
@@ -29,6 +30,7 @@ public partial class MainPage : ContentPage
     private readonly List<WordResponse> chosen = [];
     private readonly List<(Grid Row, View Actions)> wordLayouts = [];
     private WordResponse[] words = [];
+    private SentenceResponse[] history = [];
     private Border? deleteConfirmation;
     private WorkspaceLayout layout;
     private bool connected;
@@ -53,18 +55,18 @@ public partial class MainPage : ContentPage
         SearchInput.TextChanged += (_, _) => OperationLog.Event(logger, "SearchInputChanged", diagnostic: true);
         WordType.SelectedIndexChanged += (_, _) => OperationLog.Event(logger, "WordTypeChanged");
         ConfigureDesktop();
-        WordType.ItemsSource = WordTypes.All.ToArray(); WordType.SelectedIndex = 0;
+        WordType.ItemsSource = WordTypes.All.Select(T).ToArray(); WordType.SelectedIndex = 0;
         foreach (var type in WordTypes.All)
         {
-            var check = new CheckBox { Color = Color.FromArgb("#2868B1") };
-            SemanticProperties.SetDescription(check, $"Filter {type}");
+            var check = new CheckBox().WithTheme("Color", "AccentText");
+            SemanticProperties.SetDescription(check, F($"Filter {T(type)}"));
             check.CheckedChanged += (_, e) =>
             {
                 OperationLog.Event(logger, "TypeSelectionChanged");
                 if (e.Value) selectedTypes.Add(type); else selectedTypes.Remove(type);
-                TypeFilterButton.Text = $"Word types · {(selectedTypes.Count == 0 ? "All" : selectedTypes.Count)} ▾";
+                TypeFilterButton.Text = F($"Word types · {(selectedTypes.Count == 0 ? T("All") : selectedTypes.Count)} ▾");
             };
-            TypeFilters.Add(new HorizontalStackLayout { Children = { check, new Label { Text = type, VerticalOptions = LayoutOptions.Center } } });
+            TypeFilters.Add(new HorizontalStackLayout { Children = { check, new Label { Text = T(type), VerticalOptions = LayoutOptions.Center } } });
         }
         RenderWords(); RenderSentence();
 #if DEBUG
@@ -72,15 +74,15 @@ public partial class MainPage : ContentPage
         LocalConnections.IsVisible = true;
         if (OperatingSystem.IsAndroid())
         {
-            ConnectionHelp.Text = "Emulator: use 10.0.2.2 to reach your computer. For a USB-connected phone, forward port 5080 with adb and choose USB device. Paste a fresh token from the website's service.";
-            AddLocalConnection("Docker emulator", "http://10.0.2.2:5080/");
-            AddLocalConnection("Debug emulator", "http://10.0.2.2:5180/");
-            AddLocalConnection("USB device", "http://localhost:5080/");
+            ConnectionHelp.Text = T("Emulator: use 10.0.2.2 to reach your computer. For a USB-connected phone, forward port 5080 with adb and choose USB device. Paste a fresh token from the website's service.");
+            AddLocalConnection(T("Docker emulator"), "http://10.0.2.2:5080/");
+            AddLocalConnection(T("Debug emulator"), "http://10.0.2.2:5180/");
+            AddLocalConnection(T("USB device"), "http://localhost:5080/");
         }
         else
         {
-            AddLocalConnection("Docker service", "http://localhost:5080/");
-            AddLocalConnection("IDE service", "http://localhost:5180/");
+            AddLocalConnection(T("Docker service"), "http://localhost:5080/");
+            AddLocalConnection(T("IDE service"), "http://localhost:5180/");
         }
 #endif
     }
@@ -99,11 +101,11 @@ public partial class MainPage : ContentPage
         {
             connected = false; RefreshButtons();
             eventLog.Complete("ReconnectRequired");
-            StatusLabel.Text = "The service address changed. Connect again before editing words.";
+            StatusLabel.Text = T("The service address changed. Connect again before editing words.");
             return;
         }
         if (!Uri.TryCreate(ServiceUrl.Text, UriKind.Absolute, out var address) || !IsAllowedServiceAddress(address) || string.IsNullOrWhiteSpace(AccessToken.Text))
-        { eventLog.Complete("InvalidConnectionSettings"); StatusLabel.Text = "Enter an HTTPS service URL and an access token."; return; }
+        { eventLog.Complete("InvalidConnectionSettings"); StatusLabel.Text = T("Enter an HTTPS service URL and an access token."); return; }
         using var cancellation = new CancellationTokenSource();
         activeRequest = cancellation;
         confirmedChange = null;
@@ -115,16 +117,16 @@ public partial class MainPage : ContentPage
                 words = [];
                 chosen.Clear();
                 previous.Clear();
-                HistoryRows.Clear();
+                history = []; HistoryRows.Clear();
                 nextAfter = nextSentenceAfter = null;
                 CancelEdit();
                 RenderWords();
                 RenderSentence();
             }
-            Panels.IsEnabled = ConnectionFields.IsEnabled = false;
+            Panels.IsEnabled = ConnectionFields.IsEnabled = LanguageChoice.IsEnabled = false;
             ProgressIndicator.IsVisible = ProgressIndicator.IsRunning = true;
             Feedback.BackgroundColor = Colors.Transparent; Feedback.Padding = 0;
-            StatusLabel.Text = "Working…"; StatusLabel.TextColor = Color.FromArgb("#315C8C");
+            StatusLabel.Text = T("Working…"); StatusLabel.WithTheme("TextColor", "BadgeText");
             // Reuse the connection pool until the user changes the service address.
             if (client?.BaseAddress != address)
             {
@@ -137,8 +139,8 @@ public partial class MainPage : ContentPage
         catch (RequestFailure exception) { ShowError(exception.Message); }
         catch (HttpRequestException exception) { ShowError(ClientMessages.ForRequestFailure(exception)); }
         catch (JsonException) { ShowError(ClientMessages.InvalidReply); }
-        catch (FormatException) { ShowError("Copy a valid access token and connect again."); }
-        catch (OperationCanceledException) { eventLog.Complete(cancellation.IsCancellationRequested ? "Cancelled" : "TimedOut"); ShowError(cancellation.IsCancellationRequested ? "Request cancelled." : ClientMessages.TimedOut); }
+        catch (FormatException) { ShowError(T("Copy a valid access token and connect again.")); }
+        catch (OperationCanceledException) { eventLog.Complete(cancellation.IsCancellationRequested ? "Cancelled" : "TimedOut"); ShowError(cancellation.IsCancellationRequested ? T("Request cancelled.") : ClientMessages.TimedOut); }
         catch (Exception exception)
         {
             ReportUnexpected(exception);
@@ -147,7 +149,7 @@ public partial class MainPage : ContentPage
         {
             activeRequest = null;
             confirmedChange = null;
-            Panels.IsEnabled = ConnectionFields.IsEnabled = true;
+            Panels.IsEnabled = ConnectionFields.IsEnabled = LanguageChoice.IsEnabled = true;
             ProgressIndicator.IsVisible = ProgressIndicator.IsRunning = false;
             RefreshButtons();
         }
@@ -160,6 +162,7 @@ public partial class MainPage : ContentPage
     private async Task<T> SendAsync<T>(HttpMethod method, string path, JsonTypeInfo<T> type, CancellationToken cancellation, HttpContent? content = null)
     {
         using var request = new HttpRequestMessage(method, path) { Content = content };
+        request.Headers.AcceptLanguage.ParseAdd(Runninghill.Contracts.AppText.Language);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken.Text.Trim());
         using var response = await client!.SendAsync(request, cancellation);
         OperationLog.Response(logger, (int)response.StatusCode, ClientMessages.ReadReference(response));
@@ -191,9 +194,9 @@ public partial class MainPage : ContentPage
     {
         search = SearchInput.Text ?? ""; types = string.Join(',', selectedTypes);
         await LoadWordsAsync(0, ct); previous.Clear(); connected = true;
-        ConnectionState.Text = "Connected"; ConnectionFields.IsVisible = false;
+        ConnectionState.Text = T("Connected"); ConnectionFields.IsVisible = false;
         await LoadHistoryAsync(0, ct);
-    }, "Your collection is up to date.");
+    }, T("Your collection is up to date."));
 
     /// <summary>
     /// Fetches one filtered word page after the supplied ID and redraws the list with its next-page
@@ -217,13 +220,20 @@ public partial class MainPage : ContentPage
         if (page.Items is null) throw new JsonException();
         nextSentenceAfter = page.NextAfter;
         sentenceAfter = cursor;
+        history = page.Items;
+        RenderHistory();
+    }
+
+    /// <summary>Redraws saved content and dates locally when the language changes.</summary>
+    private void RenderHistory()
+    {
         HistoryRows.Clear();
-        if (page.Items.Length == 0) HistoryRows.Add(new Label { Text = "Your saved sentences will appear here." });
-        foreach (var sentence in page.Items)
+        if (history.Length == 0) HistoryRows.Add(new Label { Text = T("Your saved sentences will appear here.") });
+        foreach (var sentence in history)
         {
             HistoryRows.Add(new Label { Text = sentence.Text, LineBreakMode = LineBreakMode.CharacterWrap });
-            HistoryRows.Add(new Label { Text = sentence.CreatedAt.ToLocalTime().ToString("dd MMM yyyy · HH:mm"), FontSize = 11, TextColor = Color.FromArgb("#5E6979") });
-            HistoryRows.Add(new BoxView { HeightRequest = 1, Color = Color.FromArgb("#E2E8F0") });
+            HistoryRows.Add(new Label { Text = sentence.CreatedAt.ToLocalTime().ToString("dd MMM yyyy · HH:mm", Culture), FontSize = 11}.WithTheme("TextColor", "Muted"));
+            HistoryRows.Add(new BoxView { HeightRequest = 1}.WithTheme("Color", "Line"));
         }
     }
 
@@ -238,14 +248,14 @@ public partial class MainPage : ContentPage
         await RunAsync(async ct =>
         {
             var saved = await SendAsync(editingId is null ? HttpMethod.Post : HttpMethod.Put, editingId is null ? "api/words" : $"api/words/{editingId}", ApiJsonContext.Default.WordResponse, ct,
-                JsonContent.Create(new SaveWordRequest(WordInput.Text ?? "", WordType.SelectedItem as string ?? ""), ApiJsonContext.Default.SaveWordRequest));
-            confirmedChange = "Word saved.";
+                JsonContent.Create(new SaveWordRequest(WordInput.Text ?? "", WordType.SelectedIndex >= 0 ? WordTypes.All[WordType.SelectedIndex] : ""), ApiJsonContext.Default.SaveWordRequest));
+            confirmedChange = T("Word saved.");
             for (var i = 0; i < chosen.Count; i++) if (chosen[i].Id == saved.Id) chosen[i] = saved;
             CancelEdit(); RenderSentence();
             // Return to the full, paged collection rather than showing only the word just saved.
             search = ""; SearchInput.Text = search; types = ""; ClearTypes(); previous.Clear();
             await LoadWordsAsync(0, ct);
-        }, "Word saved. Your collection has been refreshed.");
+        }, T("Word saved. Your collection has been refreshed."));
     }
 
     /// <summary>
@@ -258,11 +268,11 @@ public partial class MainPage : ContentPage
         await RunAsync(async ct =>
         {
             await SendAsync(HttpMethod.Delete, $"api/words/{word.Id}", ApiJsonContext.Default.WordResponse, ct);
-            confirmedChange = "Word deleted.";
+            confirmedChange = T("Word deleted.");
             chosen.RemoveAll(item => item.Id == word.Id); sentenceRequestId = Guid.NewGuid(); RenderSentence();
             if (editingId == word.Id) CancelEdit();
             await LoadWordsAsync(after, ct);
-        }, "Word deleted. Saved sentences have not changed.");
+        }, T("Word deleted. Saved sentences have not changed."));
     }
 
     /// <summary>
@@ -271,15 +281,15 @@ public partial class MainPage : ContentPage
     private async Task EditAsync(WordResponse word)
     {
         OperationLog.Event(logger);
-        editingId = word.Id; WordInput.Text = word.Word; WordType.SelectedItem = word.Type;
-        WordFieldLabel.Text = "Edit word"; SaveWordButton.Text = "Save changes"; CancelEditButton.IsVisible = true;
+        editingId = word.Id; WordInput.Text = word.Word; WordType.SelectedIndex = Array.IndexOf(WordTypes.All.ToArray(), word.Type);
+        WordFieldLabel.Text = T("Edit word"); SaveWordButton.Text = T("Save changes"); CancelEditButton.IsVisible = true;
         await PageScroll.ScrollToAsync(WordForm, ScrollToPosition.Center, false); WordInput.Focus();
     }
 
     /// <summary>
     /// Clears the word editor and restores add-word mode without changing saved data.
     /// </summary>
-    private void CancelEdit() { OperationLog.Event(logger); editingId = null; WordInput.Text = ""; WordType.SelectedIndex = 0; WordFieldLabel.Text = "Add a word"; SaveWordButton.Text = "Add word"; CancelEditButton.IsVisible = false; }
+    private void CancelEdit() { OperationLog.Event(logger); editingId = null; WordInput.Text = ""; WordType.SelectedIndex = 0; WordFieldLabel.Text = T("Add a word"); SaveWordButton.Text = T("Add word"); CancelEditButton.IsVisible = false; }
 
     /// <summary>
     /// Handles Cancel edit by restoring the empty add-word form.
@@ -298,7 +308,7 @@ public partial class MainPage : ContentPage
             TypeFilterPanel.IsVisible = false;
             search = SearchInput.Text?.Trim() ?? ""; types = string.Join(',', selectedTypes);
             await LoadWordsAsync(0, ct); previous.Clear();
-        }, "Filters applied.");
+        }, T("Filters applied."));
     }
 
     /// <summary>
@@ -316,28 +326,28 @@ public partial class MainPage : ContentPage
             search = types = "";
             await LoadWordsAsync(0, ct);
             previous.Clear();
-        }, "Filters cleared.");
+        }, T("Filters cleared."));
     }
 
     /// <summary>
     /// Loads the next word page and keeps the old bookmark for Previous after the load succeeds.
     /// </summary>
-    private async void OnNext(object? sender, EventArgs e) => await RunAsync(async ct => { var old = after; await LoadWordsAsync(nextAfter!.Value, ct); previous.Push(old); }, "Next page loaded.");
+    private async void OnNext(object? sender, EventArgs e) => await RunAsync(async ct => { var old = after; await LoadWordsAsync(nextAfter!.Value, ct); previous.Push(old); }, T("Next page loaded."));
 
     /// <summary>
     /// Loads the preceding word page and removes its bookmark only after the load succeeds.
     /// </summary>
-    private async void OnPrevious(object? sender, EventArgs e) => await RunAsync(async ct => { await LoadWordsAsync(previous.Peek(), ct); previous.Pop(); }, "Previous page loaded.");
+    private async void OnPrevious(object? sender, EventArgs e) => await RunAsync(async ct => { await LoadWordsAsync(previous.Peek(), ct); previous.Pop(); }, T("Previous page loaded."));
 
     /// <summary>
     /// Reloads the newest saved sentences and returns history to its first page.
     /// </summary>
-    private async void OnHistoryFirst(object? sender, EventArgs e) => await RunAsync(ct => LoadHistoryAsync(0, ct), "Saved sentences refreshed.");
+    private async void OnHistoryFirst(object? sender, EventArgs e) => await RunAsync(ct => LoadHistoryAsync(0, ct), T("Saved sentences refreshed."));
 
     /// <summary>
     /// Loads the next page of older saved sentences.
     /// </summary>
-    private async void OnHistoryNext(object? sender, EventArgs e) => await RunAsync(ct => LoadHistoryAsync(nextSentenceAfter!.Value, ct), "Next sentences loaded.");
+    private async void OnHistoryNext(object? sender, EventArgs e) => await RunAsync(ct => LoadHistoryAsync(nextSentenceAfter!.Value, ct), T("Next sentences loaded."));
 
     /// <summary>
     /// Saves the ordered draft with its retry ID, then clears it and reloads history after
@@ -347,13 +357,13 @@ public partial class MainPage : ContentPage
     {
         await SendAsync(HttpMethod.Post, "api/sentences", ApiJsonContext.Default.SentenceResponse, ct,
             JsonContent.Create(new SaveSentenceRequest(chosen.Select(w => w.Id).ToArray(), sentenceRequestId), ApiJsonContext.Default.SaveSentenceRequest));
-        confirmedChange = "Sentence saved.";
+        confirmedChange = T("Sentence saved.");
         // Only reset after a confirmed save; an uncertain network retry reuses the request ID.
         chosen.Clear();
         sentenceRequestId = Guid.NewGuid();
         RenderSentence();
         await LoadHistoryAsync(0, ct);
-    }, "Sentence saved.");
+    }, T("Sentence saved."));
 
     /// <summary>
     /// Empties the sentence draft and assigns a new request ID for the next intended save.
@@ -413,7 +423,7 @@ public partial class MainPage : ContentPage
         catch (Exception exception)
         {
             logger.LogWarning("Section navigation failed: {ErrorType}", exception.GetType().Name);
-            ShowError("Could not jump to that section. You can still scroll to it.");
+            ShowError(T("Could not jump to that section. You can still scroll to it."));
         }
     }
 
@@ -449,9 +459,9 @@ public partial class MainPage : ContentPage
         if (activeRequest is not null) return;
         AccessToken.Text = ""; connected = false; words = []; chosen.Clear(); previous.Clear();
         nextAfter = nextSentenceAfter = null; after = sentenceAfter = 0; sentenceRequestId = Guid.NewGuid();
-        HistoryRows.Clear(); CancelEdit(); RenderWords(); RenderSentence(); RefreshButtons();
-        ConnectionState.Text = "Not connected"; ConnectionFields.IsVisible = true;
-        StatusLabel.Text = "Disconnected. Your saved words are safe in the database.";
+        history = []; HistoryRows.Clear(); CancelEdit(); RenderWords(); RenderSentence(); RefreshButtons();
+        ConnectionState.Text = T("Not connected"); ConnectionFields.IsVisible = true;
+        StatusLabel.Text = T("Disconnected. Your saved words are safe in the database.");
     }
 
     /// <summary>
@@ -461,8 +471,8 @@ public partial class MainPage : ContentPage
     private void RenderWords()
     {
         deleteConfirmation = null;
-        WordRows.Clear(); wordLayouts.Clear(); WordCount.Text = $"{words.Length} on this page";
-        if (words.Length == 0) WordRows.Add(new Label { Text = "Your collection starts here. Add a word above, or try a different search or type.", Margin = new Thickness(0, 24), HorizontalTextAlignment = TextAlignment.Center });
+        WordRows.Clear(); wordLayouts.Clear(); WordCount.Text = F($"{words.Length} on this page");
+        if (words.Length == 0) WordRows.Add(new Label { Text = T("Your collection starts here. Add a word above, or try a different search or type."), Margin = new Thickness(0, 24), HorizontalTextAlignment = TextAlignment.Center });
         // A page has at most 50 words. Never create controls for the entire database.
         foreach (var word in words)
         {
@@ -470,18 +480,18 @@ public partial class MainPage : ContentPage
             // Match the web row: spelling and type share a line, then wrap when space runs out.
             var spelling = new Label { Text = word.Word, FontAttributes = FontAttributes.Bold, FontSize = 16, LineBreakMode = LineBreakMode.CharacterWrap, Margin = new Thickness(0, 0, 10, 0) };
             FlexLayout.SetShrink(spelling, 1);
-            var description = new FlexLayout { Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap, AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Center, Children = { spelling, Tag(word.Type, word.Type) } };
+            var description = new FlexLayout { Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap, AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Center, Children = { spelling, Tag(T(word.Type), word.Type) } };
             // Let action buttons wrap on narrow screens instead of clipping their labels.
             var actions = new FlexLayout { Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap };
-            var add = ActionButton("+ Add to sentence", () => { if (chosen.Count < 50) { chosen.Add(word); sentenceRequestId = Guid.NewGuid(); RenderSentence(); StatusLabel.Text = $"Added {word.Word} to your sentence."; } return Task.CompletedTask; }, $"Add {word.Word} to sentence");
+            var add = ActionButton(T("+ Add to sentence"), () => { if (chosen.Count < 50) { chosen.Add(word); sentenceRequestId = Guid.NewGuid(); RenderSentence(); StatusLabel.Text = F($"Added {word.Word} to your sentence."); } return Task.CompletedTask; }, F($"Add {word.Word} to sentence"));
             add.Style = (Style)Resources["Secondary"];
-            add.BackgroundColor = Colors.White;
+            add.WithTheme("BackgroundColor", "Surface");
             add.BorderWidth = 1;
-            add.BorderColor = Color.FromArgb("#BDCFE4");
+            add.WithTheme("BorderColor", "SecondaryBorder");
             actions.Add(add);
-            actions.Add(ActionButton("Edit", () => EditAsync(word), $"Edit {word.Word}"));
+            actions.Add(ActionButton(T("Edit"), () => EditAsync(word), F($"Edit {word.Word}")));
             Border? confirmation = null;
-            actions.Add(ActionButton("Delete", () =>
+            actions.Add(ActionButton(T("Delete"), () =>
             {
                 if (deleteConfirmation is not null) deleteConfirmation.IsVisible = false;
                 // Most rows are never deleted. Create confirmation controls only on demand.
@@ -494,9 +504,9 @@ public partial class MainPage : ContentPage
                 deleteConfirmation = confirmation;
                 confirmation.IsVisible = true;
                 return Task.CompletedTask;
-            }, $"Delete {word.Word}", true));
+            }, F($"Delete {word.Word}"), true));
             row.Add(description); row.Add(actions, 1); wordLayouts.Add((row, actions));
-            WordRows.Add(row); WordRows.Add(new BoxView { HeightRequest = 1, Color = Color.FromArgb("#E2E8F0") });
+            WordRows.Add(row); WordRows.Add(new BoxView { HeightRequest = 1}.WithTheme("Color", "Line"));
         }
         AdaptWordLayout();
     }
@@ -508,21 +518,20 @@ public partial class MainPage : ContentPage
     {
         var box = new Border
         {
-            IsVisible = false, BackgroundColor = Color.FromArgb("#FFF1F2"), StrokeThickness = 0,
-            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 6 }, Padding = 12
-        };
-        var confirm = ActionButton("Confirm delete", () => DeleteAsync(word), $"Confirm deletion of {word.Word}");
+            IsVisible = false, StrokeThickness = 0,            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 6 }, Padding = 12
+        }.WithTheme("BackgroundColor", "ErrorBackground");
+        var confirm = ActionButton(T("Confirm delete"), () => DeleteAsync(word), F($"Confirm deletion of {word.Word}"));
         confirm.Style = (Style)Resources["DangerButton"];
-        confirm.BackgroundColor = Color.FromArgb("#B42337");
-        confirm.TextColor = Colors.White;
-        var keep = ActionButton("Keep word", () => { box.IsVisible = false; return Task.CompletedTask; }, $"Keep {word.Word}");
+        confirm.WithTheme("BackgroundColor", "Danger");
+        confirm.WithTheme("TextColor", "OnAccent");
+        var keep = ActionButton(T("Keep word"), () => { box.IsVisible = false; return Task.CompletedTask; }, F($"Keep {word.Word}"));
         keep.Style = (Style)Resources["Secondary"];
         box.Content = new VerticalStackLayout
         {
             Spacing = 8,
             Children =
             {
-                new Label { Text = $"Delete “{word.Word}”? Saved sentences will stay unchanged.", LineBreakMode = LineBreakMode.CharacterWrap },
+                new Label { Text = F($"Delete “{word.Word}”? Saved sentences will stay unchanged."), LineBreakMode = LineBreakMode.CharacterWrap },
                 new FlexLayout { Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap, Children = { confirm, keep } }
             }
         };
@@ -534,20 +543,20 @@ public partial class MainPage : ContentPage
     /// </summary>
     private void RenderSentence()
     {
-        SentenceRows.Clear(); SentenceShortcut.Text = chosen.Count == 0 ? "Sentence" : $"Sentence ({chosen.Count})"; SentenceCount.Text = $"{chosen.Count} / 50 words";
+        SentenceRows.Clear(); SentenceShortcut.Text = chosen.Count == 0 ? T("Sentence") : F($"Sentence ({chosen.Count})"); SentenceCount.Text = F($"{chosen.Count} / 50 words");
         SentencePreview.FontSize = chosen.Count == 0 ? 14 : 19;
-        SentencePreview.TextColor = Color.FromArgb(chosen.Count == 0 ? "#66758A" : "#253D5A");
-        SentencePreview.Text = chosen.Count == 0 ? "Add words from your collection to see your sentence here." : string.Join(' ', chosen.Select(w => w.Word));
+        SentencePreview.WithTheme("TextColor", chosen.Count == 0 ? "Muted" : "PreviewText");
+        SentencePreview.Text = chosen.Count == 0 ? T("Add words from your collection to see your sentence here.") : string.Join(' ', chosen.Select(w => w.Word));
         for (var i = 0; i < chosen.Count; i++)
         {
             var index = i;
             var row = new Grid { ColumnDefinitions = { new(GridLength.Star), new(GridLength.Auto) } };
             row.Add(Tag($"{i + 1}. {chosen[i].Word}", chosen[i].Type));
             var actions = new HorizontalStackLayout();
-            var earlier = ActionButton("←", () => { Move(index, -1); return Task.CompletedTask; }, $"Move word {i + 1} earlier"); earlier.IsEnabled = i > 0;
-            var later = ActionButton("→", () => { Move(index, 1); return Task.CompletedTask; }, $"Move word {i + 1} later"); later.IsEnabled = i < chosen.Count - 1;
+            var earlier = ActionButton("←", () => { Move(index, -1); return Task.CompletedTask; }, F($"Move word {i + 1} earlier")); earlier.IsEnabled = i > 0;
+            var later = ActionButton("→", () => { Move(index, 1); return Task.CompletedTask; }, F($"Move word {i + 1} later")); later.IsEnabled = i < chosen.Count - 1;
             actions.Add(earlier); actions.Add(later);
-            actions.Add(ActionButton("×", () => { chosen.RemoveAt(index); sentenceRequestId = Guid.NewGuid(); RenderSentence(); return Task.CompletedTask; }, $"Remove word {i + 1}"));
+            actions.Add(ActionButton("×", () => { chosen.RemoveAt(index); sentenceRequestId = Guid.NewGuid(); RenderSentence(); return Task.CompletedTask; }, F($"Remove word {i + 1}")));
             row.Add(actions, 1); SentenceRows.Add(row);
         }
         RefreshButtons();
@@ -564,7 +573,7 @@ public partial class MainPage : ContentPage
     /// </summary>
     private Button ActionButton(string text, Func<Task> action, string description, bool danger = false)
     {
-        var button = new Button { Text = text, BackgroundColor = Colors.Transparent, TextColor = Color.FromArgb(danger ? "#B42337" : "#2868B1"), Padding = new Thickness(8), FontSize = 13 };
+        var button = new Button { Text = text, BackgroundColor = Colors.Transparent, Padding = new Thickness(8), FontSize = 13 }.WithTheme("TextColor", danger ? "DangerText" : "AccentText");
         SemanticProperties.SetDescription(button, description);
         button.Clicked += async (_, _) =>
         {
@@ -583,11 +592,17 @@ public partial class MainPage : ContentPage
     {
         var (background, foreground) = type switch
         {
-            "Noun" or "Pronoun" => ("#E8EFFF", "#3856A6"), "Verb" or "Adverb" => ("#E1F4EB", "#236448"),
-            "Adjective" or "Determiner" => ("#F0E8FA", "#704292"), "Preposition" or "Conjunction" => ("#FFF0DB", "#8B5516"), _ => ("#FBE6EC", "#9B3853")
+            "Noun" or "Pronoun" => ("NounBackground", "NounText"), "Verb" or "Adverb" => ("VerbBackground", "VerbText"),
+            "Adjective" or "Determiner" => ("AdjectiveBackground", "AdjectiveText"), "Preposition" or "Conjunction" => ("PrepositionBackground", "PrepositionText"), _ => ("InterjectionBackground", "InterjectionText")
         };
-        return new Border { BackgroundColor = Color.FromArgb(background), StrokeThickness = 0, StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 20 }, Padding = new Thickness(10, 5), HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center,
-            Content = new Label { Text = text, TextColor = Color.FromArgb(foreground), FontSize = 12, LineBreakMode = LineBreakMode.CharacterWrap } };
+        return new Border
+        {
+            StrokeThickness = 0,
+            StrokeShape = new Microsoft.Maui.Controls.Shapes.RoundRectangle { CornerRadius = 20 },
+            Padding = new Thickness(10, 5), HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.Center,
+            Content = new Label { Text = text, FontSize = 12, LineBreakMode = LineBreakMode.CharacterWrap }
+                .WithTheme("TextColor", foreground)
+        }.WithTheme("BackgroundColor", background);
     }
 
     /// <summary>
@@ -599,12 +614,12 @@ public partial class MainPage : ContentPage
         SaveWordButton.IsEnabled = ApplyFiltersButton.IsEnabled = ApplyTypesButton.IsEnabled = ClearFiltersButton.IsEnabled = RefreshHistoryButton.IsEnabled = connected;
         ClearSentenceButton.IsEnabled = chosen.Count > 0;
         SaveSentenceButton.IsEnabled = connected && chosen.Count > 0;
-        SentenceHelp.Text = !connected ? "Connect to your collection before saving a sentence."
-            : chosen.Count == 0 ? "Add at least one word using Add to sentence in the word list to enable saving."
-            : "Your sentence is ready to save. Use the arrows to change the word order.";
+        SentenceHelp.Text = !connected ? T("Connect to your collection before saving a sentence.")
+            : chosen.Count == 0 ? T("Add at least one word using Add to sentence in the word list to enable saving.")
+            : T("Your sentence is ready to save. Use the arrows to change the word order.");
         PreviousButton.IsEnabled = previous.Count > 0; NextButton.IsEnabled = nextAfter is not null;
         HistoryFirstButton.IsEnabled = connected && sentenceAfter != 0; HistoryNextButton.IsEnabled = nextSentenceAfter is not null;
-        PageLabel.Text = $"Page {previous.Count + 1}";
+        PageLabel.Text = F($"Page {previous.Count + 1}");
         foreach (var (_, actions) in wordLayouts)
             ((Button)((FlexLayout)actions).Children[0]).IsEnabled = chosen.Count < 50;
     }
@@ -615,8 +630,8 @@ public partial class MainPage : ContentPage
     private void ShowError(string message)
     {
         message = ClientMessages.AfterConfirmedChange(confirmedChange, message);
-        StatusLabel.Text = message; StatusLabel.TextColor = Color.FromArgb("#A1192C");
-        Feedback.BackgroundColor = Color.FromArgb("#FFF1F2"); Feedback.Padding = 12;
+        StatusLabel.Text = message; StatusLabel.WithTheme("TextColor", "ErrorText");
+        Feedback.WithTheme("BackgroundColor", "ErrorBackground"); Feedback.Padding = 12;
         SemanticScreenReader.Default.Announce(message);
     }
 
@@ -630,7 +645,7 @@ public partial class MainPage : ContentPage
         var reference = Guid.NewGuid().ToString("N");
         logger.LogError("Collection screen error. Reference: {Reference}; type: {ErrorType}; stack: {StackTrace}",
             reference, exception.GetType().Name, exception.StackTrace);
-        ShowError(ClientMessages.WithReference(ClientMessages.Unexpected, reference));
+        ShowError(ClientMessages.WithReference(ClientMessages.ForUnexpected(exception), reference));
     }
 
     /// <summary>
@@ -642,6 +657,14 @@ public partial class MainPage : ContentPage
         if (Panels is null || Width <= 0) return;
         layout = new WorkspaceLayout(Width);
         Workspace.WidthRequest = layout.ContentWidth;
+        AppearanceToolbar.WidthRequest = Math.Min(560, layout.ContentWidth - 2 * layout.OuterPadding);
+        // Keep the branding within the available width while reserving a 2:1 box on every device.
+        ThemeIcon.WidthRequest = Math.Min(256, Math.Max(0, layout.ContentWidth - 2 * layout.OuterPadding));
+        ThemeIcon.HeightRequest = ThemeIcon.WidthRequest / 2;
+        // Mobile apps always centre the logo, including tablets and landscape.
+        // Desktop windows follow the website's phone-width breakpoint.
+        ThemeIcon.HorizontalOptions = OperatingSystem.IsAndroid() || OperatingSystem.IsIOS() || layout.Phone
+            ? LayoutOptions.Center : LayoutOptions.Start;
         Workspace.Padding = new Thickness(layout.OuterPadding, layout.Phone ? 18 : 24);
         HeroTitle.FontSize = layout.HeadingSize;
         WordPanel.Padding = SentencePanel.Padding = HistoryPanel.Padding = layout.PanelPadding;
@@ -744,10 +767,48 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>Translates controls created in code, keeping IDs, typed words, and the draft unchanged.</summary>
+    private void RefreshLanguage()
+    {
+        OperationLog.Event(logger, "LanguageChanged");
+        var selected = WordType.SelectedIndex;
+        WordType.ItemsSource = WordTypes.All.Select(T).ToArray();
+        WordType.SelectedIndex = selected;
+        for (var i = 0; i < TypeFilters.Children.Count; i++)
+        {
+            var row = (HorizontalStackLayout)TypeFilters.Children[i];
+            ((Label)row.Children[1]).Text = T(WordTypes.All[i]);
+            SemanticProperties.SetDescription((CheckBox)row.Children[0], F($"Filter {T(WordTypes.All[i])}"));
+        }
+        TypeFilterButton.Text = F($"Word types · {(selectedTypes.Count == 0 ? T("All") : selectedTypes.Count)} ▾");
+        WordFieldLabel.Text = editingId is null ? T("Add a word") : T("Edit word");
+        SaveWordButton.Text = editingId is null ? T("Add word") : T("Save changes");
+        ConnectionState.Text = connected ? T("Connected") : T("Not connected");
+        StatusLabel.Text = T("Language changed.");
+        if (Window is { } window) window.Title = T("Word collection · Runninghill");
+#if DEBUG
+        LocalConnections.Clear();
+        if (OperatingSystem.IsAndroid())
+        {
+            ConnectionHelp.Text = T("Emulator: use 10.0.2.2 to reach your computer. For a USB-connected phone, forward port 5080 with adb and choose USB device. Paste a fresh token from the website's service.");
+            AddLocalConnection(T("Docker emulator"), "http://10.0.2.2:5080/");
+            AddLocalConnection(T("Debug emulator"), "http://10.0.2.2:5180/");
+            AddLocalConnection(T("USB device"), "http://localhost:5080/");
+        }
+        else
+        {
+            AddLocalConnection(T("Docker service"), "http://localhost:5080/");
+            AddLocalConnection(T("IDE service"), "http://localhost:5180/");
+        }
+#endif
+        RenderWords(); RenderSentence(); RenderHistory(); RefreshButtons();
+    }
+
     /// <summary>Restores normal page departure handling after returning from diagnostics.</summary>
     protected override void OnAppearing()
     {
         showingLogs = false;
+        LanguageChanged += RefreshLanguage;
         base.OnAppearing();
     }
 
@@ -756,10 +817,11 @@ public partial class MainPage : ContentPage
     /// </summary>
     protected override void OnDisappearing()
     {
+        LanguageChanged -= RefreshLanguage;
         OperationLog.Event(logger);
         if (showingLogs) { base.OnDisappearing(); return; }
         activeRequest?.Cancel(); AccessToken.Text = ""; connected = false;
-        ConnectionState.Text = "Not connected"; ConnectionFields.IsVisible = true; RefreshButtons();
+        ConnectionState.Text = T("Not connected"); ConnectionFields.IsVisible = true; RefreshButtons();
         base.OnDisappearing();
     }
 

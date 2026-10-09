@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using Microsoft.AspNetCore.Diagnostics;
 using Runninghill.Application;
 using System.Data.Common;
@@ -53,12 +54,17 @@ public sealed partial class ApiErrors(ILogger<ApiErrors> logger) : IExceptionHan
     public static void DescribeProblem(ProblemDetailsContext context)
     {
         context.ProblemDetails.Extensions["requestId"] = context.HttpContext.TraceIdentifier;
+        context.ProblemDetails.Extensions["errorCode"] = "HTTP " + (context.ProblemDetails.Status ?? 500);
         // Do not send exception messages, SQL, passwords, or stack traces to a client.
         if (context.ProblemDetails.Status == StatusCodes.Status500InternalServerError)
         {
             context.ProblemDetails.Title = "Something went wrong in the service.";
             context.ProblemDetails.Detail = "Please try again. If it keeps happening, share the request reference with support.";
         }
+        // Localize at the transport boundary. Domain exceptions keep stable English messages
+        // for diagnostics; request culture is isolated by ASP.NET Core's async context.
+        if (context.ProblemDetails.Title is { } title) context.ProblemDetails.Title = T(title);
+        if (context.ProblemDetails.Detail is { } detail) context.ProblemDetails.Detail = T(detail);
     }
 
     /// <summary>

@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Runninghill.Maui.LogsPage" Title="Event logs" Shell.NavBarIsVisible="False" SafeAreaEdges="All" BackgroundColor="#F0F2F5">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:loc="clr-namespace:Runninghill.Maui" x:Class="Runninghill.Maui.LogsPage" Title="{loc:Translate Key=Text_89679ea1551f}" Shell.NavBarIsVisible="False" SafeAreaEdges="All" SizeChanged="OnLayoutChanged" BackgroundColor="{DynamicResource ThemeBackground}">
     <ContentPage.Resources>
-        <Style TargetType="Label"><Setter Property="TextColor" Value="#2D3748" /><Setter Property="FontSize" Value="14" /></Style>
-        <Style TargetType="Button"><Setter Property="BackgroundColor" Value="#2868B1" /><Setter Property="TextColor" Value="White" /><Setter Property="CornerRadius" Value="6" /><Setter Property="MinimumHeightRequest" Value="48" /><Setter Property="Margin" Value="0,0,8,8" /></Style>
-        <Style TargetType="Entry"><Setter Property="TextColor" Value="#2D3748" /><Setter Property="BackgroundColor" Value="White" /><Setter Property="MinimumHeightRequest" Value="48" /></Style>
-        <Style TargetType="Picker"><Setter Property="TextColor" Value="#2D3748" /><Setter Property="BackgroundColor" Value="White" /><Setter Property="MinimumHeightRequest" Value="48" /></Style>
-        <Style TargetType="Border"><Setter Property="BackgroundColor" Value="White" /><Setter Property="Stroke" Value="#E2E8F0" /><Setter Property="StrokeShape" Value="RoundRectangle 12" /><Setter Property="Padding" Value="16" /></Style>
+        <Style TargetType="Label"><Setter Property="TextColor" Value="{DynamicResource ThemeText}" /><Setter Property="FontSize" Value="14" /></Style>
+        <Style TargetType="Button"><Setter Property="LineBreakMode" Value="WordWrap" /><Setter Property="BackgroundColor" Value="{DynamicResource ThemeAccent}" /><Setter Property="TextColor" Value="{DynamicResource ThemeOnAccent}" /><Setter Property="CornerRadius" Value="6" /><Setter Property="MinimumHeightRequest" Value="48" /><Setter Property="Margin" Value="0,0,8,8" /></Style>
+        <Style TargetType="Entry"><Setter Property="TextColor" Value="{DynamicResource ThemeText}" /><Setter Property="BackgroundColor" Value="{DynamicResource ThemeSurface}" /><Setter Property="MinimumHeightRequest" Value="48" /></Style>
+        <Style TargetType="Picker"><Setter Property="TextColor" Value="{DynamicResource ThemeText}" /><Setter Property="BackgroundColor" Value="{DynamicResource ThemeSurface}" /><Setter Property="MinimumHeightRequest" Value="48" /></Style>
+        <Style TargetType="Border"><Setter Property="BackgroundColor" Value="{DynamicResource ThemeSurface}" /><Setter Property="Stroke" Value="{DynamicResource ThemeLineBrush}" /><Setter Property="StrokeShape" Value="RoundRectangle 12" /><Setter Property="Padding" Value="16" /></Style>
     </ContentPage.Resources>
     <!-- One vertical scroll surface works on narrow phones and resized native desktop windows. -->
     <ScrollView>
-        <VerticalStackLayout Padding="16,24" Spacing="20" MaximumWidthRequest="1100">
+        <VerticalStackLayout x:Name="LogWorkspace" Padding="16,24" Spacing="20" MaximumWidthRequest="1100" HorizontalOptions="Center">
             <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Center">
-                <Label Text="Runninghill · DIAGNOSTICS" FontAttributes="Bold" Margin="0,0,12,12" />
-                <Button Text="Back to collection" Clicked="OnClose" />
+                <Label Text="{loc:Translate Key=Text_d56837c5e7f7}" FontAttributes="Bold" Margin="0,0,12,12" />
+
             </FlexLayout>
-            <Label Text="Event logs" FontSize="30" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
-            <Label Text="Find an action, check its outcome, and share its reference with support." />
+            <Grid x:Name="AppearanceToolbar" ColumnDefinitions="*,Auto" ColumnSpacing="8" HorizontalOptions="Center">
+                <loc:ThemeSelectors />
+                <Button Grid.Column="1" Text="{loc:Translate Key=Text_61f81dde78c0}" Clicked="OnClose" VerticalOptions="End" MaximumWidthRequest="110" FontSize="12" Padding="8,10" Margin="0" />
+            </Grid>
+            <Label Text="{loc:Translate Key=Text_89679ea1551f}" FontSize="30" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="{loc:Translate Key=Text_5777b4f4af1e}" />
             <Border>
                 <VerticalStackLayout x:Name="Filters" Spacing="10">
-                    <Label Text="Source" /><Picker x:Name="Source" Title="Log source" SelectedIndexChanged="OnSourceChanged" />
-                    <Label Text="Severity" /><Picker x:Name="Severity" Title="Severity" />
-                    <Label Text="Search message or category" /><Entry x:Name="Search" MaxLength="120" Placeholder="Action name or request reference" Completed="OnRefresh" />
+                    <Label Text="{loc:Translate Key=Text_6da13addb000}" /><Picker x:Name="Source" Title="{loc:Translate Key=Text_c4b34f58cd0a}" SelectedIndexChanged="OnSourceChanged" />
+                    <Label Text="{loc:Translate Key=Text_de314fa0c9d9}" /><Picker x:Name="Severity" Title="{loc:Translate Key=Text_de314fa0c9d9}" />
+                    <Label Text="{loc:Translate Key=Text_0ddc597488d4}" /><Entry x:Name="Search" MaxLength="120" Placeholder="{loc:Translate Key=Text_9d1e6d0cb9b8}" Completed="OnRefresh" />
                     <VerticalStackLayout x:Name="ServiceSettings" Spacing="8" IsVisible="False">
                         <Label x:Name="ServiceAddress" LineBreakMode="CharacterWrap" />
-                        <Label Text="Service access token with logs.read permission" />
-                        <Entry x:Name="Token" IsPassword="True" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" SemanticProperties.Description="Service access token with logs.read permission" />
-                        <Label Text="Kept in memory only. Collection permissions alone do not grant log access. Change the service address on the collection screen." />
+                        <Label Text="{loc:Translate Key=Text_1f200d9a2e41}" />
+                        <Entry x:Name="Token" IsPassword="True" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" SemanticProperties.Description="{loc:Translate Key=Text_1f200d9a2e41}" />
+                        <Label Text="{loc:Translate Key=Text_3f1673453970}" />
                     </VerticalStackLayout>
-                    <FlexLayout Wrap="Wrap"><Button Text="Refresh logs" Clicked="OnRefresh" /><Button Text="Reset filters" Clicked="OnReset" /></FlexLayout>
+                    <FlexLayout Wrap="Wrap"><Button Text="{loc:Translate Key=Text_f970c362e4c8}" Clicked="OnRefresh" /><Button Text="{loc:Translate Key=Text_56553100b028}" Clicked="OnReset" /></FlexLayout>
                 </VerticalStackLayout>
             </Border>
-            <ActivityIndicator x:Name="Loading" IsVisible="False" IsRunning="False" Color="#2868B1" />
-            <Label x:Name="Feedback" Text="Showing recent events from this app session." />
+            <ActivityIndicator x:Name="Loading" IsVisible="False" IsRunning="False" Color="{DynamicResource ThemeAccentText}" />
+            <Label x:Name="Feedback" Text="{loc:Translate Key=Text_cc93ae477c0f}" />
             <Border>
                 <VerticalStackLayout Spacing="16">
-                    <Label x:Name="ResultTitle" Text="App events" FontSize="20" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level2" />
-                    <Label Text="Newest first · up to 1,000 recent records from this app session or service instance. Refresh to see new events. Long messages are shortened to 1,500 characters." />
+                    <Label x:Name="ResultTitle" Text="{loc:Translate Key=Text_8adf2f9b0d4d}" FontSize="20" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level2" />
+                    <Label Text="{loc:Translate Key=Text_413493f2ef47}" />
                     <VerticalStackLayout x:Name="Rows" Spacing="12" />
                     <Label x:Name="Count" />
-                    <FlexLayout Wrap="Wrap"><Button x:Name="Newest" Text="Newest" Clicked="OnRefresh" /><Button x:Name="Older" Text="Older events" Clicked="OnOlder" /></FlexLayout>
+                    <FlexLayout Wrap="Wrap"><Button x:Name="Newest" Text="{loc:Translate Key=Text_d0442824723c}" Clicked="OnRefresh" /><Button x:Name="Older" Text="{loc:Translate Key=Text_4e6685afd0a6}" Clicked="OnOlder" /></FlexLayout>
                 </VerticalStackLayout>
             </Border>
         </VerticalStackLayout>

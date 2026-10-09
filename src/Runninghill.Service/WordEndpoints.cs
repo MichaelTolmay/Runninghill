@@ -17,6 +17,12 @@ public static class WordEndpoints
     {
         var api = app.MapGroup("/api");
         api.RequireRateLimiting("api").WithRequestTimeout(TimeSpan.FromSeconds(10));
+        api.MapGet("/statistics", async (WordCollection collection, HttpContext context, CancellationToken cancellation) =>
+        {
+            context.Response.Headers.CacheControl = "no-store";
+            var counts = await collection.CountAsync(cancellation);
+            return new CollectionStatistics(counts.Words, counts.Sentences, DateTimeOffset.UtcNow);
+        }).RequireAuthorization("words.read", "sentences.read");
         api.MapGet("/words", async (long? after, string? search, string? types, WordCollection collection, CancellationToken cancellation) =>
         {
             var rows = await collection.ListAsync(after ?? 0, search, types, cancellation);

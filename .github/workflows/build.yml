@@ -1,11 +1,12 @@
-name: Build and publish
+name: Build and test merged pull requests
 on:
-  push:
   pull_request:
+    types: [closed]
 permissions:
   contents: read
 jobs:
   native:
+    if: ${{ github.event.pull_request.merged == true }}
     strategy:
       fail-fast: false
       matrix:
@@ -19,53 +20,126 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Test the exact result of this merge, even if another PR merges while jobs are queued.
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
       - uses: actions/setup-dotnet@v4
+        id: dotnet
         with:
           dotnet-version: 10.0.x
       - name: Check build and debug tooling
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
         run: python -m unittest discover -s tests/tooling -v
+      - name: Check all translations and generated language resources
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
+        run: python scripts/check-localization.py
+      - name: Check paired theme files and startup colours
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
+        run: python scripts/check-themes.py
       - name: Test managed components
-        run: dotnet test tests/Runninghill.Tests/Runninghill.Tests.csproj -m:1
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
+        run: dotnet test tests/Runninghill.Tests/Runninghill.Tests.csproj -m:1 --logger trx --results-directory TestResults
       - name: Publish self-contained ReadyToRun service
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
         run: dotnet publish src/Runninghill.Service -c Release -r ${{ matrix.rid }} -o artifacts/service
       - name: Publish native CLI
+        id: cli
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
         run: dotnet publish src/Clients/Runninghill.Cli -c Release -r ${{ matrix.rid }} -o artifacts/cli
+      - name: Publish Photino desktop dashboard
+        id: dashboard
+        if: ${{ !cancelled() && steps.dotnet.outcome == 'success' }}
+        run: dotnet publish src/Clients/Runninghill.Dashboard -c Release -r ${{ matrix.rid }} -o artifacts/dashboard
+      - name: Test the native Photino dashboard on Linux
+        if: ${{ !cancelled() && runner.os == 'Linux' && steps.dashboard.outcome == 'success' }}
+        env:
+          GDK_BACKEND: x11
+          WEBKIT_DISABLE_DMABUF_RENDERER: '1'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-0t64 libwebkit2gtk-4.1-0 libnotify4 xvfb
+          python3 scripts/dev-certificate.py
+          xvfb-run -a python3 tests/desktop/dashboard.py --app-directory artifacts/dashboard --https
+      - name: Publish Apple Silicon dashboard
+        if: ${{ !cancelled() && runner.os == 'macOS' && steps.dotnet.outcome == 'success' }}
+        run: dotnet publish src/Clients/Runninghill.Dashboard -c Release -r osx-arm64 -o artifacts/dashboard-osx-arm64
       - name: Check native CLI failure messages
+        if: ${{ !cancelled() && steps.cli.outcome == 'success' }}
         run: python tests/cli/smoke.py --cli-directory artifacts/cli
       - uses: actions/upload-artifact@v4
         with:
           name: native-${{ matrix.rid }}
           path: artifacts/
+      - name: Upload managed test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.rid }}
+          path: TestResults/
+          if-no-files-found: warn
   containers:
-    needs: native
+    if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 scripts/dev-setup.py
-      - run: docker compose build
-      - run: docker compose up -d --wait --wait-timeout 120 database
-      - run: docker compose run --rm --no-deps service --migrate-database
-      - run: docker compose up -d --wait --wait-timeout 120
-      - run: python3 scripts/smoke-stack.py
-      - uses: actions/download-artifact@v4
         with:
-          name: native-linux-x64
-          path: artifacts/native
-      - run: chmod +x artifacts/native/cli/Runninghill.Cli
-      - run: python3 tests/cli/collection.py --cli-directory artifacts/native/cli
+          # Test the exact result of this merge, even if another PR merges while jobs are queued.
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: tests/browser/package-lock.json
-      - run: npm ci --prefix tests/browser
-      - run: npx --prefix tests/browser playwright-core install --with-deps chromium
+      - name: Prepare the isolated integration stack and test tools
+        id: prepare
+        run: |
+          python3 scripts/dev-setup.py
+          docker compose build
+          docker compose up -d --wait --wait-timeout 120 database
+          docker compose run --rm --no-deps service --migrate-database
+          docker compose up -d --wait --wait-timeout 120
+          dotnet publish src/Clients/Runninghill.Cli -c Release -r linux-x64 -o artifacts/cli
+          npm ci --prefix tests/browser
+          npx --prefix tests/browser playwright-core install --with-deps chromium
+      # Run every suite after setup, even when an earlier suite fails. Failures still fail the job.
+      - run: python3 scripts/smoke-stack.py
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+      - run: python3 tests/cli/collection.py --cli-directory artifacts/cli
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
       - run: python3 tests/integration/collection.py
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
       - run: node tests/browser/smoke.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
       - run: node tests/browser/collection.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
       - run: node tests/browser/collection-regressions.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+      - run: node tests/browser/localization.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        env:
+          RUNNINGHILL_WEB_URL: http://localhost:5082
+      - run: node tests/browser/themes.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        env:
+          RUNNINGHILL_WEB_URL: http://localhost:5082
+      - run: node tests/browser/errors.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        env:
+          RUNNINGHILL_WEB_URL: http://localhost:5082
       - run: node tests/browser/logs.cjs
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+      - name: Verify localhost HTTPS and reverse proxy
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
+        run: |
+          python3 scripts/dev-certificate.py
+          docker compose -f compose.yaml -f deploy/compose.https.yaml up -d --wait --no-build
+          python3 scripts/smoke-stack.py --service https://localhost:5443 --web https://localhost:5443 --ca-cert .run/tls/localhost.crt
+          python3 tests/integration/https.py
       - name: Check database outage isolation
+        if: ${{ !cancelled() && steps.prepare.outcome == 'success' }}
         run: |
           docker compose stop database
           python3 scripts/smoke-stack.py --expect-unavailable
@@ -78,9 +152,13 @@ jobs:
         run: docker compose down --volumes
 
   windows-ui:
+    if: ${{ github.event.pull_request.merged == true }}
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Test the exact result of this merge, even if another PR merges while jobs are queued.
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
@@ -103,9 +181,13 @@ jobs:
           if-no-files-found: error
 
   database-providers:
+    if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Test the exact result of this merge, even if another PR merges while jobs are queued.
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
@@ -113,3 +195,27 @@ jobs:
         run: dotnet publish src/Runninghill.Service -c Release -r linux-x64 -o artifacts/service
       - name: Test all four EF providers and the published service against real databases
         run: python3 tests/integration/providers.py --service "$PWD/artifacts/service/Runninghill.Service"
+
+  all-checks:
+    name: All builds and tests passed
+    if: ${{ always() && github.event.pull_request.merged == true }}
+    needs: [native, containers, windows-ui, database-providers]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every job to succeed
+        env:
+          CHECK_RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PYTHON'
+          import json
+          import os
+          import sys
+
+          results = json.loads(os.environ["CHECK_RESULTS"])
+          failures = {name: job["result"] for name, job in results.items() if job["result"] != "success"}
+          for name, result in failures.items():
+              print(f"::error::{name} finished with {result}; all jobs must pass.")
+          if failures:
+              sys.exit(1)
+          print("All required builds and test suites passed.")
+          PYTHON

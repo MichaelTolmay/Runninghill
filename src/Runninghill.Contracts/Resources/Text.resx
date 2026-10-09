@@ -1,0 +1,1109 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Text_b608253c48dc" xml:space="preserve">
+    <value>+ Add to sentence</value>
+  </data>
+  <data name="Text_8935d2851aad" xml:space="preserve">
+    <value>0 / 50 words</value>
+  </data>
+  <data name="Text_0db35f78ade8" xml:space="preserve">
+    <value>0 on this page</value>
+  </data>
+  <data name="Text_6705b22afd2e" xml:space="preserve">
+    <value>A LITTLE LANGUAGE, A LOT OF POSSIBILITY</value>
+  </data>
+  <data name="Text_1528258360b5" xml:space="preserve">
+    <value>A selected word was deleted. Refresh your collection and rebuild the sentence.</value>
+  </data>
+  <data name="Text_33a37a212932" xml:space="preserve">
+    <value>A sentence request ID is required. Refresh the app and try again.</value>
+  </data>
+  <data name="Text_bbb86bcb941f" xml:space="preserve">
+    <value>ACTIONS</value>
+  </data>
+  <data name="Text_f69d5c7e6ea9" xml:space="preserve">
+    <value>Access token</value>
+  </data>
+  <data name="Text_9d1e6d0cb9b8" xml:space="preserve">
+    <value>Action name or request reference</value>
+  </data>
+  <data name="Text_35c2eb2cb531" xml:space="preserve">
+    <value>Add a word</value>
+  </data>
+  <data name="Text_109dfb68f2cd" xml:space="preserve">
+    <value>Add at least one word using Add to sentence in the word list to enable saving.</value>
+  </data>
+  <data name="Text_b5daa8a90b4c" xml:space="preserve">
+    <value>Add word</value>
+  </data>
+  <data name="Text_53156e1192f4" xml:space="preserve">
+    <value>Add words from your collection to see your sentence here.</value>
+  </data>
+  <data name="Text_37532e7f1218" xml:space="preserve">
+    <value>Add your first word above, or try a different search or word type.</value>
+  </data>
+  <data name="Text_86862370f03d" xml:space="preserve">
+    <value>Add {0} to sentence</value>
+  </data>
+  <data name="Text_218dee462203" xml:space="preserve">
+    <value>Added {0} to your sentence.</value>
+  </data>
+  <data name="Text_39e85465e865" xml:space="preserve">
+    <value>Adjective</value>
+  </data>
+  <data name="Text_7915dabafff0" xml:space="preserve">
+    <value>Adverb</value>
+  </data>
+  <data name="Text_4229bffabe67" xml:space="preserve">
+    <value>Afrikaans (ZA)</value>
+  </data>
+  <data name="Text_6a72085653e4" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Text_6b4fde372a29" xml:space="preserve">
+    <value>All levels</value>
+  </data>
+  <data name="Text_4444a27dbde4" xml:space="preserve">
+    <value>An unexpected error occurred.</value>
+  </data>
+  <data name="Text_8adf2f9b0d4d" xml:space="preserve">
+    <value>App events</value>
+  </data>
+  <data name="Text_926161d3e620" xml:space="preserve">
+    <value>Apply filters</value>
+  </data>
+  <data name="Text_c1eaee2e22c9" xml:space="preserve">
+    <value>Apply selected types</value>
+  </data>
+  <data name="Text_61f81dde78c0" xml:space="preserve">
+    <value>Back to collection</value>
+  </data>
+  <data name="Text_f7bb0f7a522a" xml:space="preserve">
+    <value>Browser events</value>
+  </data>
+  <data name="Text_dd770e03d7ab" xml:space="preserve">
+    <value>Build a sentence</value>
+  </data>
+  <data name="Text_5b6b41489fae" xml:space="preserve">
+    <value>Build a sentence ↗</value>
+  </data>
+  <data name="Text_b8f944abaa35" xml:space="preserve">
+    <value>Cancel edit</value>
+  </data>
+  <data name="Text_a1bf92eff40d" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Text_84cc3d77c8bb" xml:space="preserve">
+    <value>Cannot read Debug settings. Check file permissions in .run.</value>
+  </data>
+  <data name="Text_5f4a1b000b4b" xml:space="preserve">
+    <value>Check the JSON fields and page position, then try again.</value>
+  </data>
+  <data name="Text_f57d3581a6b4" xml:space="preserve">
+    <value>Check the command and arguments. Deletion requires --yes.</value>
+  </data>
+  <data name="Text_fbe2d491c29f" xml:space="preserve">
+    <value>Check the list options in the help below.</value>
+  </data>
+  <data name="Text_7d9fb1441662" xml:space="preserve">
+    <value>Check the log filters.</value>
+  </data>
+  <data name="Text_a9f2197ef784" xml:space="preserve">
+    <value>Check your access and service address. Share the request reference if the problem continues.</value>
+  </data>
+  <data name="Text_a7793f1832a1" xml:space="preserve">
+    <value>Choose + Add to sentence beside a word. Use it again whenever you need it.</value>
+  </data>
+  <data name="Text_a8530c53fa0c" xml:space="preserve">
+    <value>Choose a collection command.</value>
+  </data>
+  <data name="Text_4edeb1848e89" xml:space="preserve">
+    <value>Choose a word type from the list.</value>
+  </data>
+  <data name="Text_1e4ec09ff8df" xml:space="preserve">
+    <value>Choose any types. None selected shows all words.</value>
+  </data>
+  <data name="Text_681b4c8052cf" xml:space="preserve">
+    <value>Choose between 1 and 50 saved words for your sentence.</value>
+  </data>
+  <data name="Text_4762cad2067d" xml:space="preserve">
+    <value>Choose between 1 and 50 word IDs.</value>
+  </data>
+  <data name="Text_dc9d72b50efc" xml:space="preserve">
+    <value>Choose one or more of the nine word types.</value>
+  </data>
+  <data name="Text_55c7846e4051" xml:space="preserve">
+    <value>Choose types, then apply filters.</value>
+  </data>
+  <data name="Text_719ea396ad92" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Text_412226715c56" xml:space="preserve">
+    <value>Clear filters</value>
+  </data>
+  <data name="Text_6dbc15d59481" xml:space="preserve">
+    <value>Clear type selection</value>
+  </data>
+  <data name="Text_bbfa773e5a63" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Text_8a3b2930b1a8" xml:space="preserve">
+    <value>Close word types</value>
+  </data>
+  <data name="Text_b98e8f6a12ab" xml:space="preserve">
+    <value>Collect words by type, then bring them together in a sentence.</value>
+  </data>
+  <data name="Text_1798b3ba42ee" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Text_c9f2829e382c" xml:space="preserve">
+    <value>Confirm delete</value>
+  </data>
+  <data name="Text_e53e762e5697" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
+  <data name="Text_c5a715320080" xml:space="preserve">
+    <value>Confirm deletion of {0}</value>
+  </data>
+  <data name="Text_8458445d8d97" xml:space="preserve">
+    <value>Conjunction</value>
+  </data>
+  <data name="Text_2d7e570cac65" xml:space="preserve">
+    <value>Connect / refresh</value>
+  </data>
+  <data name="Text_870284e6b217" xml:space="preserve">
+    <value>Connect to get started</value>
+  </data>
+  <data name="Text_de34173811aa" xml:space="preserve">
+    <value>Connect to load your collection.</value>
+  </data>
+  <data name="Text_ab8cace3373a" xml:space="preserve">
+    <value>Connect to your collection before saving a sentence.</value>
+  </data>
+  <data name="Text_c2f9b7b4897f" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="Text_0ad66dcaa0d5" xml:space="preserve">
+    <value>Copy a valid access token and connect again.</value>
+  </data>
+  <data name="Text_774910a0e263" xml:space="preserve">
+    <value>Could not close this screen. Try Back again.</value>
+  </data>
+  <data name="Text_c4faabc3811e" xml:space="preserve">
+    <value>Could not jump to that section. You can still scroll to it.</value>
+  </data>
+  <data name="Text_517530ecfb37" xml:space="preserve">
+    <value>Could not load logs. Refresh and share the time of this error with support if it continues.</value>
+  </data>
+  <data name="Text_f02f6d116719" xml:space="preserve">
+    <value>Could not reach the service. Check your internet connection and service address, then try again.</value>
+  </data>
+  <data name="Text_f3e1c0f38804" xml:space="preserve">
+    <value>Could not read Debug settings. Run python scripts/dev.py prepare first.</value>
+  </data>
+  <data name="Text_2ff9391be0e0" xml:space="preserve">
+    <value>Could not verify a secure connection. Check your device's date and time, then ask support to check the service certificate.</value>
+  </data>
+  <data name="Text_04b7b26c8ca2" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="Text_7563ce76d342" xml:space="preserve">
+    <value>DIAGNOSTICS</value>
+  </data>
+  <data name="Text_bd604d99e75e" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="Text_391b6ccfe9e9" xml:space="preserve">
+    <value>Debug emulator</value>
+  </data>
+  <data name="Text_f6fdbe48dc54" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Text_a92ece760a79" xml:space="preserve">
+    <value>Delete {0}</value>
+  </data>
+  <data name="Text_977b5828d9d5" xml:space="preserve">
+    <value>Delete “{0}”? Saved sentences will stay unchanged.</value>
+  </data>
+  <data name="Text_c79ca7ec69f0" xml:space="preserve">
+    <value>Determiner</value>
+  </data>
+  <data name="Text_ed28e0686e12" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="Text_380783deac9f" xml:space="preserve">
+    <value>Disconnected. Your saved words are safe in the database.</value>
+  </data>
+  <data name="Text_a659269a5b85" xml:space="preserve">
+    <value>Docker emulator</value>
+  </data>
+  <data name="Text_46b92baf6afa" xml:space="preserve">
+    <value>Docker service</value>
+  </data>
+  <data name="Text_5301648dcf6b" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Text_f8bcdad7f461" xml:space="preserve">
+    <value>Edit word</value>
+  </data>
+  <data name="Text_523b184ecbf3" xml:space="preserve">
+    <value>Edit {0}</value>
+  </data>
+  <data name="Text_daa711a3ae2a" xml:space="preserve">
+    <value>Emulator: use 10.0.2.2 to reach your computer. For a USB-connected phone, forward port 5080 with adb and choose USB device. Paste a fresh token from the website's service.</value>
+  </data>
+  <data name="Text_7981bfd5ce9c" xml:space="preserve">
+    <value>English (ZA)</value>
+  </data>
+  <data name="Text_f709b143b819" xml:space="preserve">
+    <value>Enter a valid service URL on the collection screen first.</value>
+  </data>
+  <data name="Text_72fecfdec274" xml:space="preserve">
+    <value>Enter a valid service URL on the collection screen, then reopen Logs.</value>
+  </data>
+  <data name="Text_0035a84312c3" xml:space="preserve">
+    <value>Enter an HTTPS service URL and an access token.</value>
+  </data>
+  <data name="Text_c2e9875cd05d" xml:space="preserve">
+    <value>Enter an access token and connect to load your saved words.</value>
+  </data>
+  <data name="Text_57de80877251" xml:space="preserve">
+    <value>Enter an access token with logs.read permission, then refresh.</value>
+  </data>
+  <data name="Text_e1fa41e1978b" xml:space="preserve">
+    <value>Enter one word, up to 80 characters. Use letters, apostrophes or hyphens; no spaces or numbers.</value>
+  </data>
+  <data name="Text_7f2f6a15cf8d" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Text_7b433c33dc55" xml:space="preserve">
+    <value>Error type: {0}</value>
+  </data>
+  <data name="Text_89679ea1551f" xml:space="preserve">
+    <value>Event logs</value>
+  </data>
+  <data name="Text_6ddcb0c6164b" xml:space="preserve">
+    <value>Event logs · Runninghill</value>
+  </data>
+  <data name="Text_8c090106c833" xml:space="preserve">
+    <value>Event {0}</value>
+  </data>
+  <data name="Text_09fef5d8d9a3" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Text_133b48a000b0" xml:space="preserve">
+    <value>Filter by word type</value>
+  </data>
+  <data name="Text_b9ab9081d012" xml:space="preserve">
+    <value>Filter {0}</value>
+  </data>
+  <data name="Text_b3a6f8432d24" xml:space="preserve">
+    <value>Filters applied.</value>
+  </data>
+  <data name="Text_3a8488ec78a2" xml:space="preserve">
+    <value>Filters cleared.</value>
+  </data>
+  <data name="Text_5777b4f4af1e" xml:space="preserve">
+    <value>Find an action, check its outcome, and share its reference with support.</value>
+  </data>
+  <data name="Text_916a78d701de" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="Text_a0c15efce128" xml:space="preserve">
+    <value>Go to saved sentences</value>
+  </data>
+  <data name="Text_63c5b4d0ad73" xml:space="preserve">
+    <value>Go to sentence builder</value>
+  </data>
+  <data name="Text_70e6d0eca92c" xml:space="preserve">
+    <value>Go to word collection</value>
+  </data>
+  <data name="Text_90ccd6497400" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="Text_70f8bb9a8a53" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Text_744ec7eeba75" xml:space="preserve">
+    <value>IDE service</value>
+  </data>
+  <data name="Text_0eb5ed506e49" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Text_d2c10ab88f74" xml:space="preserve">
+    <value>Interjection</value>
+  </data>
+  <data name="Text_e6ade6a1632c" xml:space="preserve">
+    <value>Invalid log filter.</value>
+  </data>
+  <data name="Text_a7de5eaa5dc0" xml:space="preserve">
+    <value>Keep word</value>
+  </data>
+  <data name="Text_df2f1e44d436" xml:space="preserve">
+    <value>Keep {0}</value>
+  </data>
+  <data name="Text_41f88e7c6b64" xml:space="preserve">
+    <value>Kept in memory only. Collection permissions alone do not grant log access.</value>
+  </data>
+  <data name="Text_3f1673453970" xml:space="preserve">
+    <value>Kept in memory only. Collection permissions alone do not grant log access. Change the service address on the collection screen.</value>
+  </data>
+  <data name="Text_89b86ab0e66f" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Text_2a8ff40134a0" xml:space="preserve">
+    <value>Language changed.</value>
+  </data>
+  <data name="Text_96df352a57cf" xml:space="preserve">
+    <value>Language: --language en-ZA|af-ZA|xh-ZA|zu-ZA|tn-ZA, or RUNNINGHILL_LANGUAGE.</value>
+  </data>
+  <data name="Text_9623e2d1ebbb" xml:space="preserve">
+    <value>Loading Runninghill…</value>
+  </data>
+  <data name="Text_3f1ce5b33748" xml:space="preserve">
+    <value>Loading logs…</value>
+  </data>
+  <data name="Text_33ce417454bf" xml:space="preserve">
+    <value>Loading…</value>
+  </data>
+  <data name="Text_527cf7115310" xml:space="preserve">
+    <value>Log filters</value>
+  </data>
+  <data name="Text_5d2892f30c36" xml:space="preserve">
+    <value>Log loading was cancelled or timed out. Try refreshing.</value>
+  </data>
+  <data name="Text_3cd037d65ea5" xml:space="preserve">
+    <value>Log results</value>
+  </data>
+  <data name="Text_c4b34f58cd0a" xml:space="preserve">
+    <value>Log source</value>
+  </data>
+  <data name="Text_126dd3b70a5c" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Text_53b27d15d3d5" xml:space="preserve">
+    <value>Make room for a new word</value>
+  </data>
+  <data name="Text_b03d2fd89262" xml:space="preserve">
+    <value>More sentences: sentences list --after {0}</value>
+  </data>
+  <data name="Text_50af2164021c" xml:space="preserve">
+    <value>More words: repeat this command with --after {0} and the same filters.</value>
+  </data>
+  <data name="Text_12da3161422c" xml:space="preserve">
+    <value>Move word {0} earlier</value>
+  </data>
+  <data name="Text_651979ae15d6" xml:space="preserve">
+    <value>Move word {0} later</value>
+  </data>
+  <data name="Text_d0442824723c" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="Text_47354a475adc" xml:space="preserve">
+    <value>Newest first · up to 1,000 recent records from the current session or service instance. Refresh to see new events. Messages longer than 1,500 characters are shortened.</value>
+  </data>
+  <data name="Text_413493f2ef47" xml:space="preserve">
+    <value>Newest first · up to 1,000 recent records from this app session or service instance. Refresh to see new events. Long messages are shortened to 1,500 characters.</value>
+  </data>
+  <data name="Text_bc981983e7f5" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Text_36be0043c714" xml:space="preserve">
+    <value>Next page loaded.</value>
+  </data>
+  <data name="Text_651db22e2e12" xml:space="preserve">
+    <value>Next sentences loaded.</value>
+  </data>
+  <data name="Text_f7be5465ff0c" xml:space="preserve">
+    <value>No matching events</value>
+  </data>
+  <data name="Text_0fc46d200668" xml:space="preserve">
+    <value>No matching events. Try another severity or search, perform an action, then refresh.</value>
+  </data>
+  <data name="Text_795958df8066" xml:space="preserve">
+    <value>No sentences yet. Choose word IDs and use sentences add.</value>
+  </data>
+  <data name="Text_468c56039ee7" xml:space="preserve">
+    <value>No words found. Add a word, or try another filter.</value>
+  </data>
+  <data name="Text_8b02f3de3906" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="Text_4ac734372124" xml:space="preserve">
+    <value>Noun</value>
+  </data>
+  <data name="Text_4e6685afd0a6" xml:space="preserve">
+    <value>Older events</value>
+  </data>
+  <data name="Text_f7a3bdec827f" xml:space="preserve">
+    <value>One collection. Nine word types. Endless ways to express yourself.</value>
+  </data>
+  <data name="Text_c9a1d9770973" xml:space="preserve">
+    <value>PUT YOUR WORDS TO WORK</value>
+  </data>
+  <data name="Text_0cd2664cb285" xml:space="preserve">
+    <value>Page 1</value>
+  </data>
+  <data name="Text_bc3023b36063" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="Text_02431c5464ea" xml:space="preserve">
+    <value>Page {0}</value>
+  </data>
+  <data name="Text_81b8fce9546f" xml:space="preserve">
+    <value>Performed</value>
+  </data>
+  <data name="Text_b7008a02867a" xml:space="preserve">
+    <value>Please check the request.</value>
+  </data>
+  <data name="Text_f6d7a3689991" xml:space="preserve">
+    <value>Please check your collection.</value>
+  </data>
+  <data name="Text_a09eee371bde" xml:space="preserve">
+    <value>Please try again shortly. If a save was interrupted, refresh your collection before repeating it.</value>
+  </data>
+  <data name="Text_9e47493897f0" xml:space="preserve">
+    <value>Please try again shortly. If this continues, share the request reference with support.</value>
+  </data>
+  <data name="Text_43ffb80524a5" xml:space="preserve">
+    <value>Please try again. If it keeps happening, share the request reference with support.</value>
+  </data>
+  <data name="Text_5d38732753af" xml:space="preserve">
+    <value>Please wait for the current request to finish.</value>
+  </data>
+  <data name="Text_5afeca73bef6" xml:space="preserve">
+    <value>Please wait…</value>
+  </data>
+  <data name="Text_ad3287ccdd92" xml:space="preserve">
+    <value>Preposition</value>
+  </data>
+  <data name="Text_50f94286ba30" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Text_35d3b960b5fa" xml:space="preserve">
+    <value>Previous page loaded.</value>
+  </data>
+  <data name="Text_f01f76f5c38c" xml:space="preserve">
+    <value>Pronoun</value>
+  </data>
+  <data name="Text_20c7c5522fc2" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Text_56e3badc4e6c" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Text_f970c362e4c8" xml:space="preserve">
+    <value>Refresh logs</value>
+  </data>
+  <data name="Text_cce7155371fc" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="Text_328141695a00" xml:space="preserve">
+    <value>Remove word {0}</value>
+  </data>
+  <data name="Text_d35c6de793ba" xml:space="preserve">
+    <value>Request cancelled.</value>
+  </data>
+  <data name="Text_cb49de37971a" xml:space="preserve">
+    <value>Required database schema is unavailable.</value>
+  </data>
+  <data name="Text_56553100b028" xml:space="preserve">
+    <value>Reset filters</value>
+  </data>
+  <data name="Text_85e6ea5e7cb1" xml:space="preserve">
+    <value>Runninghill home</value>
+  </data>
+  <data name="Text_251fbc61f21a" xml:space="preserve">
+    <value>Runninghill is ready. Database schema verified.</value>
+  </data>
+  <data name="Text_e18e7207c42d" xml:space="preserve">
+    <value>Runninghill word collection
+  status
+  words list [--search prefix] [--types Noun,Verb] [--after ID]
+  words get ID
+  words add WORD TYPE
+  words update ID WORD TYPE
+  words delete ID --yes
+  sentences list [--after ID]
+  sentences add ID [ID ...] [--request-id UUID]
+
+Types: Noun, Verb, Adjective, Adverb, Pronoun, Preposition,
+       Interjection, Conjunction, Determiner.
+Sentence IDs are word IDs in the order you want; repeating an ID is allowed.
+Keep the printed request ID to retry an uncertain sentence save safely.
+Configure RUNNINGHILL_SERVICE_URL and RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_d56837c5e7f7" xml:space="preserve">
+    <value>Runninghill · DIAGNOSTICS</value>
+  </data>
+  <data name="Text_179359b39edb" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="Text_6600f0c494a1" xml:space="preserve">
+    <value>Save sentence</value>
+  </data>
+  <data name="Text_3a98f2af4006" xml:space="preserve">
+    <value>Saved sentences</value>
+  </data>
+  <data name="Text_1d433a86996b" xml:space="preserve">
+    <value>Saved sentences keep their wording when your collection changes.</value>
+  </data>
+  <data name="Text_ebfd329b926f" xml:space="preserve">
+    <value>Saved sentences refreshed.</value>
+  </data>
+  <data name="Text_cbdfd43e83fa" xml:space="preserve">
+    <value>Search by the start of a word…</value>
+  </data>
+  <data name="Text_0ab6b4991a7e" xml:space="preserve">
+    <value>Search collection</value>
+  </data>
+  <data name="Text_0ddc597488d4" xml:space="preserve">
+    <value>Search message or category</value>
+  </data>
+  <data name="Text_53a114767909" xml:space="preserve">
+    <value>Search using 80 characters or fewer.</value>
+  </data>
+  <data name="Text_c3bb9c5cd95b" xml:space="preserve">
+    <value>Send this request as application/json.</value>
+  </data>
+  <data name="Text_87193316865f" xml:space="preserve">
+    <value>Send valid JSON with the documented fields and values, then try again.</value>
+  </data>
+  <data name="Text_1bb1f30ec48f" xml:space="preserve">
+    <value>Sentence</value>
+  </data>
+  <data name="Text_fdb95bf5a6c2" xml:space="preserve">
+    <value>Sentence #{0} saved: {1}</value>
+  </data>
+  <data name="Text_64e653d03fd3" xml:space="preserve">
+    <value>Sentence ({0})</value>
+  </data>
+  <data name="Text_2afd6b5863a9" xml:space="preserve">
+    <value>Sentence preview</value>
+  </data>
+  <data name="Text_a99d192cc666" xml:space="preserve">
+    <value>Sentence request ID: {0}</value>
+  </data>
+  <data name="Text_dc4b75894187" xml:space="preserve">
+    <value>Sentence saved.</value>
+  </data>
+  <data name="Text_329cb8b6ba8c" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Text_077225837f3d" xml:space="preserve">
+    <value>Service URL</value>
+  </data>
+  <data name="Text_1f200d9a2e41" xml:space="preserve">
+    <value>Service access token with logs.read permission</value>
+  </data>
+  <data name="Text_661966c01680" xml:space="preserve">
+    <value>Service connection</value>
+  </data>
+  <data name="Text_91a0a5cdcde2" xml:space="preserve">
+    <value>Service connection ▾</value>
+  </data>
+  <data name="Text_c1080200e036" xml:space="preserve">
+    <value>Service events</value>
+  </data>
+  <data name="Text_be0ba8c30fd3" xml:space="preserve">
+    <value>Service: {0}</value>
+  </data>
+  <data name="Text_98719e20c0f6" xml:space="preserve">
+    <value>Set RUNNINGHILL_SERVICE_URL (HTTPS, or HTTP loopback for development) and RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_f1270b290cd2" xml:space="preserve">
+    <value>Setswana (ZA)</value>
+  </data>
+  <data name="Text_de314fa0c9d9" xml:space="preserve">
+    <value>Severity</value>
+  </data>
+  <data name="Text_cc93ae477c0f" xml:space="preserve">
+    <value>Showing recent events from this app session.</value>
+  </data>
+  <data name="Text_f2a0e3cba287" xml:space="preserve">
+    <value>Showing recent events from this browser tab.</value>
+  </data>
+  <data name="Text_11c4adaf0b7d" xml:space="preserve">
+    <value>Skip to word collection</value>
+  </data>
+  <data name="Text_47f279970b56" xml:space="preserve">
+    <value>Some text contains an unreadable character. Retype the word or search and try again.</value>
+  </data>
+  <data name="Text_716dbae5af58" xml:space="preserve">
+    <value>Something went wrong in the service.</value>
+  </data>
+  <data name="Text_f8e95094c181" xml:space="preserve">
+    <value>Something went wrong in the service. Please try again or contact support.</value>
+  </data>
+  <data name="Text_3a3418677fa1" xml:space="preserve">
+    <value>Something went wrong in this app. Please try again. If it continues, contact support and describe what you were doing.</value>
+  </data>
+  <data name="Text_6da13addb000" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Text_faa9e7e7ef5a" xml:space="preserve">
+    <value>Started</value>
+  </data>
+  <data name="Text_e713c9b40e02" xml:space="preserve">
+    <value>That word already exists with this type. Choose another word or type.</value>
+  </data>
+  <data name="Text_592f75b6341c" xml:space="preserve">
+    <value>The access token contains invalid characters. Copy a new token and try again.</value>
+  </data>
+  <data name="Text_e3621184fc03" xml:space="preserve">
+    <value>The access token is not valid. Copy a fresh token and refresh.</value>
+  </data>
+  <data name="Text_09566dcf8b54" xml:space="preserve">
+    <value>The application is temporarily unavailable.</value>
+  </data>
+  <data name="Text_66aef6a688a2" xml:space="preserve">
+    <value>The page position is invalid. Return to the first page.</value>
+  </data>
+  <data name="Text_d017fd0e6715" xml:space="preserve">
+    <value>The request could not be completed.</value>
+  </data>
+  <data name="Text_a12929662a1c" xml:space="preserve">
+    <value>The request was cancelled or its time limit was reached.</value>
+  </data>
+  <data name="Text_3791db0bf63b" xml:space="preserve">
+    <value>The service address changed. Connect again before editing words.</value>
+  </data>
+  <data name="Text_b72774a7566e" xml:space="preserve">
+    <value>The service address could not be found. Check the address and your internet connection.</value>
+  </data>
+  <data name="Text_6ae32309b5d5" xml:space="preserve">
+    <value>The service address was reached, but this feature was not found. Check the service URL and app version.</value>
+  </data>
+  <data name="Text_40a1581fcefd" xml:space="preserve">
+    <value>The service cannot reach its data right now.</value>
+  </data>
+  <data name="Text_079fee839dcb" xml:space="preserve">
+    <value>The service cannot reach its data right now. Please try again shortly.</value>
+  </data>
+  <data name="Text_7ddc1c09cde9" xml:space="preserve">
+    <value>The service could not complete the request. Please try again. If it continues, contact support.</value>
+  </data>
+  <data name="Text_1da7e731c7c3" xml:space="preserve">
+    <value>The service is busy. Please wait a few seconds and try again.</value>
+  </data>
+  <data name="Text_0b6dd49a2aa4" xml:space="preserve">
+    <value>The service is busy. Wait a few seconds and try again.</value>
+  </data>
+  <data name="Text_f5eb154f47b9" xml:space="preserve">
+    <value>The service reply was larger than this app allows. Contact support and report this message.</value>
+  </data>
+  <data name="Text_e2c3684501c3" xml:space="preserve">
+    <value>The service sent a reply this app cannot read. Please try again. If it continues, tell support which app version you are using.</value>
+  </data>
+  <data name="Text_01f5f4ffc36c" xml:space="preserve">
+    <value>The service took too long to reply. Check your connection and try again.</value>
+  </data>
+  <data name="Text_edc4476b5b4a" xml:space="preserve">
+    <value>The service took too long to reply. Please try again.</value>
+  </data>
+  <data name="Text_5b9e214a45b2" xml:space="preserve">
+    <value>The word is ready to edit. Tap the word field to continue.</value>
+  </data>
+  <data name="Text_f0a535fd0020" xml:space="preserve">
+    <value>The word or search is too long after its accents are combined. Use a shorter word or search, up to 80 characters.</value>
+  </data>
+  <data name="Text_c078223b5c36" xml:space="preserve">
+    <value>This app</value>
+  </data>
+  <data name="Text_345929da4348" xml:space="preserve">
+    <value>This browser</value>
+  </data>
+  <data name="Text_6111e466e538" xml:space="preserve">
+    <value>This request is too large. Use one word or at most 50 words in a sentence.</value>
+  </data>
+  <data name="Text_8eab1c1c372e" xml:space="preserve">
+    <value>This sentence request was already used. Start a new sentence before saving different words.</value>
+  </data>
+  <data name="Text_dff8bfea7cef" xml:space="preserve">
+    <value>This service does not provide the log viewer yet. Deploy the updated service and try again.</value>
+  </data>
+  <data name="Text_030a254c7e9c" xml:space="preserve">
+    <value>This token cannot read service logs. Ask an administrator for logs.read permission.</value>
+  </data>
+  <data name="Text_f5deb08bab8a" xml:space="preserve">
+    <value>This word no longer exists. Refresh your collection.</value>
+  </data>
+  <data name="Text_2f38169a712e" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="Text_ff09937615e2" xml:space="preserve">
+    <value>Try another severity or search, perform an action, then refresh.</value>
+  </data>
+  <data name="Text_86d0a8c523ac" xml:space="preserve">
+    <value>Types (use the English names in commands):</value>
+  </data>
+  <data name="Text_9e8861d36d26" xml:space="preserve">
+    <value>UNDERSTAND WHAT HAPPENED</value>
+  </data>
+  <data name="Text_b47ff0fabaf6" xml:space="preserve">
+    <value>USB device</value>
+  </data>
+  <data name="Text_d54cd78cfa95" xml:space="preserve">
+    <value>Use --language with en-ZA, af-ZA, xh-ZA, zu-ZA or tn-ZA.</value>
+  </data>
+  <data name="Text_0a3bb440c0dc" xml:space="preserve">
+    <value>Use a valid severity, a positive page bookmark and search text up to 120 characters.</value>
+  </data>
+  <data name="Text_1c1f2fb5d6a3" xml:space="preserve">
+    <value>Use a valid, non-empty UUID for --request-id.</value>
+  </data>
+  <data name="Text_9b969431f93f" xml:space="preserve">
+    <value>Use the same service and access token as the website. Tokens are never saved on this device.</value>
+  </data>
+  <data name="Text_33817a63b651" xml:space="preserve">
+    <value>Verb</value>
+  </data>
+  <data name="Text_413ffea05e7e" xml:space="preserve">
+    <value>WORD &amp; TYPE</value>
+  </data>
+  <data name="Text_33cead23d9ac" xml:space="preserve">
+    <value>WORD COLLECTION</value>
+  </data>
+  <data name="Text_e9c45563358e" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Text_44363ccb8230" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="Text_5258676b8aa1" xml:space="preserve">
+    <value>Word and page IDs must be positive whole numbers.</value>
+  </data>
+  <data name="Text_84147dd9ede0" xml:space="preserve">
+    <value>Word collection</value>
+  </data>
+  <data name="Text_f8f8617a5852" xml:space="preserve">
+    <value>Word collection · Runninghill</value>
+  </data>
+  <data name="Text_5cfe106c9f58" xml:space="preserve">
+    <value>Word deleted.</value>
+  </data>
+  <data name="Text_4c5da31079d6" xml:space="preserve">
+    <value>Word deleted. Saved sentences are unchanged.</value>
+  </data>
+  <data name="Text_c9140c7edd43" xml:space="preserve">
+    <value>Word deleted. Saved sentences have not changed.</value>
+  </data>
+  <data name="Text_9a0381b05ce4" xml:space="preserve">
+    <value>Word saved.</value>
+  </data>
+  <data name="Text_bdad4062d920" xml:space="preserve">
+    <value>Word saved. Your collection has been refreshed.</value>
+  </data>
+  <data name="Text_f8fe9d54d138" xml:space="preserve">
+    <value>Word type</value>
+  </data>
+  <data name="Text_4728511f4e32" xml:space="preserve">
+    <value>Word types</value>
+  </data>
+  <data name="Text_72df03b458ad" xml:space="preserve">
+    <value>Word types · All ▾</value>
+  </data>
+  <data name="Text_ff5a79c25e80" xml:space="preserve">
+    <value>Word types · {0} ▾</value>
+  </data>
+  <data name="Text_d26d55c7f815" xml:space="preserve">
+    <value>Words</value>
+  </data>
+  <data name="Text_13b7bfcac438" xml:space="preserve">
+    <value>Working…</value>
+  </data>
+  <data name="Text_61829ca0ea6d" xml:space="preserve">
+    <value>YOUR PERSONAL WORD BANK</value>
+  </data>
+  <data name="Text_d7fe5df50d2a" xml:space="preserve">
+    <value>Your access token is missing, expired, or invalid. Please enter a new access token and try again.</value>
+  </data>
+  <data name="Text_559402bef2e7" xml:space="preserve">
+    <value>Your access token stays in memory only</value>
+  </data>
+  <data name="Text_6dbfa588169b" xml:space="preserve">
+    <value>Your account does not have permission for this action. Ask an administrator for the required access (status.read, words.read/write or sentences.read/write).</value>
+  </data>
+  <data name="Text_46aafa670a81" xml:space="preserve">
+    <value>Your collection is temporarily unavailable.</value>
+  </data>
+  <data name="Text_14a772f34bb5" xml:space="preserve">
+    <value>Your collection is up to date.</value>
+  </data>
+  <data name="Text_12b98488716a" xml:space="preserve">
+    <value>Your collection starts here</value>
+  </data>
+  <data name="Text_9e80345ff96d" xml:space="preserve">
+    <value>Your collection starts here. Add a word above, or try a different search or type.</value>
+  </data>
+  <data name="Text_4441235c0693" xml:space="preserve">
+    <value>Your saved sentences will appear here.</value>
+  </data>
+  <data name="Text_aae41b798d57" xml:space="preserve">
+    <value>Your sentence is ready to save. Use the arrows to change the word order.</value>
+  </data>
+  <data name="Text_87124b59f118" xml:space="preserve">
+    <value>Your sentence is ready to save. You can change the word order using the arrows above.</value>
+  </data>
+  <data name="Text_459514301364" xml:space="preserve">
+    <value>Your words. New possibilities.</value>
+  </data>
+  <data name="Text_d18eb90e230e" xml:space="preserve">
+    <value>e.g. possibility</value>
+  </data>
+  <data name="Text_3dbf03ae674a" xml:space="preserve">
+    <value>isiXhosa (ZA)</value>
+  </data>
+  <data name="Text_99730a4251c6" xml:space="preserve">
+    <value>isiZulu (ZA)</value>
+  </data>
+  <data name="Text_d5889b4f44fa" xml:space="preserve">
+    <value>{0} / 50 words</value>
+  </data>
+  <data name="Text_4faf2a305db6" xml:space="preserve">
+    <value>{0} Request reference: {1}.</value>
+  </data>
+  <data name="Text_4505371265f2" xml:space="preserve">
+    <value>{0} Request reference: {1}. Share this reference with support.</value>
+  </data>
+  <data name="Text_c21f6ab32f6b" xml:space="preserve">
+    <value>{0} The screen could not finish updating. {1} Refresh the collection before making another change.</value>
+  </data>
+  <data name="Text_c067b5f03627" xml:space="preserve">
+    <value>{0} events shown. Refresh to check for new events.</value>
+  </data>
+  <data name="Text_039c806474a0" xml:space="preserve">
+    <value>{0} on this page</value>
+  </data>
+  <data name="Text_3169edd50aa9" xml:space="preserve">
+    <value>{0} retained</value>
+  </data>
+  <data name="Text_4017c46cb57c" xml:space="preserve">
+    <value>{0} shown</value>
+  </data>
+  <data name="Text_de9d8189d0a8" xml:space="preserve">
+    <value>{0} shown · {1} retained</value>
+  </data>
+  <data name="Text_2e8bb1d46292" xml:space="preserve">
+    <value>{0} · {1:dd MMM yyyy HH:mm:ss.fff} · Event {2}</value>
+  </data>
+  <data name="Text_29211387ab36" xml:space="preserve">
+    <value>System theme</value>
+  </data>
+  <data name="Text_3d0ba3f991b8" xml:space="preserve">
+    <value>App theme</value>
+  </data>
+  <data name="Text_a36ef8aba229" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Text_ae1ef0143294" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Text_bc0792d8dc81" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Text_5272a4015141" xml:space="preserve">
+    <value>Some app themes could not be loaded. Ask your administrator to check the theme files.</value>
+  </data>
+  <data name="Text_29731a29e24c" xml:space="preserve">
+    <value>{0} Error code: {1}.</value>
+  </data>
+  <data name="Text_448da3a27190" xml:space="preserve">
+    <value>This action could not finish because the app encountered a problem. Refresh the collection before repeating a save. If it continues, send support the error code, error type, reference, and the steps you followed.</value>
+  </data>
+  <data name="Text_460ab8c0af05" xml:space="preserve">
+    <value>Runninghill could not finish loading. Reload the page. If this continues, try a private browser window and share the diagnostic details with support.</value>
+  </data>
+  <data name="Text_196fad5535d0" xml:space="preserve">
+    <value>This page could not be displayed.</value>
+  </data>
+  <data name="Text_44b3e48553e2" xml:space="preserve">
+    <value>Reload the page. Unsaved changes may be lost. Before repeating a save, check whether it already succeeded.</value>
+  </data>
+  <data name="Text_1eb251da13db" xml:space="preserve">
+    <value>A file needed by this page could not be loaded. Check your connection and reload. If it continues, share the file name and diagnostic details with support.</value>
+  </data>
+  <data name="Text_d565aeadaf9d" xml:space="preserve">
+    <value>This browser cannot run the app. Update your browser and make sure JavaScript and WebAssembly are allowed, then reload.</value>
+  </data>
+  <data name="Text_6dcf3b79be21" xml:space="preserve">
+    <value>Diagnostic details</value>
+  </data>
+  <data name="Text_c489054c7a8c" xml:space="preserve">
+    <value>Copy diagnostic details</value>
+  </data>
+  <data name="Text_788517e7d908" xml:space="preserve">
+    <value>Diagnostic details copied.</value>
+  </data>
+  <data name="Text_5f3585ef5649" xml:space="preserve">
+    <value>Could not copy automatically. Select and copy the diagnostic details below.</value>
+  </data>
+  <data name="Text_3b5ba7a90fe1" xml:space="preserve">
+    <value>Share these details with support. Do not include your access token.</value>
+  </data>
+  <data name="Text_31fbfa58c6ba" xml:space="preserve">
+    <value>Monitoring dashboard</value>
+  </data>
+  <data name="Text_5a71188bf57d" xml:space="preserve">
+    <value>Monitoring settings</value>
+  </data>
+  <data name="Text_b4ddb3c1ca6c" xml:space="preserve">
+    <value>Connection settings</value>
+  </data>
+  <data name="Text_1ae6e2835d04" xml:space="preserve">
+    <value>Dashboard totals</value>
+  </data>
+  <data name="Text_c10d09e7b07b" xml:space="preserve">
+    <value>Health check interval (seconds)</value>
+  </data>
+  <data name="Text_0f4d8a4a0006" xml:space="preserve">
+    <value>Start monitoring</value>
+  </data>
+  <data name="Text_42608b8d426c" xml:space="preserve">
+    <value>Stop monitoring</value>
+  </data>
+  <data name="Text_1dc83f605edf" xml:space="preserve">
+    <value>Monitoring</value>
+  </data>
+  <data name="Text_e159b06187d3" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="Text_e0fde244452a" xml:space="preserve">
+    <value>Each cycle checks the service and website once. Stop monitoring to change connection settings or the interval.</value>
+  </data>
+  <data name="Text_eb650fa1243e" xml:space="preserve">
+    <value>Website URL</value>
+  </data>
+  <data name="Text_4da75dca52ab" xml:space="preserve">
+    <value>The token stays in memory. Totals need words.read and sentences.read; service logs need logs.read; load tests need status.read.</value>
+  </data>
+  <data name="Text_3ac906f5758c" xml:space="preserve">
+    <value>Health checks</value>
+  </data>
+  <data name="Text_a731fabd7bee" xml:space="preserve">
+    <value>Completed endpoint checks this session</value>
+  </data>
+  <data name="Text_7bd31a025d29" xml:space="preserve">
+    <value>Failures</value>
+  </data>
+  <data name="Text_2f507b79ca35" xml:space="preserve">
+    <value>Failed health checks this session</value>
+  </data>
+  <data name="Text_36b9d71ed1c6" xml:space="preserve">
+    <value>Saved words</value>
+  </data>
+  <data name="Text_347fbf7748e8" xml:space="preserve">
+    <value>Current database total</value>
+  </data>
+  <data name="Text_3292c07fdda7" xml:space="preserve">
+    <value>Totals checked at</value>
+  </data>
+  <data name="Text_efeb097d6ea7" xml:space="preserve">
+    <value>Database readiness</value>
+  </data>
+  <data name="Text_b5a229ac8bec" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Text_b11e7e279ac2" xml:space="preserve">
+    <value>Web server health</value>
+  </data>
+  <data name="Text_31ade2a02404" xml:space="preserve">
+    <value>Service load test</value>
+  </data>
+  <data name="Text_1eaeb59b443b" xml:space="preserve">
+    <value>Response time under load</value>
+  </data>
+  <data name="Text_56e56e703898" xml:space="preserve">
+    <value>95th percentile</value>
+  </data>
+  <data name="Text_b852f4395064" xml:space="preserve">
+    <value>Response time, not CPU usage. Gauge range: 0–2,000 ms. Lower is better.</value>
+  </data>
+  <data name="Text_407b7a04662f" xml:space="preserve">
+    <value>Testing…</value>
+  </data>
+  <data name="Text_3695c242dbd6" xml:space="preserve">
+    <value>Run load test</value>
+  </data>
+  <data name="Text_03e8bead9361" xml:space="preserve">
+    <value>A test sends at most 24 read-only requests, with four running at once. It stops within 20 seconds.</value>
+  </data>
+  <data name="Text_9d7ece7dec91" xml:space="preserve">
+    <value>Last health check</value>
+  </data>
+  <data name="Text_7e318f15a1db" xml:space="preserve">
+    <value>Dashboard logs</value>
+  </data>
+  <data name="Text_10f639e7d15b" xml:space="preserve">
+    <value>Service logs</value>
+  </data>
+  <data name="Text_49c266baaaa7" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Text_0184905d7451" xml:space="preserve">
+    <value>Recent retained events only. Older pages let you browse the available history; restarting the service clears its in-memory logs.</value>
+  </data>
+  <data name="Text_5525724957cc" xml:space="preserve">
+    <value>No events to display.</value>
+  </data>
+  <data name="Text_37d3ab857e50" xml:space="preserve">
+    <value>Newest events</value>
+  </data>
+  <data name="Text_931b9f282d0f" xml:space="preserve">
+    <value>Dashboard opened.</value>
+  </data>
+  <data name="Text_e9556fcfce00" xml:space="preserve">
+    <value>Enter a whole number of seconds from 1 to 3,600.</value>
+  </data>
+  <data name="Text_334776b3cd96" xml:space="preserve">
+    <value>Enter an HTTPS address, or HTTP on localhost. Do not include passwords, query strings or fragments.</value>
+  </data>
+  <data name="Text_c76c907d0fe6" xml:space="preserve">
+    <value>Monitoring started.</value>
+  </data>
+  <data name="Text_3e7c8783297c" xml:space="preserve">
+    <value>Monitoring stopped.</value>
+  </data>
+  <data name="Text_38adb336b7a7" xml:space="preserve">
+    <value>Load test started.</value>
+  </data>
+  <data name="Text_4015de90be9e" xml:space="preserve">
+    <value>Load test completed.</value>
+  </data>
+  <data name="Text_d22857f2203d" xml:space="preserve">
+    <value>Load test cancelled.</value>
+  </data>
+  <data name="Text_d16948e73a68" xml:space="preserve">
+    <value>Not checked</value>
+  </data>
+  <data name="Text_7f1e323b6272" xml:space="preserve">
+    <value>Healthy</value>
+  </data>
+  <data name="Text_ca1844969742" xml:space="preserve">
+    <value>Unavailable</value>
+  </data>
+  <data name="Text_53d21e94df96" xml:space="preserve">
+    <value>Enter an access token with status.read permission to run a load test.</value>
+  </data>
+  <data name="Text_3b3c9067ffe6" xml:space="preserve">
+    <value>Enter a token to read collection totals and service logs.</value>
+  </data>
+  <data name="Text_39e9193553c5" xml:space="preserve">
+    <value>{0} requests; {1} failures; {2:F1} requests/second.</value>
+  </data>
+  <data name="Text_5c53997d0518" xml:space="preserve">
+    <value>{0} events retained.</value>
+  </data>
+  <data name="Text_ead737b6c270" xml:space="preserve">
+    <value>Close and reopen the dashboard. Share the error code and error type with support. Check the certificate file if one was configured.</value>
+  </data>
+  <data name="Text_fec8d8da75de" xml:space="preserve">
+    <value>The HTTPS certificate could not be verified; the token has not been checked. For localhost, set RUNNINGHILL_DASHBOARD_CA_CERT to the full path of .run/tls/localhost.crt and reopen the dashboard. If already set, check that nginx uses that certificate and that its hostname and dates are valid. Error code: HttpRequestError.SecureConnectionError.</value>
+  </data>
+</root>

@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -29,10 +30,11 @@ public partial class Logs
     /// <summary>Shows a local snapshot immediately and copies the current connection token only in memory.</summary>
     protected override void OnInitialized()
     {
+        AppText.LanguageChanged += RefreshLanguage;
         token = InitialToken;
         OperationLog.Event(Logger, "LogViewerOpened");
         page = Store.Read();
-        message = "Showing recent events from this browser tab.";
+        message = T("Showing recent events from this browser tab.");
     }
 
     /// <summary>Applies the visible filters and starts again from the newest retained record.</summary>
@@ -52,39 +54,42 @@ public partial class Logs
     private async Task LoadAsync(long before)
     {
         if (busy) return;
-        busy = true; error = false; message = "Loading logs…";
+        busy = true; error = false; message = T("Loading logs…");
         try
         {
             if (appliedSource == "app") page = Store.Read(before, appliedLevel, appliedSearch);
             else
             {
-                if (string.IsNullOrWhiteSpace(token)) throw new ViewerFailure("Enter an access token with logs.read permission, then refresh.");
+                if (string.IsNullOrWhiteSpace(token)) throw new ViewerFailure(T("Enter an access token with logs.read permission, then refresh."));
                 using var request = new HttpRequestMessage(HttpMethod.Get,
                     $"api/logs?before={before}&level={Uri.EscapeDataString(appliedLevel)}&search={Uri.EscapeDataString(appliedSearch)}");
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim());
+                request.Headers.AcceptLanguage.ParseAdd(Runninghill.Contracts.AppText.Language);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim());
                 using var response = await Client.SendAsync(request, lifetime.Token);
                 if (!response.IsSuccessStatusCode)
                 {
                     var detail = response.StatusCode == HttpStatusCode.Forbidden
-                        ? "This token cannot read service logs. Ask an administrator for logs.read permission."
-                        : response.StatusCode == HttpStatusCode.NotFound ? "This service does not provide the log viewer yet. Deploy the updated service and try again."
+                        ? ClientMessages.WithStatus(T("This token cannot read service logs. Ask an administrator for logs.read permission."), response.StatusCode)
+                        : response.StatusCode == HttpStatusCode.NotFound ? ClientMessages.WithStatus(T("This service does not provide the log viewer yet. Deploy the updated service and try again."), response.StatusCode)
                         : ClientMessages.ForStatus(response.StatusCode);
                     throw new ViewerFailure(ClientMessages.WithReference(detail, ClientMessages.ReadReference(response)));
                 }
                 page = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.LogPage, lifetime.Token) ?? throw new JsonException();
                 if (page.Items is null || page.Items.Length > RecentLogStore.PageSize || page.Items.Any(entry => entry is null || entry.Level is null)) throw new JsonException();
             }
-            message = $"{page.Items.Length} events shown. Refresh to check for new events.";
+            message = F($"{page.Items.Length} events shown. Refresh to check for new events.");
         }
-        catch (OperationCanceledException) { Fail("Log loading was cancelled or timed out. Try refreshing."); }
+        catch (OperationCanceledException) { Fail(T("Log loading was cancelled or timed out. Try refreshing.")); }
         catch (HttpRequestException exception) { Fail(ClientMessages.ForRequestFailure(exception)); }
         catch (JsonException) { Fail(ClientMessages.InvalidReply); }
-        catch (FormatException) { Fail("The access token is not valid. Copy a fresh token and refresh."); }
+        catch (FormatException) { Fail(T("The access token is not valid. Copy a fresh token and refresh.")); }
         catch (ViewerFailure exception) { Fail(exception.Message); }
         catch (Exception exception)
         {
-            OperationLog.Event(Logger, "LogViewerFailed:" + exception.GetType().Name);
-            Fail("Could not load logs. Refresh and share the time of this error with support if it continues.");
+            var reference = Guid.NewGuid().ToString("N");
+            Logger.LogError("Log viewer failed. Reference: {Reference}; type: {ErrorType}; stack: {StackTrace}",
+                reference, exception.GetType().Name, exception.StackTrace);
+            Fail(ClientMessages.WithReference(ClientMessages.ForUnexpected(exception), reference));
         }
         finally { busy = false; }
     }
@@ -102,6 +107,12 @@ public partial class Logs
     /// <summary>Carries only a deliberately user-friendly message, never a raw server exception.</summary>
     private sealed class ViewerFailure(string message) : Exception(message);
 
+    /// <summary>Refreshes translated labels while retaining the draft, filters, and connection.</summary>
+    private void RefreshLanguage() => _ = InvokeAsync(() =>
+    {
+        message = T("Language changed."); error = false; StateHasChanged();
+    });
+
     /// <summary>Cancels outstanding reads and removes the viewer's in-memory token when closed.</summary>
-    public void Dispose() { lifetime.Cancel(); lifetime.Dispose(); token = ""; }
+    public void Dispose() { AppText.LanguageChanged -= RefreshLanguage; lifetime.Cancel(); lifetime.Dispose(); token = ""; }
 }

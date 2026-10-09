@@ -1,5 +1,8 @@
 namespace Runninghill.Contracts;
 
+/// <summary>Live collection totals and the time at which the service finished reading them.</summary>
+public sealed record CollectionStatistics(long Words, long Sentences, DateTimeOffset CheckedAt);
+
 // Public wire shapes are deliberately small. Database details never cross this boundary.
 /// <summary>
 /// Contains the saved word ID, spelling and type returned to clients.

@@ -1,10 +1,11 @@
+using static Runninghill.Contracts.AppText;
 using Microsoft.Extensions.Logging;
 using Runninghill.Diagnostics;
 
 namespace Runninghill.Maui;
 
 /// <summary>
-/// Owns the native application, its shared navigation shell and its light colour theme.
+/// Owns the native application, its shared navigation shell and its remembered colour theme.
 /// </summary>
 public partial class App : Microsoft.Maui.Controls.Application
 {
@@ -17,8 +18,7 @@ public partial class App : Microsoft.Maui.Controls.Application
     public App(AppShell shell, ILogger<App> logger)
     {
         InitializeComponent();
-        // The supplied design is a light theme; native input chrome follows it too.
-        UserAppTheme = AppTheme.Light;
+        ThemePalette.Initialize(this);
         this.shell = shell;
         this.logger = logger;
     }
@@ -28,7 +28,7 @@ public partial class App : Microsoft.Maui.Controls.Application
     /// </summary>
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        var window = new Window(shell) { Title = "Word collection · Runninghill" };
+        var window = new Window(shell) { Title = T("Word collection · Runninghill") };
         if (OperatingSystem.IsWindows())
         {
             window.Width = 1280;

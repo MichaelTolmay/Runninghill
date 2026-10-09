@@ -17,6 +17,7 @@ public static class MauiProgram
 #if WINDOWS
         WinUI.DesktopAppearance.Configure();
 #endif
+        Runninghill.Contracts.AppText.SetClientLanguage(Preferences.Default.Get("runninghill.language", "en-ZA"));
         var builder = MauiApp.CreateBuilder();
         var recentLogs = new RecentLogStore();
         builder.Services.AddSingleton(recentLogs);

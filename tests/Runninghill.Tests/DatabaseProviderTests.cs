@@ -49,6 +49,7 @@ public sealed class DatabaseProviderTests
         Assert.Empty(await app.ListAsync(0, "_", null, ct));
         Assert.Equal(second.Id, Assert.Single(await app.ListAsync(0, "", "Verb", ct)).Id);
         Assert.Equal(3, (await app.ListAsync(0, "", null, ct)).Length);
+        Assert.Equal(new CollectionCounts(3, 0), await app.CountAsync(ct));
         Assert.Equal(new[] { second.Id, third.Id }, (await app.ListAsync(first.Id, "", null, ct)).Select(w => w.Id));
         Assert.Equal("Adjective", (await app.UpdateAsync(third.Id, "cafe", "Adjective", ct)).Type);
         Assert.Equal(409, (await Assert.ThrowsAsync<CollectionException>(() => app.UpdateAsync(third.Id, "CAFÉ", "Noun", ct))).StatusCode);
@@ -65,6 +66,7 @@ public sealed class DatabaseProviderTests
         Assert.Equal(404, (await Assert.ThrowsAsync<CollectionException>(() => app.DeleteAsync(first.Id, ct))).StatusCode);
         Assert.Equal(404, (await Assert.ThrowsAsync<CollectionException>(() => app.UpdateAsync(first.Id, "missing", "Noun", ct))).StatusCode);
         Assert.Equal(saves[0], Assert.Single(await app.ListSentencesAsync(0, ct)));
+        Assert.Equal(new CollectionCounts(2, 1), await app.CountAsync(ct));
         Assert.Empty(await app.ListSentencesAsync(saves[0].Id, ct));
         // A second migration run must be a no-op; persisted rows must remain readable.
         await fixture.Services.GetRequiredService<DatabaseMigrator>().MigrateAsync();

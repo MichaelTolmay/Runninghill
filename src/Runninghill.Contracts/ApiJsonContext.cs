@@ -18,4 +18,5 @@ namespace Runninghill.Contracts;
 [JsonSerializable(typeof(SentencePage))]
 [JsonSerializable(typeof(ApiProblem))]
 [JsonSerializable(typeof(LogPage))]
+[JsonSerializable(typeof(CollectionStatistics))]
 public partial class ApiJsonContext : JsonSerializerContext;

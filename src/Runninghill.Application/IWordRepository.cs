@@ -18,6 +18,8 @@ public sealed record SentenceEntry(long Id, string Text, DateTimeOffset CreatedA
 /// </summary>
 public interface IWordRepository
 {
+    /// <summary>Counts stored rows in the database without loading words or sentence text.</summary>
+    Task<CollectionCounts> CountAsync(CancellationToken cancellation);
     // The caller asks for one extra row to detect a next page. Results use increasing IDs.
     /// <summary>
     /// Returns at most the requested number of filtered words after the bookmark, in increasing ID
@@ -59,6 +61,9 @@ public interface IWordRepository
     /// </summary>
     Task<SentenceEntry[]> ListSentencesAsync(long after, int take, CancellationToken cancellation);
 }
+
+/// <summary>Two scalar totals for the monitoring dashboard, not a collection of database rows.</summary>
+public sealed record CollectionCounts(long Words, long Sentences);
 
 // Only these deliberately written messages may be shown to a user.
 /// <summary>

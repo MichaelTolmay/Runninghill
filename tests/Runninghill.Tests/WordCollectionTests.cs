@@ -184,6 +184,9 @@ public sealed class WordCollectionTests
 /// </summary>
 internal sealed class RecordingRepository : IWordRepository
 {
+    /// <summary>Supplies known scalar totals for endpoint permission and serialization tests.</summary>
+    public Task<CollectionCounts> CountAsync(CancellationToken cancellation) => Task.FromResult(new CollectionCounts(12, 3));
+
     public bool WasCalled, Missing;
     public long[]? WordIds;
     public Guid RequestId;

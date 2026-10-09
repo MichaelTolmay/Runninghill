@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
@@ -7,6 +8,27 @@ using System.Net.Http.Json;
 using Runninghill.Contracts;
 using Runninghill.Clients;
 using System.Text.Json;
+
+// Remove only the language option; collection commands retain their documented syntax.
+var language = Environment.GetEnvironmentVariable("RUNNINGHILL_LANGUAGE") ?? "en-ZA";
+var languageIndex = Array.IndexOf(args, "--language");
+if (languageIndex >= 0)
+{
+    if (languageIndex + 1 >= args.Length)
+    {
+        SetClientLanguage(language);
+        Console.Error.WriteLine(T("Use --language with en-ZA, af-ZA, xh-ZA, zu-ZA or tn-ZA."));
+        return 2;
+    }
+    language = args[languageIndex + 1];
+    args = args.Where((_, index) => index != languageIndex && index != languageIndex + 1).ToArray();
+}
+SetClientLanguage(language);
+if (!Languages.Contains(language, StringComparer.OrdinalIgnoreCase) || args.Contains("--language"))
+{
+    Console.Error.WriteLine(T("Use --language with en-ZA, af-ZA, xh-ZA, zu-ZA or tn-ZA."));
+    return 2;
+}
 
 using var logFactory = LoggerFactory.Create(logging =>
 {
@@ -46,12 +68,12 @@ if (!string.IsNullOrEmpty(debugEnvironmentFile))
     }
     catch (IOException)
     {
-        Console.Error.WriteLine("Could not read Debug settings. Run python scripts/dev.py prepare first.");
+        Console.Error.WriteLine(T("Could not read Debug settings. Run python scripts/dev.py prepare first."));
         operation.Complete("InvalidArgumentsOrSettings"); return 2;
     }
     catch (UnauthorizedAccessException)
     {
-        Console.Error.WriteLine("Cannot read Debug settings. Check file permissions in .run.");
+        Console.Error.WriteLine(T("Cannot read Debug settings. Check file permissions in .run."));
         operation.Complete("InvalidArgumentsOrSettings"); return 2;
     }
 }
@@ -59,7 +81,7 @@ if (!string.IsNullOrEmpty(debugEnvironmentFile))
 if (!Uri.TryCreate(serviceUrl, UriKind.Absolute, out var address) ||
     (address.Scheme != "https" && !(address.Scheme == "http" && address.IsLoopback)) || string.IsNullOrWhiteSpace(token))
 {
-    Console.Error.WriteLine("Set RUNNINGHILL_SERVICE_URL (HTTPS, or HTTP loopback for development) and RUNNINGHILL_ACCESS_TOKEN.");
+    Console.Error.WriteLine(T("Set RUNNINGHILL_SERVICE_URL (HTTPS, or HTTP loopback for development) and RUNNINGHILL_ACCESS_TOKEN."));
     operation.Complete("InvalidArgumentsOrSettings"); return 2;
 }
 // Ctrl+C stops the request too, so the server does not keep working after we leave.
@@ -77,7 +99,8 @@ try
     }
     using var request = new HttpRequestMessage(HttpMethod.Get, "api/status");
     // Attach the token to this request only; never print it in an error message.
-    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+    request.Headers.AcceptLanguage.ParseAdd(Runninghill.Contracts.AppText.Language);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
     using var response = await client.SendAsync(request, cancellation.Token);
     requestId = ClientMessages.ReadReference(response);
     OperationLog.Response(logger, (int)response.StatusCode, requestId);
@@ -96,7 +119,7 @@ try
 }
 catch (OperationCanceledException)
 {
-    Console.Error.WriteLine(cancellation.IsCancellationRequested ? "Request cancelled." : ClientMessages.TimedOut);
+    Console.Error.WriteLine(cancellation.IsCancellationRequested ? T("Request cancelled.") : ClientMessages.TimedOut);
     // 130 means the user stopped the command; 1 means the request failed.
     operation.Complete(cancellation.IsCancellationRequested ? "Cancelled" : "TimedOut");
     return cancellation.IsCancellationRequested ? 130 : 1;
@@ -113,14 +136,16 @@ catch (JsonException)
 }
 catch (FormatException)
 {
-    Console.Error.WriteLine("The access token contains invalid characters. Copy a new token and try again.");
+    Console.Error.WriteLine(T("The access token contains invalid characters. Copy a new token and try again."));
     operation.Complete("InvalidArgumentsOrSettings"); return 2;
 }
 catch (Exception exception)
 {
     // The command boundary should fail cleanly. An error type helps support diagnose a bug
     // without revealing exception text that might contain a token, URL, or server details.
-    Console.Error.WriteLine(ClientMessages.WithReference(ClientMessages.Unexpected, requestId));
-    Console.Error.WriteLine($"Error type: {exception.GetType().Name}");
+    var reference = requestId ?? Guid.NewGuid().ToString("N");
+    logger.LogError("CLI action failed. Code: RH-APP-UNEXPECTED; Reference: {Reference}; type: {ErrorType}; stack: {StackTrace}",
+        reference, exception.GetType().Name, exception.StackTrace);
+    Console.Error.WriteLine(ClientMessages.WithReference(ClientMessages.ForUnexpected(exception), reference));
     return 1;
 }

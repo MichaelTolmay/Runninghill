@@ -1,0 +1,64 @@
+@using Runninghill.Clients
+@using System.Text.Json
+@using Microsoft.JSInterop
+@inject IJSRuntime JavaScript
+@inject ILogger<ThemeSelectors> Logger
+
+<label class="theme-field"><span>@T("System theme")</span>
+    <select class="system-theme" aria-label="@T("System theme")" value="@mode" @onchange="ChangeModeAsync">
+        <option value="Light">@T("Light")</option><option value="Dark">@T("Dark")</option><option value="System">@T("System")</option>
+    </select>
+</label>
+<label class="theme-field"><span>@T("App theme")</span>
+    <select class="app-theme" aria-label="@T("App theme")" value="@selected.Id" @onchange="ChangeAppAsync">
+        @foreach (var theme in AppThemes.All.Where(theme => theme.Mode == selected.Mode))
+        {
+            <option value="@theme.Id">@theme.Id</option>
+        }
+    </select>
+</label>
+@if (AppThemes.HasInvalidFiles)
+{
+    <small class="theme-warning" role="status">@T("Some app themes could not be loaded. Ask your administrator to check the theme files.")</small>
+}
+
+@code {
+    [Parameter] public EventCallback<string> ThemeChanged { get; set; }
+    private string mode = "System", company = "Runninghill";
+    private AppThemeDefinition selected = AppThemes.Resolve("Runninghill", "System", false);
+
+    /// <summary>Restores only appearance preferences; collection data and credentials stay untouched.</summary>
+    protected override async Task OnInitializedAsync()
+    {
+        using var state = JsonDocument.Parse(await JavaScript.InvokeAsync<string>("runninghillTheme.state"));
+        mode = AppThemes.NormalizeMode(state.RootElement.GetProperty("mode").GetString());
+        company = state.RootElement.GetProperty("company").GetString() ?? "Runninghill";
+        await ApplyAsync();
+    }
+
+    /// <summary>Changes brightness, keeping the selected company when switching to its other variant.</summary>
+    private async Task ChangeModeAsync(ChangeEventArgs args)
+    {
+        mode = AppThemes.NormalizeMode(args.Value?.ToString());
+        await ApplyAsync();
+        Runninghill.Diagnostics.OperationLog.Event(Logger, "SystemThemeChanged");
+    }
+
+    /// <summary>Chooses a company palette from the variants compatible with the current brightness.</summary>
+    private async Task ChangeAppAsync(ChangeEventArgs args)
+    {
+        company = AppThemes.All.FirstOrDefault(theme => theme.Id == args.Value?.ToString())?.Company ?? "Runninghill";
+        await ApplyAsync();
+        Runninghill.Diagnostics.OperationLog.Event(Logger, "AppThemeChanged");
+    }
+
+    /// <summary>Paints CSS variables in place without reloading the page or losing a draft.</summary>
+    private async Task ApplyAsync()
+    {
+        using var state = JsonDocument.Parse(await JavaScript.InvokeAsync<string>("runninghillTheme.state"));
+        selected = AppThemes.Resolve(company, mode, state.RootElement.GetProperty("systemDark").GetBoolean());
+        company = selected.Company;
+        await JavaScript.InvokeVoidAsync("runninghillTheme.apply", mode, company, selected.Id, selected.Json);
+        await ThemeChanged.InvokeAsync(selected.Id);
+    }
+}

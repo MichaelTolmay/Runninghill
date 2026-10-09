@@ -15,9 +15,15 @@
     <ProjectReference Include="../../src/Runninghill.Service/Runninghill.Service.csproj" />
     <Compile Include="../../src/Clients/Runninghill.Maui/WorkspaceLayout.cs" Link="WorkspaceLayout.cs" />
     <Compile Include="../../src/Clients/Shared/ClientMessages.cs" Link="ClientMessages.cs" />
+    <!-- Test HTTP monitoring without loading Photino's native windowing libraries. -->
+    <Compile Include="../../src/Clients/Runninghill.Dashboard/DashboardClient.cs" Link="DashboardClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../../src/Clients/Runninghill.Maui/RollingFileLoggerProvider.cs" Link="RollingFileLoggerProvider.cs" />
     <Compile Include="../../src/Shared/OperationLog.cs" Link="OperationLog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../src/Clients/Shared/AppThemes.cs" Link="AppThemes.cs" />
+    <EmbeddedResource Include="../../themes/*.json" LogicalName="Runninghill.Themes.%(Filename).json" />
   </ItemGroup>
 </Project>

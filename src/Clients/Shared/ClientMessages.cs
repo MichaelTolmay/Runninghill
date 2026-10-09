@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -18,35 +19,54 @@ internal static class ClientMessages
 #else
     public static readonly TimeSpan RequestTimeout = TimeSpan.FromSeconds(10);
 #endif
-    public const string InvalidReply = "The service sent a reply this app cannot read. Please try again. If it continues, tell support which app version you are using.";
-    public const string TimedOut = "The service took too long to reply. Check your connection and try again.";
-    public const string Unexpected = "Something went wrong in this app. Please try again. If it continues, contact support and describe what you were doing.";
+    public static string InvalidReply => WithCode(T("The service sent a reply this app cannot read. Please try again. If it continues, tell support which app version you are using."), "RH-REPLY-INVALID");
+    public static string TimedOut => WithCode(T("The service took too long to reply. Check your connection and try again."), "RH-NETWORK-TIMEOUT");
+    public static string Unexpected => WithCode(T("This action could not finish because the app encountered a problem. Refresh the collection before repeating a save. If it continues, send support the error code, error type, reference, and the steps you followed."), "RH-APP-UNEXPECTED");
+
+    /// <summary>Shows a stable diagnostic code separately from translated recovery instructions.</summary>
+    public static string WithCode(string message, string code) => F($"{message} Error code: {code}.");
+
+    /// <summary>Uses the actual HTTP status, which can be looked up in standard HTTP documentation.</summary>
+    public static string WithStatus(string message, HttpStatusCode status) => WithCode(message, $"HTTP {(int)status} ({status})");
+
+    /// <summary>Names the exception category without exposing its potentially private message or response body.</summary>
+    public static string ForUnexpected(Exception error) => Unexpected + " " + F($"Error type: {error.GetType().Name}");
 
     /// <summary>
     /// Explains an HTTP status with a suggested next step, or describes an unreachable service when no
     /// status exists.
     /// </summary>
-    public static string ForStatus(HttpStatusCode? status) => status switch
+    public static string ForStatus(HttpStatusCode? status) => status is { } code
+        ? WithStatus(ExplainStatus(code), code)
+        : WithCode(ExplainStatus(null), "RH-NETWORK");
+
+    /// <summary>Gives recovery advice without inventing a server status when a connection never reached it.</summary>
+    private static string ExplainStatus(HttpStatusCode? status) => status switch
     {
-        HttpStatusCode.Unauthorized => "Your access token is missing, expired, or invalid. Please enter a new access token and try again.",
-        HttpStatusCode.Forbidden => "Your account does not have permission for this action. Ask an administrator for the required access (status.read, words.read/write or sentences.read/write).",
-        HttpStatusCode.NotFound => "The service address was reached, but this feature was not found. Check the service URL and app version.",
-        HttpStatusCode.TooManyRequests => "The service is busy. Please wait a few seconds and try again.",
-        HttpStatusCode.ServiceUnavailable => "The service cannot reach its data right now. Please try again shortly.",
-        HttpStatusCode.GatewayTimeout or HttpStatusCode.RequestTimeout => TimedOut,
-        null => "Could not reach the service. Check your internet connection and service address, then try again.",
-        _ => "The service could not complete the request. Please try again. If it continues, contact support."
+        HttpStatusCode.Unauthorized => T("Your access token is missing, expired, or invalid. Please enter a new access token and try again."),
+        HttpStatusCode.Forbidden => T("Your account does not have permission for this action. Ask an administrator for the required access (status.read, words.read/write or sentences.read/write)."),
+        HttpStatusCode.NotFound => T("The service address was reached, but this feature was not found. Check the service URL and app version."),
+        HttpStatusCode.TooManyRequests => T("The service is busy. Please wait a few seconds and try again."),
+        HttpStatusCode.ServiceUnavailable => T("The service cannot reach its data right now. Please try again shortly."),
+        HttpStatusCode.GatewayTimeout or HttpStatusCode.RequestTimeout => T("The service took too long to reply. Check your connection and try again."),
+        null => T("Could not reach the service. Check your internet connection and service address, then try again."),
+        _ => T("The service could not complete the request. Please try again. If it continues, contact support.")
     };
 
     /// <summary>
     /// Turns network, certificate and reply failures into specific guidance without exposing private
     /// exception text.
     /// </summary>
-    public static string ForRequestFailure(HttpRequestException error) => error.HttpRequestError switch
+    public static string ForRequestFailure(HttpRequestException error) => error.HttpRequestError == HttpRequestError.Unknown
+        ? ForStatus(error.StatusCode)
+        : WithCode(ExplainRequestFailure(error), "HttpRequestError." + error.HttpRequestError);
+
+    /// <summary>Retains the real .NET network category so support can distinguish DNS, TLS, and broken replies.</summary>
+    private static string ExplainRequestFailure(HttpRequestException error) => error.HttpRequestError switch
     {
-        HttpRequestError.ConfigurationLimitExceeded => "The service reply was larger than this app allows. Contact support and report this message.",
-        HttpRequestError.SecureConnectionError => "Could not verify a secure connection. Check your device's date and time, then ask support to check the service certificate.",
-        HttpRequestError.NameResolutionError => "The service address could not be found. Check the address and your internet connection.",
+        HttpRequestError.ConfigurationLimitExceeded => T("The service reply was larger than this app allows. Contact support and report this message."),
+        HttpRequestError.SecureConnectionError => T("Could not verify a secure connection. Check your device's date and time, then ask support to check the service certificate."),
+        HttpRequestError.NameResolutionError => T("The service address could not be found. Check the address and your internet connection."),
         HttpRequestError.InvalidResponse or HttpRequestError.ResponseEnded or HttpRequestError.HttpProtocolError => InvalidReply,
         _ => ForStatus(error.StatusCode)
     };
@@ -55,7 +75,7 @@ internal static class ClientMessages
     /// Adds an available request reference and support guidance to an existing message.
     /// </summary>
     public static string WithReference(string message, string? requestId) =>
-        requestId is null ? message : $"{message} Request reference: {requestId}. Share this reference with support.";
+        requestId is null ? message : F($"{message} Request reference: {requestId}. Share this reference with support.");
 
     /// <summary>
     /// Explains that a write succeeded but the following screen refresh failed, helping the user avoid
@@ -63,7 +83,7 @@ internal static class ClientMessages
     /// </summary>
     public static string AfterConfirmedChange(string? confirmedChange, string error) =>
         confirmedChange is null ? error :
-            $"{confirmedChange} The screen could not finish updating. {error} Refresh the collection before making another change.";
+            F($"{confirmedChange} The screen could not finish updating. {error} Refresh the collection before making another change.");
 
     /// <summary>
     /// Reads trusted validation wording when available, otherwise keeps the status explanation. Invalid
@@ -80,7 +100,7 @@ internal static class ClientMessages
             try
             {
                 var problem = await response.Content.ReadFromJsonAsync(ApiJsonContext.Default.ApiProblem, cancellation);
-                if (!string.IsNullOrWhiteSpace(problem?.Detail)) detail = problem.Detail;
+                if (!string.IsNullOrWhiteSpace(problem?.Detail)) detail = WithStatus(problem.Detail, response.StatusCode);
             }
             catch (JsonException) { /* The status and header still give us a useful error. */ }
         }

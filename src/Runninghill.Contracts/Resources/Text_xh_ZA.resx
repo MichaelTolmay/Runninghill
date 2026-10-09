@@ -1,0 +1,1110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Text_b608253c48dc" xml:space="preserve">
+    <value>+ Yongeza kwisivakalisi</value>
+  </data>
+  <data name="Text_8935d2851aad" xml:space="preserve">
+    <value>0 / 50 amagama</value>
+  </data>
+  <data name="Text_0db35f78ade8" xml:space="preserve">
+    <value>0 kweli phepha</value>
+  </data>
+  <data name="Text_6705b22afd2e" xml:space="preserve">
+    <value>ULWIMI OLUNCINANE, AMATHUBA AMANINZI</value>
+  </data>
+  <data name="Text_1528258360b5" xml:space="preserve">
+    <value>Igama elikhethiweyo licinyiwe. Hlaziya ingqokelela yakho uze wakhe isivakalisi kwakhona.</value>
+  </data>
+  <data name="Text_33a37a212932" xml:space="preserve">
+    <value>Kufuneka isazisi sesicelo sesivakalisi. Hlaziya i-app uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_bbb86bcb941f" xml:space="preserve">
+    <value>IZENZO</value>
+  </data>
+  <data name="Text_f69d5c7e6ea9" xml:space="preserve">
+    <value>Ithokheni yofikelelo</value>
+  </data>
+  <data name="Text_9d1e6d0cb9b8" xml:space="preserve">
+    <value>Igama lesenzo okanye isalathiso sesicelo</value>
+  </data>
+  <data name="Text_35c2eb2cb531" xml:space="preserve">
+    <value>Yongeza igama</value>
+  </data>
+  <data name="Text_109dfb68f2cd" xml:space="preserve">
+    <value>Yongeza ubuncinane igama elinye usebenzisa u-Yongeza kwisivakalisi kuluhlu lwamagama ukuze ukwazi ukugcina.</value>
+  </data>
+  <data name="Text_b5daa8a90b4c" xml:space="preserve">
+    <value>Yongeza igama</value>
+  </data>
+  <data name="Text_53156e1192f4" xml:space="preserve">
+    <value>Yongeza amagama kwingqokelela yakho ukuze ubone isivakalisi sakho apha.</value>
+  </data>
+  <data name="Text_37532e7f1218" xml:space="preserve">
+    <value>Yongeza igama lakho lokuqala ngasentla, okanye uzame olunye ukhangelo okanye udidi lwegama.</value>
+  </data>
+  <data name="Text_86862370f03d" xml:space="preserve">
+    <value>Yongeza {0} kwisivakalisi</value>
+  </data>
+  <data name="Text_218dee462203" xml:space="preserve">
+    <value>{0} yongezwe kwisivakalisi sakho.</value>
+  </data>
+  <data name="Text_39e85465e865" xml:space="preserve">
+    <value>Isiphawulo</value>
+  </data>
+  <data name="Text_7915dabafff0" xml:space="preserve">
+    <value>Isihlomelo</value>
+  </data>
+  <data name="Text_4229bffabe67" xml:space="preserve">
+    <value>Afrikaans (ZA)</value>
+  </data>
+  <data name="Text_6a72085653e4" xml:space="preserve">
+    <value>Zonke</value>
+  </data>
+  <data name="Text_6b4fde372a29" xml:space="preserve">
+    <value>Onke amanqanaba</value>
+  </data>
+  <data name="Text_4444a27dbde4" xml:space="preserve">
+    <value>Kwenzeke impazamo engalindelekanga.</value>
+  </data>
+  <data name="Text_8adf2f9b0d4d" xml:space="preserve">
+    <value>Iziganeko ze-app</value>
+  </data>
+  <data name="Text_926161d3e620" xml:space="preserve">
+    <value>Sebenzisa izihluzi</value>
+  </data>
+  <data name="Text_c1eaee2e22c9" xml:space="preserve">
+    <value>Sebenzisa iindidi ezikhethiweyo</value>
+  </data>
+  <data name="Text_61f81dde78c0" xml:space="preserve">
+    <value>Buyela kwingqokelela</value>
+  </data>
+  <data name="Text_f7bb0f7a522a" xml:space="preserve">
+    <value>Iziganeko zesikhangeli</value>
+  </data>
+  <data name="Text_dd770e03d7ab" xml:space="preserve">
+    <value>Yakha isivakalisi</value>
+  </data>
+  <data name="Text_5b6b41489fae" xml:space="preserve">
+    <value>Yakha isivakalisi ↗</value>
+  </data>
+  <data name="Text_b8f944abaa35" xml:space="preserve">
+    <value>Rhoxisa ukuhlela</value>
+  </data>
+  <data name="Text_a1bf92eff40d" xml:space="preserve">
+    <value>Irhoxisiwe</value>
+  </data>
+  <data name="Text_84cc3d77c8bb" xml:space="preserve">
+    <value>Iisetingi ze-Debug azifundeki. Jonga iimvume zeefayile ku-.run.</value>
+  </data>
+  <data name="Text_5f4a1b000b4b" xml:space="preserve">
+    <value>Jonga imimandla ye-JSON nendawo yephepha, uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_f57d3581a6b4" xml:space="preserve">
+    <value>Jonga umyalelo neeargumenti. Ukucima kufuna --yes.</value>
+  </data>
+  <data name="Text_fbe2d491c29f" xml:space="preserve">
+    <value>Jonga iinketho zoluhlu kuncedo olungezantsi.</value>
+  </data>
+  <data name="Text_7d9fb1441662" xml:space="preserve">
+    <value>Jonga izihluzi zerekhodi yeziganeko.</value>
+  </data>
+  <data name="Text_a9f2197ef784" xml:space="preserve">
+    <value>Jonga ufikelelo lwakho nedilesi yenkonzo. Yabelana ngenombolo yesicelo ukuba ingxaki iyaqhubeka.</value>
+  </data>
+  <data name="Text_a7793f1832a1" xml:space="preserve">
+    <value>Khetha + Yongeza kwisivakalisi ecaleni kwegama. Lisebenzise kwakhona xa ulifuna.</value>
+  </data>
+  <data name="Text_a8530c53fa0c" xml:space="preserve">
+    <value>Khetha umyalelo wengqokelela.</value>
+  </data>
+  <data name="Text_4edeb1848e89" xml:space="preserve">
+    <value>Khetha udidi lwegama kuluhlu.</value>
+  </data>
+  <data name="Text_1e4ec09ff8df" xml:space="preserve">
+    <value>Khetha naziphi na iindidi. Ukuba awukhethanga nto, kuboniswa onke amagama.</value>
+  </data>
+  <data name="Text_681b4c8052cf" xml:space="preserve">
+    <value>Khetha amagama agciniweyo aphakathi kwe-1 nama-50 kwisivakalisi sakho.</value>
+  </data>
+  <data name="Text_4762cad2067d" xml:space="preserve">
+    <value>Khetha izazisi zamagama eziphakathi kwe-1 nama-50.</value>
+  </data>
+  <data name="Text_dc9d72b50efc" xml:space="preserve">
+    <value>Khetha udidi olunye okanye ngaphezulu kwiindidi zamagama ezilithoba.</value>
+  </data>
+  <data name="Text_55c7846e4051" xml:space="preserve">
+    <value>Khetha iindidi, uze usebenzise izihluzi.</value>
+  </data>
+  <data name="Text_719ea396ad92" xml:space="preserve">
+    <value>Cima</value>
+  </data>
+  <data name="Text_412226715c56" xml:space="preserve">
+    <value>Cima izihluzi</value>
+  </data>
+  <data name="Text_6dbc15d59481" xml:space="preserve">
+    <value>Cima ukhetho lweendidi</value>
+  </data>
+  <data name="Text_bbfa773e5a63" xml:space="preserve">
+    <value>Vala</value>
+  </data>
+  <data name="Text_8a3b2930b1a8" xml:space="preserve">
+    <value>Vala iindidi zamagama</value>
+  </data>
+  <data name="Text_b98e8f6a12ab" xml:space="preserve">
+    <value>Qokelela amagama ngokweendidi, uze uwadibanise abe sisivakalisi.</value>
+  </data>
+  <data name="Text_1798b3ba42ee" xml:space="preserve">
+    <value>Igqityiwe</value>
+  </data>
+  <data name="Text_c9f2829e382c" xml:space="preserve">
+    <value>Qinisekisa ukucima</value>
+  </data>
+  <data name="Text_e53e762e5697" xml:space="preserve">
+    <value>Qinisekisa ukucima</value>
+  </data>
+  <data name="Text_c5a715320080" xml:space="preserve">
+    <value>Qinisekisa ukucima {0}</value>
+  </data>
+  <data name="Text_8458445d8d97" xml:space="preserve">
+    <value>Isihlanganisi</value>
+  </data>
+  <data name="Text_2d7e570cac65" xml:space="preserve">
+    <value>Qhagamshela / hlaziya</value>
+  </data>
+  <data name="Text_870284e6b217" xml:space="preserve">
+    <value>Qhagamshela ukuze uqalise</value>
+  </data>
+  <data name="Text_de34173811aa" xml:space="preserve">
+    <value>Qhagamshela ukuze ulayishe ingqokelela yakho.</value>
+  </data>
+  <data name="Text_ab8cace3373a" xml:space="preserve">
+    <value>Qhagamshela kwingqokelela yakho phambi kokugcina isivakalisi.</value>
+  </data>
+  <data name="Text_c2f9b7b4897f" xml:space="preserve">
+    <value>Kuqhagamshelwe</value>
+  </data>
+  <data name="Text_0ad66dcaa0d5" xml:space="preserve">
+    <value>Kopa ithokheni yofikelelo esebenzayo uze uqhagamshele kwakhona.</value>
+  </data>
+  <data name="Text_774910a0e263" xml:space="preserve">
+    <value>Akukwazekanga ukuvala esi sikrini. Zama u-Buyela kwakhona.</value>
+  </data>
+  <data name="Text_c4faabc3811e" xml:space="preserve">
+    <value>Akukwazekanga ukutsibela kwelo candelo. Usenako ukuskrola ukuya kulo.</value>
+  </data>
+  <data name="Text_517530ecfb37" xml:space="preserve">
+    <value>Akukwazekanga ukulayisha iilog. Hlaziya uze uxelele inkxaso ixesha lale mpazamo ukuba iyaqhubeka.</value>
+  </data>
+  <data name="Text_f02f6d116719" xml:space="preserve">
+    <value>Inkonzo ayifikeleleki. Jonga uqhagamshelo lwe-intanethi nedilesi yenkonzo, uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_f3e1c0f38804" xml:space="preserve">
+    <value>Iisetingi ze-Debug azifundeki. Qala usebenzise python scripts/dev.py prepare.</value>
+  </data>
+  <data name="Text_2ff9391be0e0" xml:space="preserve">
+    <value>Uqhagamshelo olukhuselekileyo aluqinisekiswanga. Jonga umhla nexesha lesixhobo sakho, uze ucele inkxaso ihlole isatifikethi senkonzo.</value>
+  </data>
+  <data name="Text_04b7b26c8ca2" xml:space="preserve">
+    <value>Eyobuzaza obukhulu</value>
+  </data>
+  <data name="Text_7563ce76d342" xml:space="preserve">
+    <value>UXILONGO</value>
+  </data>
+  <data name="Text_bd604d99e75e" xml:space="preserve">
+    <value>Lungisa iimpazamo</value>
+  </data>
+  <data name="Text_391b6ccfe9e9" xml:space="preserve">
+    <value>Isilinganisi sokulungisa iimpazamo</value>
+  </data>
+  <data name="Text_f6fdbe48dc54" xml:space="preserve">
+    <value>Cima</value>
+  </data>
+  <data name="Text_a92ece760a79" xml:space="preserve">
+    <value>Cima {0}</value>
+  </data>
+  <data name="Text_977b5828d9d5" xml:space="preserve">
+    <value>Ucima u-“{0}”? Izivakalisi ezigciniweyo aziyi kutshintsha.</value>
+  </data>
+  <data name="Text_c79ca7ec69f0" xml:space="preserve">
+    <value>Isichazi</value>
+  </data>
+  <data name="Text_ed28e0686e12" xml:space="preserve">
+    <value>Qhawula uqhagamshelo</value>
+  </data>
+  <data name="Text_380783deac9f" xml:space="preserve">
+    <value>Uqhagamshelo luqhawuliwe. Amagama akho agciniweyo akhuselekile kuvimba weenkcukacha.</value>
+  </data>
+  <data name="Text_a659269a5b85" xml:space="preserve">
+    <value>Isilinganisi seDocker</value>
+  </data>
+  <data name="Text_46b92baf6afa" xml:space="preserve">
+    <value>Inkonzo yeDocker</value>
+  </data>
+  <data name="Text_5301648dcf6b" xml:space="preserve">
+    <value>Hlela</value>
+  </data>
+  <data name="Text_f8bcdad7f461" xml:space="preserve">
+    <value>Hlela igama</value>
+  </data>
+  <data name="Text_523b184ecbf3" xml:space="preserve">
+    <value>Hlela {0}</value>
+  </data>
+  <data name="Text_daa711a3ae2a" xml:space="preserve">
+    <value>Isilinganisi: sebenzisa u-10.0.2.2 ukufikelela kwikhompyutha yakho. Kwifowuni eqhagamshelwe nge-USB, dlulisa izibuko 5080 nge-adb uze ukhethe Isixhobo se-USB. Ncamathelisa ithokheni entsha evela kwinkonzo yewebhusayithi.</value>
+  </data>
+  <data name="Text_7981bfd5ce9c" xml:space="preserve">
+    <value>English (ZA)</value>
+  </data>
+  <data name="Text_f709b143b819" xml:space="preserve">
+    <value>Faka i-URL yenkonzo esebenzayo kwisikrini sengqokelela kuqala.</value>
+  </data>
+  <data name="Text_72fecfdec274" xml:space="preserve">
+    <value>Faka i-URL yenkonzo esebenzayo kwisikrini sengqokelela, uze uvule Iilog kwakhona.</value>
+  </data>
+  <data name="Text_0035a84312c3" xml:space="preserve">
+    <value>Faka i-URL yenkonzo ye-HTTPS nethokheni yofikelelo.</value>
+  </data>
+  <data name="Text_c2e9875cd05d" xml:space="preserve">
+    <value>Faka ithokheni yofikelelo uze uqhagamshele ukuze ulayishe amagama akho agciniweyo.</value>
+  </data>
+  <data name="Text_57de80877251" xml:space="preserve">
+    <value>Faka ithokheni yofikelelo enemvume ye-logs.read, uze uhlaziye.</value>
+  </data>
+  <data name="Text_e1fa41e1978b" xml:space="preserve">
+    <value>Faka igama elinye elingadlulanga koonobumba abangama-80. Sebenzisa oonobumba, i-apostrofi okanye iqhagamshela; kungabikho zithuba okanye manani.</value>
+  </data>
+  <data name="Text_7f2f6a15cf8d" xml:space="preserve">
+    <value>Impazamo</value>
+  </data>
+  <data name="Text_7b433c33dc55" xml:space="preserve">
+    <value>Udidi lwempazamo: {0}</value>
+  </data>
+  <data name="Text_89679ea1551f" xml:space="preserve">
+    <value>Iilog zeziganeko</value>
+  </data>
+  <data name="Text_6ddcb0c6164b" xml:space="preserve">
+    <value>Iilog zeziganeko · Runninghill</value>
+  </data>
+  <data name="Text_8c090106c833" xml:space="preserve">
+    <value>Isiganeko {0}</value>
+  </data>
+  <data name="Text_09fef5d8d9a3" xml:space="preserve">
+    <value>Ayiphumelelanga</value>
+  </data>
+  <data name="Text_133b48a000b0" xml:space="preserve">
+    <value>Hluza ngokodidi lwegama</value>
+  </data>
+  <data name="Text_b9ab9081d012" xml:space="preserve">
+    <value>Hluza {0}</value>
+  </data>
+  <data name="Text_b3a6f8432d24" xml:space="preserve">
+    <value>Izihluzi zisetyenzisiwe.</value>
+  </data>
+  <data name="Text_3a8488ec78a2" xml:space="preserve">
+    <value>Izihluzi zicinyiwe.</value>
+  </data>
+  <data name="Text_5777b4f4af1e" xml:space="preserve">
+    <value>Fumana isenzo, jonga isiphumo saso uze wabelane ngesalathiso saso nenkxaso.</value>
+  </data>
+  <data name="Text_916a78d701de" xml:space="preserve">
+    <value>Eyokuqala</value>
+  </data>
+  <data name="Text_a0c15efce128" xml:space="preserve">
+    <value>Yiya kwizivakalisi ezigciniweyo</value>
+  </data>
+  <data name="Text_63c5b4d0ad73" xml:space="preserve">
+    <value>Yiya kumakhi wezivakalisi</value>
+  </data>
+  <data name="Text_70e6d0eca92c" xml:space="preserve">
+    <value>Yiya kwingqokelela yamagama</value>
+  </data>
+  <data name="Text_90ccd6497400" xml:space="preserve">
+    <value>Imbali</value>
+  </data>
+  <data name="Text_70f8bb9a8a53" xml:space="preserve">
+    <value>Ekhaya</value>
+  </data>
+  <data name="Text_744ec7eeba75" xml:space="preserve">
+    <value>Inkonzo ye-IDE</value>
+  </data>
+  <data name="Text_0eb5ed506e49" xml:space="preserve">
+    <value>Ulwazi</value>
+  </data>
+  <data name="Text_d2c10ab88f74" xml:space="preserve">
+    <value>Isikhuzo</value>
+  </data>
+  <data name="Text_e6ade6a1632c" xml:space="preserve">
+    <value>Isihluzi serekhodi asisebenzi.</value>
+  </data>
+  <data name="Text_a7de5eaa5dc0" xml:space="preserve">
+    <value>Gcina igama</value>
+  </data>
+  <data name="Text_df2f1e44d436" xml:space="preserve">
+    <value>Gcina {0}</value>
+  </data>
+  <data name="Text_41f88e7c6b64" xml:space="preserve">
+    <value>Igcinwa kwimemori kuphela. Iimvume zengqokelela kuphela aziniki ufikelelo kwiilog.</value>
+  </data>
+  <data name="Text_3f1673453970" xml:space="preserve">
+    <value>Igcinwa kwimemori kuphela. Iimvume zengqokelela kuphela aziniki ufikelelo kwiilog. Tshintsha idilesi yenkonzo kwisikrini sengqokelela.</value>
+  </data>
+  <data name="Text_89b86ab0e66f" xml:space="preserve">
+    <value>Ulwimi</value>
+  </data>
+  <data name="Text_2a8ff40134a0" xml:space="preserve">
+    <value>Ulwimi lutshintshiwe.</value>
+  </data>
+  <data name="Text_96df352a57cf" xml:space="preserve">
+    <value>Ulwimi: --language en-ZA|af-ZA|xh-ZA|zu-ZA|tn-ZA, okanye RUNNINGHILL_LANGUAGE.</value>
+  </data>
+  <data name="Text_9623e2d1ebbb" xml:space="preserve">
+    <value>Kulayishwa iRunninghill…</value>
+  </data>
+  <data name="Text_3f1ce5b33748" xml:space="preserve">
+    <value>Kulayishwa iilog…</value>
+  </data>
+  <data name="Text_33ce417454bf" xml:space="preserve">
+    <value>Kuyalayishwa…</value>
+  </data>
+  <data name="Text_527cf7115310" xml:space="preserve">
+    <value>Izihluzi zeelog</value>
+  </data>
+  <data name="Text_5d2892f30c36" xml:space="preserve">
+    <value>Ukulayishwa kweelog kurhoxisiwe okanye kuphelelwe lixesha. Zama ukuhlaziya.</value>
+  </data>
+  <data name="Text_3cd037d65ea5" xml:space="preserve">
+    <value>Iziphumo zeelog</value>
+  </data>
+  <data name="Text_c4b34f58cd0a" xml:space="preserve">
+    <value>Umthombo weelog</value>
+  </data>
+  <data name="Text_126dd3b70a5c" xml:space="preserve">
+    <value>Iilog</value>
+  </data>
+  <data name="Text_53b27d15d3d5" xml:space="preserve">
+    <value>Vulela igama elitsha indawo</value>
+  </data>
+  <data name="Text_b03d2fd89262" xml:space="preserve">
+    <value>Ezinye izivakalisi: sentences list --after {0}</value>
+  </data>
+  <data name="Text_50af2164021c" xml:space="preserve">
+    <value>Amanye amagama: phinda lo myalelo ngo---after {0} nezihluzi ezifanayo.</value>
+  </data>
+  <data name="Text_12da3161422c" xml:space="preserve">
+    <value>Hambisa igama {0} liye ngaphambili</value>
+  </data>
+  <data name="Text_651979ae15d6" xml:space="preserve">
+    <value>Hambisa igama {0} liye ngasemva</value>
+  </data>
+  <data name="Text_d0442824723c" xml:space="preserve">
+    <value>Ezintsha kakhulu</value>
+  </data>
+  <data name="Text_47354a475adc" xml:space="preserve">
+    <value>Ezintsha kuqala · ukuya kwiirekhodi zamva nje eziyi-1 000 zeseshoni yangoku okanye zenkonzo esebenzayo. Hlaziya ukuze ubone iziganeko ezitsha. Imiyalezo engaphezu koonobumba abayi-1 500 iyafinyezwa.</value>
+  </data>
+  <data name="Text_413493f2ef47" xml:space="preserve">
+    <value>Ezintsha kuqala · ukuya kwiirekhodi zamva nje eziyi-1 000 zeseshoni yale app okanye zenkonzo esebenzayo. Hlaziya ukuze ubone iziganeko ezitsha. Imiyalezo emide ifinyezwa ibe ngoonobumba abayi-1 500.</value>
+  </data>
+  <data name="Text_bc981983e7f5" xml:space="preserve">
+    <value>Elandelayo</value>
+  </data>
+  <data name="Text_36be0043c714" xml:space="preserve">
+    <value>Iphepha elilandelayo lilayishiwe.</value>
+  </data>
+  <data name="Text_651db22e2e12" xml:space="preserve">
+    <value>Izivakalisi ezilandelayo zilayishiwe.</value>
+  </data>
+  <data name="Text_f7be5465ff0c" xml:space="preserve">
+    <value>Akukho ziganeko zihambelanayo</value>
+  </data>
+  <data name="Text_0fc46d200668" xml:space="preserve">
+    <value>Akukho ziganeko zihambelanayo. Zama obunye ubuzaza okanye ukhangelo, yenza isenzo uze uhlaziye.</value>
+  </data>
+  <data name="Text_795958df8066" xml:space="preserve">
+    <value>Akukabikho zivakalisi. Khetha izazisi zamagama uze usebenzise sentences add.</value>
+  </data>
+  <data name="Text_468c56039ee7" xml:space="preserve">
+    <value>Akukho magama afunyenweyo. Yongeza igama okanye uzame esinye isihluzi.</value>
+  </data>
+  <data name="Text_8b02f3de3906" xml:space="preserve">
+    <value>Akuqhagamshelwanga</value>
+  </data>
+  <data name="Text_4ac734372124" xml:space="preserve">
+    <value>Isibizo</value>
+  </data>
+  <data name="Text_4e6685afd0a6" xml:space="preserve">
+    <value>Iziganeko ezindala</value>
+  </data>
+  <data name="Text_f7a3bdec827f" xml:space="preserve">
+    <value>Ingqokelela enye. Iindidi zamagama ezilithoba. Iindlela ezingapheliyo zokuzivakalisa.</value>
+  </data>
+  <data name="Text_c9a1d9770973" xml:space="preserve">
+    <value>SEBENZISA AMAGAMA AKHO</value>
+  </data>
+  <data name="Text_0cd2664cb285" xml:space="preserve">
+    <value>Iphepha 1</value>
+  </data>
+  <data name="Text_bc3023b36063" xml:space="preserve">
+    <value>Iphepha alifunyanwanga</value>
+  </data>
+  <data name="Text_02431c5464ea" xml:space="preserve">
+    <value>Iphepha {0}</value>
+  </data>
+  <data name="Text_81b8fce9546f" xml:space="preserve">
+    <value>Yenziwe</value>
+  </data>
+  <data name="Text_b7008a02867a" xml:space="preserve">
+    <value>Nceda ujonge isicelo.</value>
+  </data>
+  <data name="Text_f6d7a3689991" xml:space="preserve">
+    <value>Nceda ujonge ingqokelela yakho.</value>
+  </data>
+  <data name="Text_a09eee371bde" xml:space="preserve">
+    <value>Nceda uzame kwakhona kungekudala. Ukuba ukugcina kuphazamisekile, hlaziya ingqokelela yakho ngaphambi kokuphinda.</value>
+  </data>
+  <data name="Text_9e47493897f0" xml:space="preserve">
+    <value>Nceda uzame kwakhona kungekudala. Ukuba oku kuyaqhubeka, nika inkxaso inombolo yesicelo.</value>
+  </data>
+  <data name="Text_43ffb80524a5" xml:space="preserve">
+    <value>Nceda uzame kwakhona. Ukuba oku kuyaqhubeka, nika inkxaso inombolo yesicelo.</value>
+  </data>
+  <data name="Text_5d38732753af" xml:space="preserve">
+    <value>Nceda ulinde isicelo sangoku sigqitywe.</value>
+  </data>
+  <data name="Text_5afeca73bef6" xml:space="preserve">
+    <value>Nceda ulinde…</value>
+  </data>
+  <data name="Text_ad3287ccdd92" xml:space="preserve">
+    <value>Isalathandawo</value>
+  </data>
+  <data name="Text_50f94286ba30" xml:space="preserve">
+    <value>Edlulileyo</value>
+  </data>
+  <data name="Text_35d3b960b5fa" xml:space="preserve">
+    <value>Iphepha elidlulileyo lilayishiwe.</value>
+  </data>
+  <data name="Text_f01f76f5c38c" xml:space="preserve">
+    <value>Isimelabizo</value>
+  </data>
+  <data name="Text_20c7c5522fc2" xml:space="preserve">
+    <value>Ilungile</value>
+  </data>
+  <data name="Text_56e3badc4e6c" xml:space="preserve">
+    <value>Hlaziya</value>
+  </data>
+  <data name="Text_f970c362e4c8" xml:space="preserve">
+    <value>Hlaziya iilog</value>
+  </data>
+  <data name="Text_cce7155371fc" xml:space="preserve">
+    <value>Layisha kwakhona</value>
+  </data>
+  <data name="Text_328141695a00" xml:space="preserve">
+    <value>Susa igama {0}</value>
+  </data>
+  <data name="Text_d35c6de793ba" xml:space="preserve">
+    <value>Isicelo sirhoxisiwe.</value>
+  </data>
+  <data name="Text_cb49de37971a" xml:space="preserve">
+    <value>Ubume bedathabheyisi obufunekayo abufumaneki.</value>
+  </data>
+  <data name="Text_56553100b028" xml:space="preserve">
+    <value>Seta izihluzi kwakhona</value>
+  </data>
+  <data name="Text_85e6ea5e7cb1" xml:space="preserve">
+    <value>Iphepha lasekhaya leRunninghill</value>
+  </data>
+  <data name="Text_251fbc61f21a" xml:space="preserve">
+    <value>I-Runninghill ilungile. Ubume bedathabheyisi buqinisekisiwe.</value>
+  </data>
+  <data name="Text_e18e7207c42d" xml:space="preserve">
+    <value>Ingqokelela yamagama ye-Runninghill
+  status
+  words list [--search prefix] [--types Noun,Verb] [--after ID]
+  words get ID
+  words add WORD TYPE
+  words update ID WORD TYPE
+  words delete ID --yes
+  sentences list [--after ID]
+  sentences add ID [ID ...] [--request-id UUID]
+
+Iindidi (sebenzisa amagama esiNgesi kwimiyalelo):
+Noun, Verb, Adjective, Adverb, Pronoun, Preposition,
+Interjection, Conjunction, Determiner.
+Izazisi zesivakalisi zizazisi zamagama ngokulandelelana okufunayo; ukuphinda isazisi kuvumelekile.
+Gcina isazisi sesicelo esishicilelweyo ukuze uphinde ngokukhuselekileyo ukugcina isivakalisi ongaqinisekanga ngaso.
+Misela i-RUNNINGHILL_SERVICE_URL ne-RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_d56837c5e7f7" xml:space="preserve">
+    <value>Runninghill · UXILONGO</value>
+  </data>
+  <data name="Text_179359b39edb" xml:space="preserve">
+    <value>Gcina utshintsho</value>
+  </data>
+  <data name="Text_6600f0c494a1" xml:space="preserve">
+    <value>Gcina isivakalisi</value>
+  </data>
+  <data name="Text_3a98f2af4006" xml:space="preserve">
+    <value>Izivakalisi ezigciniweyo</value>
+  </data>
+  <data name="Text_1d433a86996b" xml:space="preserve">
+    <value>Izivakalisi ezigciniweyo zigcina amagama azo xa ingqokelela yakho itshintsha.</value>
+  </data>
+  <data name="Text_ebfd329b926f" xml:space="preserve">
+    <value>Izivakalisi ezigciniweyo zihlaziyiwe.</value>
+  </data>
+  <data name="Text_cbdfd43e83fa" xml:space="preserve">
+    <value>Khangela ngesiqalo segama…</value>
+  </data>
+  <data name="Text_0ab6b4991a7e" xml:space="preserve">
+    <value>Khangela kwingqokelela</value>
+  </data>
+  <data name="Text_0ddc597488d4" xml:space="preserve">
+    <value>Khangela umyalezo okanye udidi</value>
+  </data>
+  <data name="Text_53a114767909" xml:space="preserve">
+    <value>Khangela ngoonobumba abangama-80 okanye ngaphantsi.</value>
+  </data>
+  <data name="Text_c3bb9c5cd95b" xml:space="preserve">
+    <value>Thumela esi sicelo njenge-application/json.</value>
+  </data>
+  <data name="Text_87193316865f" xml:space="preserve">
+    <value>Thumela i-JSON esebenzayo enemimandla namaxabiso achaziweyo, uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_1bb1f30ec48f" xml:space="preserve">
+    <value>Isivakalisi</value>
+  </data>
+  <data name="Text_fdb95bf5a6c2" xml:space="preserve">
+    <value>Isivakalisi #{0} sigciniwe: {1}</value>
+  </data>
+  <data name="Text_64e653d03fd3" xml:space="preserve">
+    <value>Isivakalisi ({0})</value>
+  </data>
+  <data name="Text_2afd6b5863a9" xml:space="preserve">
+    <value>Imboniso yesivakalisi</value>
+  </data>
+  <data name="Text_a99d192cc666" xml:space="preserve">
+    <value>Isazisi sesicelo sesivakalisi: {0}</value>
+  </data>
+  <data name="Text_dc4b75894187" xml:space="preserve">
+    <value>Isivakalisi sigciniwe.</value>
+  </data>
+  <data name="Text_329cb8b6ba8c" xml:space="preserve">
+    <value>Inkonzo</value>
+  </data>
+  <data name="Text_077225837f3d" xml:space="preserve">
+    <value>I-URL yenkonzo</value>
+  </data>
+  <data name="Text_1f200d9a2e41" xml:space="preserve">
+    <value>Ithokheni yofikelelo lwenkonzo enemvume ye-logs.read</value>
+  </data>
+  <data name="Text_661966c01680" xml:space="preserve">
+    <value>Uqhagamshelo lwenkonzo</value>
+  </data>
+  <data name="Text_91a0a5cdcde2" xml:space="preserve">
+    <value>Uqhagamshelo lwenkonzo ▾</value>
+  </data>
+  <data name="Text_c1080200e036" xml:space="preserve">
+    <value>Iziganeko zenkonzo</value>
+  </data>
+  <data name="Text_be0ba8c30fd3" xml:space="preserve">
+    <value>Inkonzo: {0}</value>
+  </data>
+  <data name="Text_98719e20c0f6" xml:space="preserve">
+    <value>Misela i-RUNNINGHILL_SERVICE_URL (HTTPS, okanye i-HTTP yasekhaya yophuhliso) ne-RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_f1270b290cd2" xml:space="preserve">
+    <value>Setswana (ZA)</value>
+  </data>
+  <data name="Text_de314fa0c9d9" xml:space="preserve">
+    <value>Ubuzaza</value>
+  </data>
+  <data name="Text_cc93ae477c0f" xml:space="preserve">
+    <value>Kuboniswa iziganeko zamva nje zeseshoni yale app.</value>
+  </data>
+  <data name="Text_f2a0e3cba287" xml:space="preserve">
+    <value>Kuboniswa iziganeko zamva nje zale thebhu yesikhangeli.</value>
+  </data>
+  <data name="Text_11c4adaf0b7d" xml:space="preserve">
+    <value>Tsibela kwingqokelela yamagama</value>
+  </data>
+  <data name="Text_47f279970b56" xml:space="preserve">
+    <value>Umbhalo unonobumba ongafundekiyo. Phinda uchwetheze igama okanye ukhangelo uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_716dbae5af58" xml:space="preserve">
+    <value>Kukho into engahambanga kakuhle kwinkonzo.</value>
+  </data>
+  <data name="Text_f8e95094c181" xml:space="preserve">
+    <value>Kukho into engahambanga kakuhle kwinkonzo. Nceda uzame kwakhona okanye uqhagamshelane nenkxaso.</value>
+  </data>
+  <data name="Text_3a3418677fa1" xml:space="preserve">
+    <value>Kukho into engahambanga kakuhle kule app. Nceda uzame kwakhona. Ukuba iyaqhubeka, qhagamshelana nenkxaso uchaze into obuyenza.</value>
+  </data>
+  <data name="Text_6da13addb000" xml:space="preserve">
+    <value>Umthombo</value>
+  </data>
+  <data name="Text_faa9e7e7ef5a" xml:space="preserve">
+    <value>Iqalile</value>
+  </data>
+  <data name="Text_e713c9b40e02" xml:space="preserve">
+    <value>Elo gama sele likhona kolu didi. Khetha elinye igama okanye udidi.</value>
+  </data>
+  <data name="Text_592f75b6341c" xml:space="preserve">
+    <value>Ithokheni yofikelelo ineempawu ezingasebenziyo. Khuphela ithokheni entsha uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_e3621184fc03" xml:space="preserve">
+    <value>Ithokheni yofikelelo ayisebenzi. Kopa ithokheni entsha uze uhlaziye.</value>
+  </data>
+  <data name="Text_09566dcf8b54" xml:space="preserve">
+    <value>I-app ayifumaneki okwethutyana.</value>
+  </data>
+  <data name="Text_66aef6a688a2" xml:space="preserve">
+    <value>Indawo yephepha ayisebenzi. Buyela kwiphepha lokuqala.</value>
+  </data>
+  <data name="Text_d017fd0e6715" xml:space="preserve">
+    <value>Isicelo asigqitywanga.</value>
+  </data>
+  <data name="Text_a12929662a1c" xml:space="preserve">
+    <value>Isicelo sirhoxisiwe okanye ixesha laso liphelile.</value>
+  </data>
+  <data name="Text_3791db0bf63b" xml:space="preserve">
+    <value>Idilesi yenkonzo itshintshile. Qhagamshela kwakhona phambi kokuhlela amagama.</value>
+  </data>
+  <data name="Text_b72774a7566e" xml:space="preserve">
+    <value>Idilesi yenkonzo ayifumanekanga. Jonga idilesi noqhagamshelo lwe-intanethi.</value>
+  </data>
+  <data name="Text_6ae32309b5d5" xml:space="preserve">
+    <value>Idilesi yenkonzo ifikelelwe, kodwa eli nqaku alifunyanwanga. Jonga i-URL yenkonzo nenguqulelo ye-app.</value>
+  </data>
+  <data name="Text_40a1581fcefd" xml:space="preserve">
+    <value>Inkonzo ayikwazi ukufikelela kwidatha yayo ngoku.</value>
+  </data>
+  <data name="Text_079fee839dcb" xml:space="preserve">
+    <value>Inkonzo ayikwazi ukufikelela kwidatha yayo ngoku. Nceda uzame kwakhona kungekudala.</value>
+  </data>
+  <data name="Text_7ddc1c09cde9" xml:space="preserve">
+    <value>Inkonzo ayikwazanga ukugqiba isicelo. Nceda uzame kwakhona. Ukuba iyaqhubeka, qhagamshelana nenkxaso.</value>
+  </data>
+  <data name="Text_1da7e731c7c3" xml:space="preserve">
+    <value>Inkonzo ixakekile. Nceda ulinde imizuzwana embalwa uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_0b6dd49a2aa4" xml:space="preserve">
+    <value>Inkonzo ixakekile. Linda imizuzwana embalwa uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_f5eb154f47b9" xml:space="preserve">
+    <value>Impendulo yenkonzo ibinkulu kunokuba le app ivumela. Qhagamshelana nenkxaso uxele lo myalezo.</value>
+  </data>
+  <data name="Text_e2c3684501c3" xml:space="preserve">
+    <value>Inkonzo ithumele impendulo le app engakwazi ukuyifunda. Nceda uzame kwakhona. Ukuba iyaqhubeka, xelela inkxaso inguqulelo ye-app oyisebenzisayo.</value>
+  </data>
+  <data name="Text_01f5f4ffc36c" xml:space="preserve">
+    <value>Inkonzo ithathe ixesha elide ukuphendula. Jonga uqhagamshelo lwakho uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_edc4476b5b4a" xml:space="preserve">
+    <value>Inkonzo ithathe ixesha elide ukuphendula. Nceda uzame kwakhona.</value>
+  </data>
+  <data name="Text_5b9e214a45b2" xml:space="preserve">
+    <value>Igama likulungele ukuhlelwa. Cofa kwindawo yegama ukuze uqhubeke.</value>
+  </data>
+  <data name="Text_f0a535fd0020" xml:space="preserve">
+    <value>Igama okanye ukhangelo lude kakhulu emva kokudityaniswa kweempawu zalo. Sebenzisa igama okanye ukhangelo olufutshane, ukuya kutsho koonobumba abangama-80.</value>
+  </data>
+  <data name="Text_c078223b5c36" xml:space="preserve">
+    <value>Le app</value>
+  </data>
+  <data name="Text_345929da4348" xml:space="preserve">
+    <value>Esi sikhangeli</value>
+  </data>
+  <data name="Text_6111e466e538" xml:space="preserve">
+    <value>Esi sicelo sikhulu kakhulu. Sebenzisa igama elinye okanye amagama angadlulanga kuma-50 kwisivakalisi.</value>
+  </data>
+  <data name="Text_8eab1c1c372e" xml:space="preserve">
+    <value>Esi sicelo sesivakalisi sele sisetyenzisiwe. Qala isivakalisi esitsha ngaphambi kokugcina amanye amagama.</value>
+  </data>
+  <data name="Text_dff8bfea7cef" xml:space="preserve">
+    <value>Le nkonzo ayikaboneleli ngesibonisi seelog. Sebenzisa inkonzo ehlaziyiweyo uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_030a254c7e9c" xml:space="preserve">
+    <value>Le thokheni ayikwazi ukufunda iilog zenkonzo. Cela imvume ye-logs.read kumlawuli.</value>
+  </data>
+  <data name="Text_f5deb08bab8a" xml:space="preserve">
+    <value>Eli gama alisekho. Hlaziya ingqokelela yakho.</value>
+  </data>
+  <data name="Text_2f38169a712e" xml:space="preserve">
+    <value>Landela</value>
+  </data>
+  <data name="Text_ff09937615e2" xml:space="preserve">
+    <value>Zama obunye ubuzaza okanye ukhangelo, yenza isenzo uze uhlaziye.</value>
+  </data>
+  <data name="Text_86d0a8c523ac" xml:space="preserve">
+    <value>Iindidi (sebenzisa amagama esiNgesi kwimiyalelo):</value>
+  </data>
+  <data name="Text_9e8861d36d26" xml:space="preserve">
+    <value>QONDA OKWENZEKILEYO</value>
+  </data>
+  <data name="Text_b47ff0fabaf6" xml:space="preserve">
+    <value>Isixhobo se-USB</value>
+  </data>
+  <data name="Text_d54cd78cfa95" xml:space="preserve">
+    <value>Sebenzisa --language ngo-en-ZA, af-ZA, xh-ZA, zu-ZA okanye tn-ZA.</value>
+  </data>
+  <data name="Text_0a3bb440c0dc" xml:space="preserve">
+    <value>Sebenzisa inqanaba elisebenzayo, inombolo yephepha engaphezulu kuka-zero nombhalo wokukhangela ongadlulanga koonobumba abali-120.</value>
+  </data>
+  <data name="Text_1c1f2fb5d6a3" xml:space="preserve">
+    <value>Sebenzisa i-UUID esebenzayo, engenanto engekhoyo ku---request-id.</value>
+  </data>
+  <data name="Text_9b969431f93f" xml:space="preserve">
+    <value>Sebenzisa inkonzo nethokheni yofikelelo efanayo neyewebhusayithi. Iithokheni azigcinwa kwesi sixhobo.</value>
+  </data>
+  <data name="Text_33817a63b651" xml:space="preserve">
+    <value>Isenzi</value>
+  </data>
+  <data name="Text_413ffea05e7e" xml:space="preserve">
+    <value>IGAMA NODIDI</value>
+  </data>
+  <data name="Text_33cead23d9ac" xml:space="preserve">
+    <value>INGQOKELELA YAMAGAMA</value>
+  </data>
+  <data name="Text_e9c45563358e" xml:space="preserve">
+    <value>Isilumkiso</value>
+  </data>
+  <data name="Text_44363ccb8230" xml:space="preserve">
+    <value>Igama</value>
+  </data>
+  <data name="Text_5258676b8aa1" xml:space="preserve">
+    <value>Izazisi zamagama namaphepha kufuneka zibe ngamanani apheleleyo angaphezulu kuka-zero.</value>
+  </data>
+  <data name="Text_84147dd9ede0" xml:space="preserve">
+    <value>Ingqokelela yamagama</value>
+  </data>
+  <data name="Text_f8f8617a5852" xml:space="preserve">
+    <value>Ingqokelela yamagama · Runninghill</value>
+  </data>
+  <data name="Text_5cfe106c9f58" xml:space="preserve">
+    <value>Igama licinyiwe.</value>
+  </data>
+  <data name="Text_4c5da31079d6" xml:space="preserve">
+    <value>Igama licinyiwe. Izivakalisi ezigciniweyo azitshintshanga.</value>
+  </data>
+  <data name="Text_c9140c7edd43" xml:space="preserve">
+    <value>Igama licinyiwe. Izivakalisi ezigciniweyo azitshintshanga.</value>
+  </data>
+  <data name="Text_9a0381b05ce4" xml:space="preserve">
+    <value>Igama ligciniwe.</value>
+  </data>
+  <data name="Text_bdad4062d920" xml:space="preserve">
+    <value>Igama ligciniwe. Ingqokelela yakho ihlaziyiwe.</value>
+  </data>
+  <data name="Text_f8fe9d54d138" xml:space="preserve">
+    <value>Udidi lwegama</value>
+  </data>
+  <data name="Text_4728511f4e32" xml:space="preserve">
+    <value>Iindidi zamagama</value>
+  </data>
+  <data name="Text_72df03b458ad" xml:space="preserve">
+    <value>Iindidi zamagama · Zonke ▾</value>
+  </data>
+  <data name="Text_ff5a79c25e80" xml:space="preserve">
+    <value>Iindidi zamagama · {0} ▾</value>
+  </data>
+  <data name="Text_d26d55c7f815" xml:space="preserve">
+    <value>Amagama</value>
+  </data>
+  <data name="Text_13b7bfcac438" xml:space="preserve">
+    <value>Kuyasetyenzwa…</value>
+  </data>
+  <data name="Text_61829ca0ea6d" xml:space="preserve">
+    <value>UVIMBA WAKHO WAMAGAMA</value>
+  </data>
+  <data name="Text_d7fe5df50d2a" xml:space="preserve">
+    <value>Ithokheni yakho yofikelelo ayikho, iphelelwe lixesha okanye ayisebenzi. Nceda ufake ithokheni entsha uze uzame kwakhona.</value>
+  </data>
+  <data name="Text_559402bef2e7" xml:space="preserve">
+    <value>Ithokheni yakho yofikelelo igcinwa kwimemori kuphela</value>
+  </data>
+  <data name="Text_6dbfa588169b" xml:space="preserve">
+    <value>Iakhawunti yakho ayinamvume yesi senzo. Cela umlawuli akunike ufikelelo olufunekayo (status.read, words.read/write okanye sentences.read/write).</value>
+  </data>
+  <data name="Text_46aafa670a81" xml:space="preserve">
+    <value>Ingqokelela yakho ayifumaneki okwethutyana.</value>
+  </data>
+  <data name="Text_14a772f34bb5" xml:space="preserve">
+    <value>Ingqokelela yakho ihlaziyiwe.</value>
+  </data>
+  <data name="Text_12b98488716a" xml:space="preserve">
+    <value>Ingqokelela yakho iqala apha</value>
+  </data>
+  <data name="Text_9e80345ff96d" xml:space="preserve">
+    <value>Ingqokelela yakho iqala apha. Yongeza igama ngasentla, okanye uzame olunye ukhangelo okanye udidi.</value>
+  </data>
+  <data name="Text_4441235c0693" xml:space="preserve">
+    <value>Izivakalisi zakho ezigciniweyo ziza kuvela apha.</value>
+  </data>
+  <data name="Text_aae41b798d57" xml:space="preserve">
+    <value>Isivakalisi sakho sikulungele ukugcinwa. Sebenzisa iintolo ukutshintsha ulandelelwano lwamagama.</value>
+  </data>
+  <data name="Text_87124b59f118" xml:space="preserve">
+    <value>Isivakalisi sakho sikulungele ukugcinwa. Ungatshintsha ulandelelwano lwamagama ngeentolo ezingasentla.</value>
+  </data>
+  <data name="Text_459514301364" xml:space="preserve">
+    <value>Amagama akho. Amathuba amatsha.</value>
+  </data>
+  <data name="Text_d18eb90e230e" xml:space="preserve">
+    <value>umz. ithuba</value>
+  </data>
+  <data name="Text_3dbf03ae674a" xml:space="preserve">
+    <value>isiXhosa (ZA)</value>
+  </data>
+  <data name="Text_99730a4251c6" xml:space="preserve">
+    <value>isiZulu (ZA)</value>
+  </data>
+  <data name="Text_d5889b4f44fa" xml:space="preserve">
+    <value>{0} / 50 amagama</value>
+  </data>
+  <data name="Text_4faf2a305db6" xml:space="preserve">
+    <value>{0} Inombolo yesicelo: {1}.</value>
+  </data>
+  <data name="Text_4505371265f2" xml:space="preserve">
+    <value>{0} Inombolo yesicelo: {1}. Nika inkxaso le nombolo.</value>
+  </data>
+  <data name="Text_c21f6ab32f6b" xml:space="preserve">
+    <value>{0} Isikrini asigqibanga ukuhlaziya. {1} Hlaziya ingqokelela ngaphambi kolunye utshintsho.</value>
+  </data>
+  <data name="Text_c067b5f03627" xml:space="preserve">
+    <value>Kuboniswa iziganeko eziyi-{0}. Hlaziya ukuze ukhangele iziganeko ezitsha.</value>
+  </data>
+  <data name="Text_039c806474a0" xml:space="preserve">
+    <value>{0} kweli phepha</value>
+  </data>
+  <data name="Text_3169edd50aa9" xml:space="preserve">
+    <value>Kugcinwe {0}</value>
+  </data>
+  <data name="Text_4017c46cb57c" xml:space="preserve">
+    <value>Kuboniswa {0}</value>
+  </data>
+  <data name="Text_de9d8189d0a8" xml:space="preserve">
+    <value>Kuboniswa {0} · kugcinwe {1}</value>
+  </data>
+  <data name="Text_2e8bb1d46292" xml:space="preserve">
+    <value>{0} · {1:dd MMM yyyy HH:mm:ss.fff} · Isiganeko {2}</value>
+  </data>
+  <data name="Text_29211387ab36" xml:space="preserve">
+    <value>Umxholo wenkqubo</value>
+  </data>
+  <data name="Text_3d0ba3f991b8" xml:space="preserve">
+    <value>Umxholo we-app</value>
+  </data>
+  <data name="Text_a36ef8aba229" xml:space="preserve">
+    <value>Ukukhanya</value>
+  </data>
+  <data name="Text_ae1ef0143294" xml:space="preserve">
+    <value>Ubumnyama</value>
+  </data>
+  <data name="Text_bc0792d8dc81" xml:space="preserve">
+    <value>Inkqubo</value>
+  </data>
+  <data name="Text_5272a4015141" xml:space="preserve">
+    <value>Eminye imixholo ye-app ayilayishwanga. Cela umlawuli wakho ajonge iifayile zemixholo.</value>
+  </data>
+  <data name="Text_29731a29e24c" xml:space="preserve">
+    <value>{0} Ikhowudi yempazamo: {1}.</value>
+  </data>
+  <data name="Text_448da3a27190" xml:space="preserve">
+    <value>Esi senzo asigqitywanga kuba i-app ihlangabezene nengxaki. Hlaziya ingqokelela phambi kokugcina kwakhona. Ukuba iyaqhubeka, thumela ikhowudi yempazamo, uhlobo lwempazamo, isalathiso namanyathelo owalandelayo kwinkxaso.</value>
+  </data>
+  <data name="Text_460ab8c0af05" xml:space="preserve">
+    <value>IRunninghill ayigqibanga ukulayisha. Layisha iphepha kwakhona. Ukuba oku kuyaqhubeka, zama ifestile yabucala yesikhangeli uze wabelane ngeenkcukacha zokuxilonga nenkxaso.</value>
+  </data>
+  <data name="Text_196fad5535d0" xml:space="preserve">
+    <value>Eli phepha alikwazanga ukuboniswa.</value>
+  </data>
+  <data name="Text_44b3e48553e2" xml:space="preserve">
+    <value>Layisha iphepha kwakhona. Utshintsho olungagcinwanga lunokulahleka. Phambi kokugcina kwakhona, khangela ukuba sele kuphumelele na.</value>
+  </data>
+  <data name="Text_1eb251da13db" xml:space="preserve">
+    <value>Ifayile efunekayo kweli phepha ayilayishekanga. Jonga uqhagamshelo lwakho uze ulayishe kwakhona. Ukuba kuyaqhubeka, yabelana ngegama lefayile neenkcukacha zokuxilonga nenkxaso.</value>
+  </data>
+  <data name="Text_d565aeadaf9d" xml:space="preserve">
+    <value>Esi sikhangeli asikwazi ukuqhuba i-app. Hlaziya isikhangeli sakho uze uqinisekise ukuba iJavaScript neWebAssembly zivumelekile, emva koko ulayishe kwakhona.</value>
+  </data>
+  <data name="Text_6dcf3b79be21" xml:space="preserve">
+    <value>Iinkcukacha zokuxilonga</value>
+  </data>
+  <data name="Text_c489054c7a8c" xml:space="preserve">
+    <value>Khuphela iinkcukacha zokuxilonga</value>
+  </data>
+  <data name="Text_788517e7d908" xml:space="preserve">
+    <value>Iinkcukacha zokuxilonga zikhutshiwe.</value>
+  </data>
+  <data name="Text_5f3585ef5649" xml:space="preserve">
+    <value>Akukwazekanga ukukhuphela ngokuzenzekelayo. Khetha uze ukhuphele iinkcukacha zokuxilonga ezingezantsi.</value>
+  </data>
+  <data name="Text_3b5ba7a90fe1" xml:space="preserve">
+    <value>Yabelana ngezi nkcukacha nenkxaso. Ungafaki ithokheni yakho yokufikelela.</value>
+  </data>
+  <data name="Text_31fbfa58c6ba" xml:space="preserve">
+    <value>Ibhodi yokubeka esweni</value>
+  </data>
+  <data name="Text_5a71188bf57d" xml:space="preserve">
+    <value>Iisetingi zokubeka esweni</value>
+  </data>
+  <data name="Text_b4ddb3c1ca6c" xml:space="preserve">
+    <value>Iisetingi zoqhagamshelwano</value>
+  </data>
+  <data name="Text_1ae6e2835d04" xml:space="preserve">
+    <value>Amanani ewonke ebhodi</value>
+  </data>
+  <data name="Text_c10d09e7b07b" xml:space="preserve">
+    <value>Ixesha phakathi kovavanyo lwempilo (imizuzwana)</value>
+  </data>
+  <data name="Text_0f4d8a4a0006" xml:space="preserve">
+    <value>Qalisa ukubeka esweni</value>
+  </data>
+  <data name="Text_42608b8d426c" xml:space="preserve">
+    <value>Yeka ukubeka esweni</value>
+  </data>
+  <data name="Text_1dc83f605edf" xml:space="preserve">
+    <value>Ukubeka esweni</value>
+  </data>
+  <data name="Text_e159b06187d3" xml:space="preserve">
+    <value>Kunqunyanyisiwe</value>
+  </data>
+  <data name="Text_e0fde244452a" xml:space="preserve">
+    <value>Umjikelo ngamnye uvavanya inkonzo newebhusayithi kube kanye. Yeka ukubeka esweni ukuze utshintshe iisetingi zoqhagamshelwano okanye ixesha phakathi kovavanyo.</value>
+  </data>
+  <data name="Text_eb650fa1243e" xml:space="preserve">
+    <value>I-URL yewebhusayithi</value>
+  </data>
+  <data name="Text_4da75dca52ab" xml:space="preserve">
+    <value>Ithokheni ihlala kwimemori. Amanani ewonke afuna words.read ne-sentences.read; iilog zenkonzo zifuna logs.read; iimvavanyo zomthwalo zifuna status.read.</value>
+  </data>
+  <data name="Text_3ac906f5758c" xml:space="preserve">
+    <value>Uvavanyo lwempilo</value>
+  </data>
+  <data name="Text_a731fabd7bee" xml:space="preserve">
+    <value>Uvavanyo lweendawo zonxibelelwano olugqityiweyo kule seshoni</value>
+  </data>
+  <data name="Text_7bd31a025d29" xml:space="preserve">
+    <value>Ukusilela</value>
+  </data>
+  <data name="Text_2f507b79ca35" xml:space="preserve">
+    <value>Uvavanyo lwempilo olungaphumelelanga kule seshoni</value>
+  </data>
+  <data name="Text_36b9d71ed1c6" xml:space="preserve">
+    <value>Amagama agciniweyo</value>
+  </data>
+  <data name="Text_347fbf7748e8" xml:space="preserve">
+    <value>Inani langoku ledathabheyisi</value>
+  </data>
+  <data name="Text_3292c07fdda7" xml:space="preserve">
+    <value>Amanani ewonke ahlolwe ngo</value>
+  </data>
+  <data name="Text_efeb097d6ea7" xml:space="preserve">
+    <value>Ukulungela kwedathabheyisi</value>
+  </data>
+  <data name="Text_b5a229ac8bec" xml:space="preserve">
+    <value>Iwebhusayithi</value>
+  </data>
+  <data name="Text_b11e7e279ac2" xml:space="preserve">
+    <value>Impilo yeseva yewebhu</value>
+  </data>
+  <data name="Text_31ade2a02404" xml:space="preserve">
+    <value>Uvavanyo lomthwalo wenkonzo</value>
+  </data>
+  <data name="Text_1eaeb59b443b" xml:space="preserve">
+    <value>Ixesha lokuphendula phantsi komthwalo</value>
+  </data>
+  <data name="Text_56e56e703898" xml:space="preserve">
+    <value>Ipesentayili yama-95</value>
+  </data>
+  <data name="Text_b852f4395064" xml:space="preserve">
+    <value>Lixesha lokuphendula, hayi ukusetyenziswa kwe-CPU. Uluhlu lwesilinganisi: 0–2,000 ms. Okuphantsi kungcono.</value>
+  </data>
+  <data name="Text_407b7a04662f" xml:space="preserve">
+    <value>Kuyavavanywa…</value>
+  </data>
+  <data name="Text_3695c242dbd6" xml:space="preserve">
+    <value>Qalisa uvavanyo lomthwalo</value>
+  </data>
+  <data name="Text_03e8bead9361" xml:space="preserve">
+    <value>Uvavanyo luthumela izicelo zokufunda kuphela ezingadlulanga kuma-24, ezine zisebenza ngaxeshanye. Luyeka kwimizuzwana engama-20.</value>
+  </data>
+  <data name="Text_9d7ece7dec91" xml:space="preserve">
+    <value>Uvavanyo lokugqibela lwempilo</value>
+  </data>
+  <data name="Text_7e318f15a1db" xml:space="preserve">
+    <value>Iilog zebhodi</value>
+  </data>
+  <data name="Text_10f639e7d15b" xml:space="preserve">
+    <value>Iilog zenkonzo</value>
+  </data>
+  <data name="Text_49c266baaaa7" xml:space="preserve">
+    <value>Khangela</value>
+  </data>
+  <data name="Text_0184905d7451" xml:space="preserve">
+    <value>Ziziganeko zamva nje ezigciniweyo kuphela. Amaphepha amadala akuvumela ukhangele imbali ekhoyo; ukuqalisa inkonzo kwakhona kucima iilog ezikwimemori.</value>
+  </data>
+  <data name="Text_5525724957cc" xml:space="preserve">
+    <value>Akukho ziganeko zokubonisa.</value>
+  </data>
+  <data name="Text_37d3ab857e50" xml:space="preserve">
+    <value>Iziganeko ezitsha</value>
+  </data>
+  <data name="Text_931b9f282d0f" xml:space="preserve">
+    <value>Ibhodi ivuliwe.</value>
+  </data>
+  <data name="Text_e9556fcfce00" xml:space="preserve">
+    <value>Faka inani elipheleleyo lemizuzwana ukusuka ku-1 ukuya ku-3,600.</value>
+  </data>
+  <data name="Text_334776b3cd96" xml:space="preserve">
+    <value>Faka idilesi ye-HTTPS, okanye i-HTTP kwi-localhost. Ungafaki amagama ayimfihlo, imitya yemibuzo okanye iziqwenga.</value>
+  </data>
+  <data name="Text_c76c907d0fe6" xml:space="preserve">
+    <value>Ukubeka esweni kuqalisile.</value>
+  </data>
+  <data name="Text_3e7c8783297c" xml:space="preserve">
+    <value>Ukubeka esweni kuyekile.</value>
+  </data>
+  <data name="Text_38adb336b7a7" xml:space="preserve">
+    <value>Uvavanyo lomthwalo luqalisile.</value>
+  </data>
+  <data name="Text_4015de90be9e" xml:space="preserve">
+    <value>Uvavanyo lomthwalo lugqityiwe.</value>
+  </data>
+  <data name="Text_d22857f2203d" xml:space="preserve">
+    <value>Uvavanyo lomthwalo lurhoxisiwe.</value>
+  </data>
+  <data name="Text_d16948e73a68" xml:space="preserve">
+    <value>Akukahlolwa</value>
+  </data>
+  <data name="Text_7f1e323b6272" xml:space="preserve">
+    <value>Isempilweni</value>
+  </data>
+  <data name="Text_ca1844969742" xml:space="preserve">
+    <value>Ayifumaneki</value>
+  </data>
+  <data name="Text_53d21e94df96" xml:space="preserve">
+    <value>Faka ithokheni yokufikelela enemvume ye-status.read ukuze uqalise uvavanyo lomthwalo.</value>
+  </data>
+  <data name="Text_3b3c9067ffe6" xml:space="preserve">
+    <value>Faka ithokheni ukuze ufunde amanani ewonke engqokelela neelog zenkonzo.</value>
+  </data>
+  <data name="Text_39e9193553c5" xml:space="preserve">
+    <value>Izicelo ezi-{0}; ukusilela oku-{1}; izicelo ezi-{2:F1}/ngomzuzwana.</value>
+  </data>
+  <data name="Text_5c53997d0518" xml:space="preserve">
+    <value>Iziganeko ezi-{0} zigciniwe.</value>
+  </data>
+  <data name="Text_ead737b6c270" xml:space="preserve">
+    <value>Vala uze uvule ibhodi kwakhona. Yabelana ngekhowudi yempazamo nohlobo lwempazamo nenkxaso. Jonga ifayile yesatifikethi ukuba ikhona elungiselelweyo.</value>
+  </data>
+  <data name="Text_fec8d8da75de" xml:space="preserve">
+    <value>Isatifikethi se-HTTPS asikwazanga ukuqinisekiswa; ithokheni ayikajongwa. Kwi-localhost, seta RUNNINGHILL_DASHBOARD_CA_CERT kumendo opheleleyo we-.run/tls/localhost.crt uze uvule kwakhona ideshibhodi. Ukuba sele isetiwe, jonga ukuba i-nginx isebenzisa eso satifikethi nokuba igama lomamkeli nemihla yaso zisemthethweni. Ikhowudi yempazamo: HttpRequestError.SecureConnectionError.</value>
+  </data>
+</root>

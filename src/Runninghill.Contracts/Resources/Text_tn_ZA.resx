@@ -1,0 +1,1110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Text_b608253c48dc" xml:space="preserve">
+    <value>+ Tsenya mo polelong</value>
+  </data>
+  <data name="Text_8935d2851aad" xml:space="preserve">
+    <value>0 / 50 mafoko</value>
+  </data>
+  <data name="Text_0db35f78ade8" xml:space="preserve">
+    <value>0 mo tsebeng eno</value>
+  </data>
+  <data name="Text_6705b22afd2e" xml:space="preserve">
+    <value>PUO E NNYE, DITSHONO DI LE DINTSI</value>
+  </data>
+  <data name="Text_1528258360b5" xml:space="preserve">
+    <value>Lefoko le le tlhophilweng le phimotswe. Ntšhafatsa kokoanyo ya gago mme o age polelo gape.</value>
+  </data>
+  <data name="Text_33a37a212932" xml:space="preserve">
+    <value>Go tlhokega ID ya kopo ya polelo. Ntšhafatsa tiriso mme o leke gape.</value>
+  </data>
+  <data name="Text_bbb86bcb941f" xml:space="preserve">
+    <value>DITIRO</value>
+  </data>
+  <data name="Text_f69d5c7e6ea9" xml:space="preserve">
+    <value>Letshwao la tetla</value>
+  </data>
+  <data name="Text_9d1e6d0cb9b8" xml:space="preserve">
+    <value>Leina la tiro kgotsa tshupetso ya kopo</value>
+  </data>
+  <data name="Text_35c2eb2cb531" xml:space="preserve">
+    <value>Tsenya lefoko</value>
+  </data>
+  <data name="Text_109dfb68f2cd" xml:space="preserve">
+    <value>Tsenya bobotlana lefoko le le lengwe ka Tsenya mo polelong mo lenaaneng la mafoko gore o kgone go boloka.</value>
+  </data>
+  <data name="Text_b5daa8a90b4c" xml:space="preserve">
+    <value>Tsenya lefoko</value>
+  </data>
+  <data name="Text_53156e1192f4" xml:space="preserve">
+    <value>Tsenya mafoko go tswa mo kokoanyong ya gago go bona polelo ya gago fano.</value>
+  </data>
+  <data name="Text_37532e7f1218" xml:space="preserve">
+    <value>Tsenya lefoko la gago la ntlha fa godimo, kgotsa o leke patlo kgotsa mofuta wa lefoko o mongwe.</value>
+  </data>
+  <data name="Text_86862370f03d" xml:space="preserve">
+    <value>Tsenya {0} mo polelong</value>
+  </data>
+  <data name="Text_218dee462203" xml:space="preserve">
+    <value>{0} e tsentswe mo polelong ya gago.</value>
+  </data>
+  <data name="Text_39e85465e865" xml:space="preserve">
+    <value>Letlhaodi</value>
+  </data>
+  <data name="Text_7915dabafff0" xml:space="preserve">
+    <value>Letlhalosi</value>
+  </data>
+  <data name="Text_4229bffabe67" xml:space="preserve">
+    <value>Afrikaans (ZA)</value>
+  </data>
+  <data name="Text_6a72085653e4" xml:space="preserve">
+    <value>Tsotlhe</value>
+  </data>
+  <data name="Text_6b4fde372a29" xml:space="preserve">
+    <value>Maemo otlhe</value>
+  </data>
+  <data name="Text_4444a27dbde4" xml:space="preserve">
+    <value>Go diragetse phoso e e sa solofelwang.</value>
+  </data>
+  <data name="Text_8adf2f9b0d4d" xml:space="preserve">
+    <value>Ditiragalo tsa tiriso</value>
+  </data>
+  <data name="Text_926161d3e620" xml:space="preserve">
+    <value>Dirisa disefi</value>
+  </data>
+  <data name="Text_c1eaee2e22c9" xml:space="preserve">
+    <value>Dirisa mefuta e e tlhophilweng</value>
+  </data>
+  <data name="Text_61f81dde78c0" xml:space="preserve">
+    <value>Boela kwa kokoanyong</value>
+  </data>
+  <data name="Text_f7bb0f7a522a" xml:space="preserve">
+    <value>Ditiragalo tsa sebatli</value>
+  </data>
+  <data name="Text_dd770e03d7ab" xml:space="preserve">
+    <value>Bopa polelo</value>
+  </data>
+  <data name="Text_5b6b41489fae" xml:space="preserve">
+    <value>Bopa polelo ↗</value>
+  </data>
+  <data name="Text_b8f944abaa35" xml:space="preserve">
+    <value>Khansela diphetogo</value>
+  </data>
+  <data name="Text_a1bf92eff40d" xml:space="preserve">
+    <value>E khansetswe</value>
+  </data>
+  <data name="Text_84cc3d77c8bb" xml:space="preserve">
+    <value>Ga go kgonege go buisa dithulaganyo tsa Debug. Lekola ditetla tsa difaele mo .run.</value>
+  </data>
+  <data name="Text_5f4a1b000b4b" xml:space="preserve">
+    <value>Lekola dikarolo tsa JSON le lefelo la tsebe, mme o leke gape.</value>
+  </data>
+  <data name="Text_f57d3581a6b4" xml:space="preserve">
+    <value>Lekola taelo le diakgumente. Go phimola go tlhoka --yes.</value>
+  </data>
+  <data name="Text_fbe2d491c29f" xml:space="preserve">
+    <value>Lekola ditlhopho tsa lenane mo thusong e e fa tlase.</value>
+  </data>
+  <data name="Text_7d9fb1441662" xml:space="preserve">
+    <value>Lekola ditlhotlhi tsa rekoto ya ditiragalo.</value>
+  </data>
+  <data name="Text_a9f2197ef784" xml:space="preserve">
+    <value>Lekola tetla ya gago le aterese ya tirelo. Abelana ka nomoro ya kopo fa bothata bo tswelela.</value>
+  </data>
+  <data name="Text_a7793f1832a1" xml:space="preserve">
+    <value>Tlhopha + Tsenya mo polelong fa thoko ga lefoko. Le dirise gape fa o le tlhoka.</value>
+  </data>
+  <data name="Text_a8530c53fa0c" xml:space="preserve">
+    <value>Tlhopha taelo ya kokoanyo.</value>
+  </data>
+  <data name="Text_4edeb1848e89" xml:space="preserve">
+    <value>Tlhopha mofuta wa lefoko mo lenaneng.</value>
+  </data>
+  <data name="Text_1e4ec09ff8df" xml:space="preserve">
+    <value>Tlhopha mefuta mengwe le mengwe. Fa o sa tlhopha sepe, go bontshiwa mafoko otlhe.</value>
+  </data>
+  <data name="Text_681b4c8052cf" xml:space="preserve">
+    <value>Tlhopha mafoko a a bolokilweng a a magareng ga 1 le 50 a polelo ya gago.</value>
+  </data>
+  <data name="Text_4762cad2067d" xml:space="preserve">
+    <value>Tlhopha di-ID tsa mafoko tse di magareng ga 1 le 50.</value>
+  </data>
+  <data name="Text_dc9d72b50efc" xml:space="preserve">
+    <value>Tlhopha mofuta o le mongwe kgotsa go feta ya mefuta e robongwe ya mafoko.</value>
+  </data>
+  <data name="Text_55c7846e4051" xml:space="preserve">
+    <value>Tlhopha mefuta, mme o dirise disefi.</value>
+  </data>
+  <data name="Text_719ea396ad92" xml:space="preserve">
+    <value>Tlosa</value>
+  </data>
+  <data name="Text_412226715c56" xml:space="preserve">
+    <value>Tlosa disefi</value>
+  </data>
+  <data name="Text_6dbc15d59481" xml:space="preserve">
+    <value>Tlosa mefuta e e tlhophilweng</value>
+  </data>
+  <data name="Text_bbfa773e5a63" xml:space="preserve">
+    <value>Tswala</value>
+  </data>
+  <data name="Text_8a3b2930b1a8" xml:space="preserve">
+    <value>Tswala mefuta ya mafoko</value>
+  </data>
+  <data name="Text_b98e8f6a12ab" xml:space="preserve">
+    <value>Kokoanya mafoko ka mefuta, mme o a kopanye go bopa polelo.</value>
+  </data>
+  <data name="Text_1798b3ba42ee" xml:space="preserve">
+    <value>E feditswe</value>
+  </data>
+  <data name="Text_c9f2829e382c" xml:space="preserve">
+    <value>Netefatsa go phimola</value>
+  </data>
+  <data name="Text_e53e762e5697" xml:space="preserve">
+    <value>Netefatsa go phimola</value>
+  </data>
+  <data name="Text_c5a715320080" xml:space="preserve">
+    <value>Netefatsa go phimola {0}</value>
+  </data>
+  <data name="Text_8458445d8d97" xml:space="preserve">
+    <value>Lekopanyi</value>
+  </data>
+  <data name="Text_2d7e570cac65" xml:space="preserve">
+    <value>Golaganya / ntšhafatsa</value>
+  </data>
+  <data name="Text_870284e6b217" xml:space="preserve">
+    <value>Golaganya go simolola</value>
+  </data>
+  <data name="Text_de34173811aa" xml:space="preserve">
+    <value>Golaganya go laisa kokoanyo ya gago.</value>
+  </data>
+  <data name="Text_ab8cace3373a" xml:space="preserve">
+    <value>Golaganya le kokoanyo ya gago pele o boloka polelo.</value>
+  </data>
+  <data name="Text_c2f9b7b4897f" xml:space="preserve">
+    <value>E golagantswe</value>
+  </data>
+  <data name="Text_0ad66dcaa0d5" xml:space="preserve">
+    <value>Kopolola letshwao la tetla le le nepagetseng mme o golaganye gape.</value>
+  </data>
+  <data name="Text_774910a0e263" xml:space="preserve">
+    <value>Ga go a kgonega go tswala sekirini seno. Leka Boela gape.</value>
+  </data>
+  <data name="Text_c4faabc3811e" xml:space="preserve">
+    <value>Ga go a kgonega go tlolela kwa karolong eo. O sa ntse o ka tsamaisa tsebe go ya kwa go yona.</value>
+  </data>
+  <data name="Text_517530ecfb37" xml:space="preserve">
+    <value>Ga go a kgonega go laisa direkoto. Ntšhafatsa mme o itsise ba tshegetso nako ya phoso eno fa e tswelela.</value>
+  </data>
+  <data name="Text_f02f6d116719" xml:space="preserve">
+    <value>Tirelo ga e fitlhelelege. Lekola kgolagano ya inthanete le aterese ya tirelo, mme o leke gape.</value>
+  </data>
+  <data name="Text_f3e1c0f38804" xml:space="preserve">
+    <value>Ga go kgonege go buisa dithulaganyo tsa Debug. Dira python scripts/dev.py prepare pele.</value>
+  </data>
+  <data name="Text_2ff9391be0e0" xml:space="preserve">
+    <value>Kgolagano e e sireletsegileng ga e a netefadiwa. Lekola letlha le nako ya sediriswa sa gago, mme o kope thuso go lekola setifikeiti sa tirelo.</value>
+  </data>
+  <data name="Text_04b7b26c8ca2" xml:space="preserve">
+    <value>E e masisi thata</value>
+  </data>
+  <data name="Text_7563ce76d342" xml:space="preserve">
+    <value>TLHATLHOBO YA MATHATA</value>
+  </data>
+  <data name="Text_bd604d99e75e" xml:space="preserve">
+    <value>Baakanya diphoso</value>
+  </data>
+  <data name="Text_391b6ccfe9e9" xml:space="preserve">
+    <value>Seetsisi sa go baakanya diphoso</value>
+  </data>
+  <data name="Text_f6fdbe48dc54" xml:space="preserve">
+    <value>Phimola</value>
+  </data>
+  <data name="Text_a92ece760a79" xml:space="preserve">
+    <value>Phimola {0}</value>
+  </data>
+  <data name="Text_977b5828d9d5" xml:space="preserve">
+    <value>Phimola “{0}”? Dipolelo tse di bolokilweng di tla sala di sa fetoga.</value>
+  </data>
+  <data name="Text_c79ca7ec69f0" xml:space="preserve">
+    <value>Lefoko le le tlhomamisang leina</value>
+  </data>
+  <data name="Text_ed28e0686e12" xml:space="preserve">
+    <value>Kgaola kgolagano</value>
+  </data>
+  <data name="Text_380783deac9f" xml:space="preserve">
+    <value>Kgolagano e kgaotswe. Mafoko a gago a bolokesegile mo polokelong ya tshedimosetso.</value>
+  </data>
+  <data name="Text_a659269a5b85" xml:space="preserve">
+    <value>Seetsisi sa Docker</value>
+  </data>
+  <data name="Text_46b92baf6afa" xml:space="preserve">
+    <value>Tirelo ya Docker</value>
+  </data>
+  <data name="Text_5301648dcf6b" xml:space="preserve">
+    <value>Fetola</value>
+  </data>
+  <data name="Text_f8bcdad7f461" xml:space="preserve">
+    <value>Fetola lefoko</value>
+  </data>
+  <data name="Text_523b184ecbf3" xml:space="preserve">
+    <value>Fetola {0}</value>
+  </data>
+  <data name="Text_daa711a3ae2a" xml:space="preserve">
+    <value>Seetsisi: dirisa 10.0.2.2 go fitlhelela khomphiutha ya gago. Mo founong e e golagantsweng ka USB, fetisetsa port 5080 ka adb mme o tlhophe Sedirisiwa sa USB. Kgomaretsa letshwao le lesha go tswa mo tirelong ya webosaete.</value>
+  </data>
+  <data name="Text_7981bfd5ce9c" xml:space="preserve">
+    <value>English (ZA)</value>
+  </data>
+  <data name="Text_f709b143b819" xml:space="preserve">
+    <value>Tsenya URL ya tirelo e e nepagetseng mo sekirining sa kokoanyo pele.</value>
+  </data>
+  <data name="Text_72fecfdec274" xml:space="preserve">
+    <value>Tsenya URL ya tirelo e e nepagetseng mo sekirining sa kokoanyo, mme o bule Direkoto gape.</value>
+  </data>
+  <data name="Text_0035a84312c3" xml:space="preserve">
+    <value>Tsenya URL ya tirelo ya HTTPS le letshwao la tetla.</value>
+  </data>
+  <data name="Text_c2e9875cd05d" xml:space="preserve">
+    <value>Tsenya letshwao la tetla mme o golaganye go laisa mafoko a gago a a bolokilweng.</value>
+  </data>
+  <data name="Text_57de80877251" xml:space="preserve">
+    <value>Tsenya letshwao la tetla le le nang le tetla ya logs.read, mme o ntšhafatse.</value>
+  </data>
+  <data name="Text_e1fa41e1978b" xml:space="preserve">
+    <value>Tsenya lefoko le le lengwe la ditlhaka tse di sa feteng 80. Dirisa ditlhaka, diaposeterofi kgotsa ditlamaganyi; go se nne le diphatlha kgotsa dinomoro.</value>
+  </data>
+  <data name="Text_7f2f6a15cf8d" xml:space="preserve">
+    <value>Phoso</value>
+  </data>
+  <data name="Text_7b433c33dc55" xml:space="preserve">
+    <value>Mofuta wa phoso: {0}</value>
+  </data>
+  <data name="Text_89679ea1551f" xml:space="preserve">
+    <value>Direkoto tsa ditiragalo</value>
+  </data>
+  <data name="Text_6ddcb0c6164b" xml:space="preserve">
+    <value>Direkoto tsa ditiragalo · Runninghill</value>
+  </data>
+  <data name="Text_8c090106c833" xml:space="preserve">
+    <value>Tiragalo {0}</value>
+  </data>
+  <data name="Text_09fef5d8d9a3" xml:space="preserve">
+    <value>E paletswe</value>
+  </data>
+  <data name="Text_133b48a000b0" xml:space="preserve">
+    <value>Sefa ka mofuta wa lefoko</value>
+  </data>
+  <data name="Text_b9ab9081d012" xml:space="preserve">
+    <value>Sefa {0}</value>
+  </data>
+  <data name="Text_b3a6f8432d24" xml:space="preserve">
+    <value>Disefi di dirisitswe.</value>
+  </data>
+  <data name="Text_3a8488ec78a2" xml:space="preserve">
+    <value>Disefi di tlositswe.</value>
+  </data>
+  <data name="Text_5777b4f4af1e" xml:space="preserve">
+    <value>Batla tiro, leba pholo ya yona mme o abelane ka tshupetso ya yona le ba tshegetso.</value>
+  </data>
+  <data name="Text_916a78d701de" xml:space="preserve">
+    <value>Ya ntlha</value>
+  </data>
+  <data name="Text_a0c15efce128" xml:space="preserve">
+    <value>Ya kwa dipolelong tse di bolokilweng</value>
+  </data>
+  <data name="Text_63c5b4d0ad73" xml:space="preserve">
+    <value>Ya kwa seboping sa dipolelo</value>
+  </data>
+  <data name="Text_70e6d0eca92c" xml:space="preserve">
+    <value>Ya kwa kokoanyong ya mafoko</value>
+  </data>
+  <data name="Text_90ccd6497400" xml:space="preserve">
+    <value>Hisetori</value>
+  </data>
+  <data name="Text_70f8bb9a8a53" xml:space="preserve">
+    <value>Gae</value>
+  </data>
+  <data name="Text_744ec7eeba75" xml:space="preserve">
+    <value>Tirelo ya IDE</value>
+  </data>
+  <data name="Text_0eb5ed506e49" xml:space="preserve">
+    <value>Tshedimosetso</value>
+  </data>
+  <data name="Text_d2c10ab88f74" xml:space="preserve">
+    <value>Lelahlelwa</value>
+  </data>
+  <data name="Text_e6ade6a1632c" xml:space="preserve">
+    <value>Setlhotlhi sa rekoto ga se a siama.</value>
+  </data>
+  <data name="Text_a7de5eaa5dc0" xml:space="preserve">
+    <value>Tlogela lefoko</value>
+  </data>
+  <data name="Text_df2f1e44d436" xml:space="preserve">
+    <value>Tlogela {0}</value>
+  </data>
+  <data name="Text_41f88e7c6b64" xml:space="preserve">
+    <value>E bolokiwa mo memoreng fela. Ditetla tsa kokoanyo fela ga di neye tetla ya go bona direkoto.</value>
+  </data>
+  <data name="Text_3f1673453970" xml:space="preserve">
+    <value>E bolokiwa mo memoreng fela. Ditetla tsa kokoanyo fela ga di neye tetla ya go bona direkoto. Fetola aterese ya tirelo mo sekirining sa kokoanyo.</value>
+  </data>
+  <data name="Text_89b86ab0e66f" xml:space="preserve">
+    <value>Puo</value>
+  </data>
+  <data name="Text_2a8ff40134a0" xml:space="preserve">
+    <value>Puo e fetotswe.</value>
+  </data>
+  <data name="Text_96df352a57cf" xml:space="preserve">
+    <value>Puo: --language en-ZA|af-ZA|xh-ZA|zu-ZA|tn-ZA, kgotsa RUNNINGHILL_LANGUAGE.</value>
+  </data>
+  <data name="Text_9623e2d1ebbb" xml:space="preserve">
+    <value>Go laisiwa Runninghill…</value>
+  </data>
+  <data name="Text_3f1ce5b33748" xml:space="preserve">
+    <value>Go laisiwa direkoto…</value>
+  </data>
+  <data name="Text_33ce417454bf" xml:space="preserve">
+    <value>Go a laisiwa…</value>
+  </data>
+  <data name="Text_527cf7115310" xml:space="preserve">
+    <value>Disefi tsa direkoto</value>
+  </data>
+  <data name="Text_5d2892f30c36" xml:space="preserve">
+    <value>Go laisiwa ga direkoto go khansetswe kgotsa nako e fedile. Leka go ntšhafatsa.</value>
+  </data>
+  <data name="Text_3cd037d65ea5" xml:space="preserve">
+    <value>Dipholo tsa direkoto</value>
+  </data>
+  <data name="Text_c4b34f58cd0a" xml:space="preserve">
+    <value>Motswedi wa direkoto</value>
+  </data>
+  <data name="Text_126dd3b70a5c" xml:space="preserve">
+    <value>Direkoto tsa ditiragalo</value>
+  </data>
+  <data name="Text_53b27d15d3d5" xml:space="preserve">
+    <value>Bulela lefoko le lešwa sebaka</value>
+  </data>
+  <data name="Text_b03d2fd89262" xml:space="preserve">
+    <value>Dipolelo tse dingwe: sentences list --after {0}</value>
+  </data>
+  <data name="Text_50af2164021c" xml:space="preserve">
+    <value>Mafoko a mangwe: boeletsa taelo eno ka --after {0} le ditlhotlhi tse di tshwanang.</value>
+  </data>
+  <data name="Text_12da3161422c" xml:space="preserve">
+    <value>Sutisetsa lefoko {0} kwa pele</value>
+  </data>
+  <data name="Text_651979ae15d6" xml:space="preserve">
+    <value>Sutisetsa lefoko {0} kwa morago</value>
+  </data>
+  <data name="Text_d0442824723c" xml:space="preserve">
+    <value>Tsa bosheng</value>
+  </data>
+  <data name="Text_47354a475adc" xml:space="preserve">
+    <value>Tsa bosheng pele · go fitlha go direkoto di le 1 000 tsa bosheng tsa nako ya jaanong kgotsa tirelo e e dirang. Ntšhafatsa go bona ditiragalo tse disha. Melaetsa e e fetang ditlhaka di le 1 500 e a khutshwafadiwa.</value>
+  </data>
+  <data name="Text_413493f2ef47" xml:space="preserve">
+    <value>Tsa bosheng pele · go fitlha go direkoto di le 1 000 tsa bosheng tsa nako eno ya tiriso kgotsa tirelo e e dirang. Ntšhafatsa go bona ditiragalo tse disha. Melaetsa e meleele e khutshwafadiwa go ditlhaka di le 1 500.</value>
+  </data>
+  <data name="Text_bc981983e7f5" xml:space="preserve">
+    <value>E e latelang</value>
+  </data>
+  <data name="Text_36be0043c714" xml:space="preserve">
+    <value>Tsebe e e latelang e laisitswe.</value>
+  </data>
+  <data name="Text_651db22e2e12" xml:space="preserve">
+    <value>Dipolelo tse di latelang di laisitswe.</value>
+  </data>
+  <data name="Text_f7be5465ff0c" xml:space="preserve">
+    <value>Ga go na ditiragalo tse di tsamaelanang</value>
+  </data>
+  <data name="Text_0fc46d200668" xml:space="preserve">
+    <value>Ga go na ditiragalo tse di tsamaelanang. Leka bomasisi kgotsa patlo e nngwe, dira tiro mme o ntšhafatse.</value>
+  </data>
+  <data name="Text_795958df8066" xml:space="preserve">
+    <value>Ga go na dipolelo. Tlhopha di-ID tsa mafoko mme o dirise sentences add.</value>
+  </data>
+  <data name="Text_468c56039ee7" xml:space="preserve">
+    <value>Ga go mafoko a a bonweng. Tsenya lefoko kgotsa o leke setlhotlhi se sengwe.</value>
+  </data>
+  <data name="Text_8b02f3de3906" xml:space="preserve">
+    <value>Ga e a golaganngwa</value>
+  </data>
+  <data name="Text_4ac734372124" xml:space="preserve">
+    <value>Leina</value>
+  </data>
+  <data name="Text_4e6685afd0a6" xml:space="preserve">
+    <value>Ditiragalo tsa pele</value>
+  </data>
+  <data name="Text_f7a3bdec827f" xml:space="preserve">
+    <value>Kokoanyo e le nngwe. Mefuta ya mafoko e le robongwe. Ditsela tse dintsi tsa go itlhalosa.</value>
+  </data>
+  <data name="Text_c9a1d9770973" xml:space="preserve">
+    <value>DIRISA MAFOKO A GAGO</value>
+  </data>
+  <data name="Text_0cd2664cb285" xml:space="preserve">
+    <value>Tsebe 1</value>
+  </data>
+  <data name="Text_bc3023b36063" xml:space="preserve">
+    <value>Tsebe ga e a bonwa</value>
+  </data>
+  <data name="Text_02431c5464ea" xml:space="preserve">
+    <value>Tsebe {0}</value>
+  </data>
+  <data name="Text_81b8fce9546f" xml:space="preserve">
+    <value>E dirilwe</value>
+  </data>
+  <data name="Text_b7008a02867a" xml:space="preserve">
+    <value>Tsweetswee lekola kopo.</value>
+  </data>
+  <data name="Text_f6d7a3689991" xml:space="preserve">
+    <value>Tsweetswee lekola kokoanyo ya gago.</value>
+  </data>
+  <data name="Text_a09eee371bde" xml:space="preserve">
+    <value>Tsweetswee leka gape mo nakong e khutshwane. Fa go boloka go kgoreleditswe, ntšhafatsa kokoanyo ya gago pele o boeletsa.</value>
+  </data>
+  <data name="Text_9e47493897f0" xml:space="preserve">
+    <value>Tsweetswee leka gape mo nakong e khutshwane. Fa seno se tswelela, naya ba thuso nomoro ya kopo.</value>
+  </data>
+  <data name="Text_43ffb80524a5" xml:space="preserve">
+    <value>Tsweetswee leka gape. Fa seno se tswelela, naya ba thuso nomoro ya kopo.</value>
+  </data>
+  <data name="Text_5d38732753af" xml:space="preserve">
+    <value>Tsweetswee emela kopo ya jaanong gore e fele.</value>
+  </data>
+  <data name="Text_5afeca73bef6" xml:space="preserve">
+    <value>Tsweetswee leta…</value>
+  </data>
+  <data name="Text_ad3287ccdd92" xml:space="preserve">
+    <value>Lefoko la kamano</value>
+  </data>
+  <data name="Text_50f94286ba30" xml:space="preserve">
+    <value>E e fetileng</value>
+  </data>
+  <data name="Text_35d3b960b5fa" xml:space="preserve">
+    <value>Tsebe e e fetileng e laisitswe.</value>
+  </data>
+  <data name="Text_f01f76f5c38c" xml:space="preserve">
+    <value>Leemedi</value>
+  </data>
+  <data name="Text_20c7c5522fc2" xml:space="preserve">
+    <value>E siametse go dirisiwa</value>
+  </data>
+  <data name="Text_56e3badc4e6c" xml:space="preserve">
+    <value>Ntšhafatsa</value>
+  </data>
+  <data name="Text_f970c362e4c8" xml:space="preserve">
+    <value>Ntšhafatsa direkoto</value>
+  </data>
+  <data name="Text_cce7155371fc" xml:space="preserve">
+    <value>Laisa gape</value>
+  </data>
+  <data name="Text_328141695a00" xml:space="preserve">
+    <value>Tlosa lefoko {0}</value>
+  </data>
+  <data name="Text_d35c6de793ba" xml:space="preserve">
+    <value>Kopo e khansetswe.</value>
+  </data>
+  <data name="Text_cb49de37971a" xml:space="preserve">
+    <value>Popego e e tlhokegang ya polokelo ya tshedimosetso ga e yo.</value>
+  </data>
+  <data name="Text_56553100b028" xml:space="preserve">
+    <value>Busetsa disefi mo tshimologong</value>
+  </data>
+  <data name="Text_85e6ea5e7cb1" xml:space="preserve">
+    <value>Tsebe ya gae ya Runninghill</value>
+  </data>
+  <data name="Text_251fbc61f21a" xml:space="preserve">
+    <value>Runninghill e siame. Popego ya polokelo ya tshedimosetso e netefaditswe.</value>
+  </data>
+  <data name="Text_e18e7207c42d" xml:space="preserve">
+    <value>Kokoanyo ya mafoko ya Runninghill
+  status
+  words list [--search prefix] [--types Noun,Verb] [--after ID]
+  words get ID
+  words add WORD TYPE
+  words update ID WORD TYPE
+  words delete ID --yes
+  sentences list [--after ID]
+  sentences add ID [ID ...] [--request-id UUID]
+
+Mefuta (dirisa maina a Seesimane mo ditaelong):
+Noun, Verb, Adjective, Adverb, Pronoun, Preposition,
+Interjection, Conjunction, Determiner.
+Di-ID tsa polelo ke di-ID tsa mafoko ka tatelano e o e batlang; go boeletsa ID go a letlelelwa.
+Boloka ID ya kopo e e gatisitsweng go boeletsa ka pabalesego poloko ya polelo e o sa tlhomamang ka yone.
+Tlhoma RUNNINGHILL_SERVICE_URL le RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_d56837c5e7f7" xml:space="preserve">
+    <value>Runninghill · TLHATLHOBO YA MATHATA</value>
+  </data>
+  <data name="Text_179359b39edb" xml:space="preserve">
+    <value>Boloka diphetogo</value>
+  </data>
+  <data name="Text_6600f0c494a1" xml:space="preserve">
+    <value>Boloka polelo</value>
+  </data>
+  <data name="Text_3a98f2af4006" xml:space="preserve">
+    <value>Dipolelo tse di bolokilweng</value>
+  </data>
+  <data name="Text_1d433a86996b" xml:space="preserve">
+    <value>Dipolelo tse di bolokilweng di boloka mafoko a tsona fa kokoanyo ya gago e fetoga.</value>
+  </data>
+  <data name="Text_ebfd329b926f" xml:space="preserve">
+    <value>Dipolelo tse di bolokilweng di ntšhafaditswe.</value>
+  </data>
+  <data name="Text_cbdfd43e83fa" xml:space="preserve">
+    <value>Batla ka tshimologo ya lefoko…</value>
+  </data>
+  <data name="Text_0ab6b4991a7e" xml:space="preserve">
+    <value>Batla mo kokoanyong</value>
+  </data>
+  <data name="Text_0ddc597488d4" xml:space="preserve">
+    <value>Batla molaetsa kgotsa karolo</value>
+  </data>
+  <data name="Text_53a114767909" xml:space="preserve">
+    <value>Batla ka ditlhaka tse 80 kgotsa kwa tlase.</value>
+  </data>
+  <data name="Text_c3bb9c5cd95b" xml:space="preserve">
+    <value>Romela kopo eno jaaka application/json.</value>
+  </data>
+  <data name="Text_87193316865f" xml:space="preserve">
+    <value>Romela JSON e e siameng e e nang le dikarolo le boleng jo bo tlhalositsweng, mme o leke gape.</value>
+  </data>
+  <data name="Text_1bb1f30ec48f" xml:space="preserve">
+    <value>Polelo</value>
+  </data>
+  <data name="Text_fdb95bf5a6c2" xml:space="preserve">
+    <value>Polelo #{0} e bolokilwe: {1}</value>
+  </data>
+  <data name="Text_64e653d03fd3" xml:space="preserve">
+    <value>Polelo ({0})</value>
+  </data>
+  <data name="Text_2afd6b5863a9" xml:space="preserve">
+    <value>Ponelopele ya polelo</value>
+  </data>
+  <data name="Text_a99d192cc666" xml:space="preserve">
+    <value>ID ya kopo ya polelo: {0}</value>
+  </data>
+  <data name="Text_dc4b75894187" xml:space="preserve">
+    <value>Polelo e bolokilwe.</value>
+  </data>
+  <data name="Text_329cb8b6ba8c" xml:space="preserve">
+    <value>Tirelo</value>
+  </data>
+  <data name="Text_077225837f3d" xml:space="preserve">
+    <value>URL ya tirelo</value>
+  </data>
+  <data name="Text_1f200d9a2e41" xml:space="preserve">
+    <value>Letshwao la tetla la tirelo le le nang le tetla ya logs.read</value>
+  </data>
+  <data name="Text_661966c01680" xml:space="preserve">
+    <value>Kgolagano ya tirelo</value>
+  </data>
+  <data name="Text_91a0a5cdcde2" xml:space="preserve">
+    <value>Kgolagano ya tirelo ▾</value>
+  </data>
+  <data name="Text_c1080200e036" xml:space="preserve">
+    <value>Ditiragalo tsa tirelo</value>
+  </data>
+  <data name="Text_be0ba8c30fd3" xml:space="preserve">
+    <value>Tirelo: {0}</value>
+  </data>
+  <data name="Text_98719e20c0f6" xml:space="preserve">
+    <value>Tlhoma RUNNINGHILL_SERVICE_URL (HTTPS, kgotsa HTTP ya selegae ya tlhabololo) le RUNNINGHILL_ACCESS_TOKEN.</value>
+  </data>
+  <data name="Text_f1270b290cd2" xml:space="preserve">
+    <value>Setswana (ZA)</value>
+  </data>
+  <data name="Text_de314fa0c9d9" xml:space="preserve">
+    <value>Bomasisi</value>
+  </data>
+  <data name="Text_cc93ae477c0f" xml:space="preserve">
+    <value>Go bontshiwa ditiragalo tsa bosheng tsa nako eno ya tiriso.</value>
+  </data>
+  <data name="Text_f2a0e3cba287" xml:space="preserve">
+    <value>Go bontshiwa ditiragalo tsa bosheng tsa thebe eno ya sebatli.</value>
+  </data>
+  <data name="Text_11c4adaf0b7d" xml:space="preserve">
+    <value>Tlolela kwa kokoanyong ya mafoko</value>
+  </data>
+  <data name="Text_47f279970b56" xml:space="preserve">
+    <value>Mokwalo o na le tlhaka e e sa buisegeng. Kwala lefoko kgotsa patlo gape mme o leke gape.</value>
+  </data>
+  <data name="Text_716dbae5af58" xml:space="preserve">
+    <value>Go na le phoso mo tirelong.</value>
+  </data>
+  <data name="Text_f8e95094c181" xml:space="preserve">
+    <value>Go na le phoso mo tirelong. Tsweetswee leka gape kgotsa ikgolaganye le ba thuso.</value>
+  </data>
+  <data name="Text_3a3418677fa1" xml:space="preserve">
+    <value>Go na le phoso mo tirisong eno. Tsweetswee leka gape. Fa e tswelela, ikgolaganye le ba thuso mme o tlhalose se o neng o se dira.</value>
+  </data>
+  <data name="Text_6da13addb000" xml:space="preserve">
+    <value>Motswedi</value>
+  </data>
+  <data name="Text_faa9e7e7ef5a" xml:space="preserve">
+    <value>E simolotse</value>
+  </data>
+  <data name="Text_e713c9b40e02" xml:space="preserve">
+    <value>Lefoko leo le setse le le teng ka mofuta ono. Tlhopha lefoko kgotsa mofuta o mongwe.</value>
+  </data>
+  <data name="Text_592f75b6341c" xml:space="preserve">
+    <value>Letshwao la tetla le na le ditlhaka tse di sa siamang. Kopolola letshwao le lešwa mme o leke gape.</value>
+  </data>
+  <data name="Text_e3621184fc03" xml:space="preserve">
+    <value>Letshwao la tetla ga le a nepahala. Kopolola letshwao le lesha mme o ntšhafatse.</value>
+  </data>
+  <data name="Text_09566dcf8b54" xml:space="preserve">
+    <value>Tiriso ga e yo ka nakwana.</value>
+  </data>
+  <data name="Text_66aef6a688a2" xml:space="preserve">
+    <value>Lefelo la tsebe ga le a siama. Boela kwa tsebeng ya ntlha.</value>
+  </data>
+  <data name="Text_d017fd0e6715" xml:space="preserve">
+    <value>Kopo ga e a kgona go wediwa.</value>
+  </data>
+  <data name="Text_a12929662a1c" xml:space="preserve">
+    <value>Kopo e khansetswe kgotsa nako ya yone e fedile.</value>
+  </data>
+  <data name="Text_3791db0bf63b" xml:space="preserve">
+    <value>Aterese ya tirelo e fetogile. Golaganya gape pele o fetola mafoko.</value>
+  </data>
+  <data name="Text_b72774a7566e" xml:space="preserve">
+    <value>Aterese ya tirelo ga e a bonwa. Lekola aterese le kgolagano ya inthanete.</value>
+  </data>
+  <data name="Text_6ae32309b5d5" xml:space="preserve">
+    <value>Aterese ya tirelo e fitlheletswe, mme tiro eno ga e a bonwa. Lekola URL ya tirelo le mofuta wa tiriso.</value>
+  </data>
+  <data name="Text_40a1581fcefd" xml:space="preserve">
+    <value>Tirelo ga e kgone go fitlhelela tshedimosetso ya yone jaanong.</value>
+  </data>
+  <data name="Text_079fee839dcb" xml:space="preserve">
+    <value>Tirelo ga e kgone go fitlhelela tshedimosetso ya yone jaanong. Tsweetswee leka gape mo nakong e khutshwane.</value>
+  </data>
+  <data name="Text_7ddc1c09cde9" xml:space="preserve">
+    <value>Tirelo ga e a kgona go wetsa kopo. Tsweetswee leka gape. Fa e tswelela, ikgolaganye le ba thuso.</value>
+  </data>
+  <data name="Text_1da7e731c7c3" xml:space="preserve">
+    <value>Tirelo e tshwaregile. Tsweetswee leta metsotswana e se kae mme o leke gape.</value>
+  </data>
+  <data name="Text_0b6dd49a2aa4" xml:space="preserve">
+    <value>Tirelo e tshwaregile. Leta metsotswana e se kae mme o leke gape.</value>
+  </data>
+  <data name="Text_f5eb154f47b9" xml:space="preserve">
+    <value>Karabo ya tirelo e ne e le kgolo go feta e tiriso eno e e letlang. Ikgolaganye le ba thuso mme o bege molaetsa ono.</value>
+  </data>
+  <data name="Text_e2c3684501c3" xml:space="preserve">
+    <value>Tirelo e rometse karabo e tiriso eno e sa kgoneng go e buisa. Tsweetswee leka gape. Fa e tswelela, bolelela ba thuso mofuta wa tiriso o o o dirisang.</value>
+  </data>
+  <data name="Text_01f5f4ffc36c" xml:space="preserve">
+    <value>Tirelo e tsere nako e telele go araba. Lekola kgolagano ya gago mme o leke gape.</value>
+  </data>
+  <data name="Text_edc4476b5b4a" xml:space="preserve">
+    <value>Tirelo e tsere nako e telele go araba. Tsweetswee leka gape.</value>
+  </data>
+  <data name="Text_5b9e214a45b2" xml:space="preserve">
+    <value>Lefoko le siametse go fetolwa. Tobetsa lefelo la lefoko go tswelela.</value>
+  </data>
+  <data name="Text_f0a535fd0020" xml:space="preserve">
+    <value>Lefoko kgotsa patlo e telele thata morago ga go kopanya matshwao a yone. Dirisa lefoko kgotsa patlo e khutshwane ya ditlhaka tse di sa feteng 80.</value>
+  </data>
+  <data name="Text_c078223b5c36" xml:space="preserve">
+    <value>Tiriso eno</value>
+  </data>
+  <data name="Text_345929da4348" xml:space="preserve">
+    <value>Sebatli seno</value>
+  </data>
+  <data name="Text_6111e466e538" xml:space="preserve">
+    <value>Kopo eno e kgolo thata. Dirisa lefoko le le lengwe kgotsa mafoko a a sa feteng 50 mo polelong.</value>
+  </data>
+  <data name="Text_8eab1c1c372e" xml:space="preserve">
+    <value>Kopo eno ya polelo e setse e dirisitswe. Simolola polelo e ntšhwa pele o boloka mafoko a mangwe.</value>
+  </data>
+  <data name="Text_dff8bfea7cef" xml:space="preserve">
+    <value>Tirelo eno ga e ise e nne le sebontshi sa direkoto. Tsenya tirelo e e ntšhafaditsweng mme o leke gape.</value>
+  </data>
+  <data name="Text_030a254c7e9c" xml:space="preserve">
+    <value>Letshwao leno ga le kgone go buisa direkoto tsa tirelo. Kopa tetla ya logs.read mo motsamaising.</value>
+  </data>
+  <data name="Text_f5deb08bab8a" xml:space="preserve">
+    <value>Lefoko leno ga le tlhole le le teng. Ntšhafatsa kokoanyo ya gago.</value>
+  </data>
+  <data name="Text_2f38169a712e" xml:space="preserve">
+    <value>Latela</value>
+  </data>
+  <data name="Text_ff09937615e2" xml:space="preserve">
+    <value>Leka bomasisi kgotsa patlo e nngwe, dira tiro mme o ntšhafatse.</value>
+  </data>
+  <data name="Text_86d0a8c523ac" xml:space="preserve">
+    <value>Mefuta (dirisa maina a Seesimane mo ditaelong):</value>
+  </data>
+  <data name="Text_9e8861d36d26" xml:space="preserve">
+    <value>TLHALOGANYA SE SE DIRAGETSENG</value>
+  </data>
+  <data name="Text_b47ff0fabaf6" xml:space="preserve">
+    <value>Sedirisiwa sa USB</value>
+  </data>
+  <data name="Text_d54cd78cfa95" xml:space="preserve">
+    <value>Dirisa --language ka en-ZA, af-ZA, xh-ZA, zu-ZA kgotsa tn-ZA.</value>
+  </data>
+  <data name="Text_0a3bb440c0dc" xml:space="preserve">
+    <value>Dirisa maemo a a siameng, nomoro ya tsebe e e fetang lefela le patlo ya ditlhaka tse di sa feteng 120.</value>
+  </data>
+  <data name="Text_1c1f2fb5d6a3" xml:space="preserve">
+    <value>Dirisa UUID e e siameng, e e seng lolea ya --request-id.</value>
+  </data>
+  <data name="Text_9b969431f93f" xml:space="preserve">
+    <value>Dirisa tirelo le letshwao la tetla tse di tshwanang le tsa webosaete. Matshwao ga a bolokiwe mo sedirisiweng seno.</value>
+  </data>
+  <data name="Text_33817a63b651" xml:space="preserve">
+    <value>Lediri</value>
+  </data>
+  <data name="Text_413ffea05e7e" xml:space="preserve">
+    <value>LEFOKO LE MOFUTA</value>
+  </data>
+  <data name="Text_33cead23d9ac" xml:space="preserve">
+    <value>KOKOANYO YA MAFOKO</value>
+  </data>
+  <data name="Text_e9c45563358e" xml:space="preserve">
+    <value>Tlhagiso</value>
+  </data>
+  <data name="Text_44363ccb8230" xml:space="preserve">
+    <value>Lefoko</value>
+  </data>
+  <data name="Text_5258676b8aa1" xml:space="preserve">
+    <value>Di-ID tsa mafoko le ditsebe di tshwanetse go nna dipalotlalo tse di fetang lefela.</value>
+  </data>
+  <data name="Text_84147dd9ede0" xml:space="preserve">
+    <value>Kokoanyo ya mafoko</value>
+  </data>
+  <data name="Text_f8f8617a5852" xml:space="preserve">
+    <value>Kokoanyo ya mafoko · Runninghill</value>
+  </data>
+  <data name="Text_5cfe106c9f58" xml:space="preserve">
+    <value>Lefoko le phimotswe.</value>
+  </data>
+  <data name="Text_4c5da31079d6" xml:space="preserve">
+    <value>Lefoko le phimotswe. Dipolelo tse di bolokilweng ga di a fetoga.</value>
+  </data>
+  <data name="Text_c9140c7edd43" xml:space="preserve">
+    <value>Lefoko le phimotswe. Dipolelo tse di bolokilweng ga di a fetoga.</value>
+  </data>
+  <data name="Text_9a0381b05ce4" xml:space="preserve">
+    <value>Lefoko le bolokilwe.</value>
+  </data>
+  <data name="Text_bdad4062d920" xml:space="preserve">
+    <value>Lefoko le bolokilwe. Kokoanyo ya gago e ntšhafaditswe.</value>
+  </data>
+  <data name="Text_f8fe9d54d138" xml:space="preserve">
+    <value>Mofuta wa lefoko</value>
+  </data>
+  <data name="Text_4728511f4e32" xml:space="preserve">
+    <value>Mefuta ya mafoko</value>
+  </data>
+  <data name="Text_72df03b458ad" xml:space="preserve">
+    <value>Mefuta ya mafoko · Tsotlhe ▾</value>
+  </data>
+  <data name="Text_ff5a79c25e80" xml:space="preserve">
+    <value>Mefuta ya mafoko · {0} ▾</value>
+  </data>
+  <data name="Text_d26d55c7f815" xml:space="preserve">
+    <value>Mafoko</value>
+  </data>
+  <data name="Text_13b7bfcac438" xml:space="preserve">
+    <value>Go a dirwa…</value>
+  </data>
+  <data name="Text_61829ca0ea6d" xml:space="preserve">
+    <value>POLOKELO YA GAGO YA MAFOKO</value>
+  </data>
+  <data name="Text_d7fe5df50d2a" xml:space="preserve">
+    <value>Letshwao la gago la tetla ga le yo, le feletswe ke nako kgotsa ga le a siama. Tsweetswee tsenya letshwao le lešwa mme o leke gape.</value>
+  </data>
+  <data name="Text_559402bef2e7" xml:space="preserve">
+    <value>Letshwao la gago la tetla le bolokiwa mo memoreng fela</value>
+  </data>
+  <data name="Text_6dbfa588169b" xml:space="preserve">
+    <value>Akhaonto ya gago ga e na tetla ya tiro eno. Kopa motsamaisi tetla e e tlhokegang (status.read, words.read/write kgotsa sentences.read/write).</value>
+  </data>
+  <data name="Text_46aafa670a81" xml:space="preserve">
+    <value>Kokoanyo ya gago ga e yo ka nakwana.</value>
+  </data>
+  <data name="Text_14a772f34bb5" xml:space="preserve">
+    <value>Kokoanyo ya gago e ntšhafaditswe.</value>
+  </data>
+  <data name="Text_12b98488716a" xml:space="preserve">
+    <value>Kokoanyo ya gago e simolola fano</value>
+  </data>
+  <data name="Text_9e80345ff96d" xml:space="preserve">
+    <value>Kokoanyo ya gago e simolola fano. Tsenya lefoko fa godimo, kgotsa leka patlo kgotsa mofuta o mongwe.</value>
+  </data>
+  <data name="Text_4441235c0693" xml:space="preserve">
+    <value>Dipolelo tsa gago tse di bolokilweng di tla bonala fano.</value>
+  </data>
+  <data name="Text_aae41b798d57" xml:space="preserve">
+    <value>Polelo ya gago e siametse go bolokwa. Dirisa metsu go fetola tatelano ya mafoko.</value>
+  </data>
+  <data name="Text_87124b59f118" xml:space="preserve">
+    <value>Polelo ya gago e siametse go bolokwa. O ka fetola tatelano ya mafoko ka metsu e e fa godimo.</value>
+  </data>
+  <data name="Text_459514301364" xml:space="preserve">
+    <value>Mafoko a gago. Ditshono tse disha.</value>
+  </data>
+  <data name="Text_d18eb90e230e" xml:space="preserve">
+    <value>sk. tshono</value>
+  </data>
+  <data name="Text_3dbf03ae674a" xml:space="preserve">
+    <value>isiXhosa (ZA)</value>
+  </data>
+  <data name="Text_99730a4251c6" xml:space="preserve">
+    <value>isiZulu (ZA)</value>
+  </data>
+  <data name="Text_d5889b4f44fa" xml:space="preserve">
+    <value>{0} / 50 mafoko</value>
+  </data>
+  <data name="Text_4faf2a305db6" xml:space="preserve">
+    <value>{0} Nomoro ya kopo: {1}.</value>
+  </data>
+  <data name="Text_4505371265f2" xml:space="preserve">
+    <value>{0} Nomoro ya kopo: {1}. Naya ba thuso nomoro eno.</value>
+  </data>
+  <data name="Text_c21f6ab32f6b" xml:space="preserve">
+    <value>{0} Sekirini ga se a fetsa go ntšhafatsa. {1} Ntšhafatsa kokoanyo pele o dira phetogo e nngwe.</value>
+  </data>
+  <data name="Text_c067b5f03627" xml:space="preserve">
+    <value>Go bontshiwa ditiragalo di le {0}. Ntšhafatsa go batla ditiragalo tse disha.</value>
+  </data>
+  <data name="Text_039c806474a0" xml:space="preserve">
+    <value>{0} mo tsebeng eno</value>
+  </data>
+  <data name="Text_3169edd50aa9" xml:space="preserve">
+    <value>Go bolokilwe {0}</value>
+  </data>
+  <data name="Text_4017c46cb57c" xml:space="preserve">
+    <value>Go bontshiwa {0}</value>
+  </data>
+  <data name="Text_de9d8189d0a8" xml:space="preserve">
+    <value>Go bontshiwa {0} · go bolokilwe {1}</value>
+  </data>
+  <data name="Text_2e8bb1d46292" xml:space="preserve">
+    <value>{0} · {1:dd MMM yyyy HH:mm:ss.fff} · Tiragalo {2}</value>
+  </data>
+  <data name="Text_29211387ab36" xml:space="preserve">
+    <value>Setlhogo sa tsamaiso</value>
+  </data>
+  <data name="Text_3d0ba3f991b8" xml:space="preserve">
+    <value>Setlhogo sa tiriso</value>
+  </data>
+  <data name="Text_a36ef8aba229" xml:space="preserve">
+    <value>Se se khanyang</value>
+  </data>
+  <data name="Text_ae1ef0143294" xml:space="preserve">
+    <value>Se se lefifi</value>
+  </data>
+  <data name="Text_bc0792d8dc81" xml:space="preserve">
+    <value>Tsamaiso</value>
+  </data>
+  <data name="Text_5272a4015141" xml:space="preserve">
+    <value>Ditlhogo dingwe tsa tiriso ga di a laisiwa. Kopa motsamaisi wa gago go lekola difaele tsa ditlhogo.</value>
+  </data>
+  <data name="Text_29731a29e24c" xml:space="preserve">
+    <value>{0} Khoutu ya phoso: {1}.</value>
+  </data>
+  <data name="Text_448da3a27190" xml:space="preserve">
+    <value>Tiro eno ga ya fela ka gonne tiriso e kopane le bothata. Ntšhafatsa kokoanyo pele o boloka gape. Fa e tswelela, romelela ba tshegetso khoutu ya phoso, mofuta wa phoso, tshupiso le dikgato tse o di latetseng.</value>
+  </data>
+  <data name="Text_460ab8c0af05" xml:space="preserve">
+    <value>Runninghill ga e a fetsa go laisa. Laisa tsebe gape. Fa seno se tswelela, leka fensetere ya sephiri ya sebatli mme o abelane dintlha tsa tlhatlhobo le ba tshegetso.</value>
+  </data>
+  <data name="Text_196fad5535d0" xml:space="preserve">
+    <value>Tsebe eno ga e a kgona go bontshiwa.</value>
+  </data>
+  <data name="Text_44b3e48553e2" xml:space="preserve">
+    <value>Laisa tsebe gape. Diphetogo tse di sa bolokwang di ka latlhega. Pele o boloka gape, tlhola gore a go setse go atlegile.</value>
+  </data>
+  <data name="Text_1eb251da13db" xml:space="preserve">
+    <value>Faele e e tlhokwang ke tsebe eno ga e a laisiwa. Tlhola kgolagano ya gago mme o laise gape. Fa e tswelela, abelana leina la faele le dintlha tsa tlhatlhobo le ba tshegetso.</value>
+  </data>
+  <data name="Text_d565aeadaf9d" xml:space="preserve">
+    <value>Sebatli seno ga se kgone go tsamaisa tiriso. Ntšhafatsa sebatli sa gago mme o netefatse gore JavaScript le WebAssembly di letleletswe, o bo o laisa gape.</value>
+  </data>
+  <data name="Text_6dcf3b79be21" xml:space="preserve">
+    <value>Dintlha tsa tlhatlhobo</value>
+  </data>
+  <data name="Text_c489054c7a8c" xml:space="preserve">
+    <value>Kopisa dintlha tsa tlhatlhobo</value>
+  </data>
+  <data name="Text_788517e7d908" xml:space="preserve">
+    <value>Dintlha tsa tlhatlhobo di kopisitswe.</value>
+  </data>
+  <data name="Text_5f3585ef5649" xml:space="preserve">
+    <value>Ga go a kgonega go kopisa ka go itirisa. Tlhopha mme o kopise dintlha tsa tlhatlhobo fa tlase.</value>
+  </data>
+  <data name="Text_3b5ba7a90fe1" xml:space="preserve">
+    <value>Abelana dintlha tseno le ba tshegetso. O se ka wa akaretsa tokene ya gago ya phitlhelelo.</value>
+  </data>
+  <data name="Text_31fbfa58c6ba" xml:space="preserve">
+    <value>Phanele ya tlhokomelo</value>
+  </data>
+  <data name="Text_5a71188bf57d" xml:space="preserve">
+    <value>Dithulaganyo tsa tlhokomelo</value>
+  </data>
+  <data name="Text_b4ddb3c1ca6c" xml:space="preserve">
+    <value>Dithulaganyo tsa kgolagano</value>
+  </data>
+  <data name="Text_1ae6e2835d04" xml:space="preserve">
+    <value>Dipalogotlhe tsa phanele</value>
+  </data>
+  <data name="Text_c10d09e7b07b" xml:space="preserve">
+    <value>Nako fa gare ga ditlhahlobo tsa seemo (metsotswana)</value>
+  </data>
+  <data name="Text_0f4d8a4a0006" xml:space="preserve">
+    <value>Simolola go tlhokomela</value>
+  </data>
+  <data name="Text_42608b8d426c" xml:space="preserve">
+    <value>Emisa go tlhokomela</value>
+  </data>
+  <data name="Text_1dc83f605edf" xml:space="preserve">
+    <value>Go tlhokomela</value>
+  </data>
+  <data name="Text_e159b06187d3" xml:space="preserve">
+    <value>E emisitswe nakwana</value>
+  </data>
+  <data name="Text_e0fde244452a" xml:space="preserve">
+    <value>Modikologo mongwe le mongwe o tlhola tirelo le webosaete gangwe. Emisa go tlhokomela go fetola dithulaganyo tsa kgolagano kgotsa nako fa gare ga ditlhahlobo.</value>
+  </data>
+  <data name="Text_eb650fa1243e" xml:space="preserve">
+    <value>URL ya webosaete</value>
+  </data>
+  <data name="Text_4da75dca52ab" xml:space="preserve">
+    <value>Tokene e nna mo memoriring. Dipalogotlhe di tlhoka words.read le sentences.read; dilogo tsa tirelo di tlhoka logs.read; diteko tsa morwalo di tlhoka status.read.</value>
+  </data>
+  <data name="Text_3ac906f5758c" xml:space="preserve">
+    <value>Ditlhahlobo tsa seemo</value>
+  </data>
+  <data name="Text_a731fabd7bee" xml:space="preserve">
+    <value>Ditlhahlobo tsa dintlha tsa kgolagano tse di feditsweng mo sesheneng eno</value>
+  </data>
+  <data name="Text_7bd31a025d29" xml:space="preserve">
+    <value>Dipaletso</value>
+  </data>
+  <data name="Text_2f507b79ca35" xml:space="preserve">
+    <value>Ditlhahlobo tsa seemo tse di paletsweng mo sesheneng eno</value>
+  </data>
+  <data name="Text_36b9d71ed1c6" xml:space="preserve">
+    <value>Mafoko a a bolokilweng</value>
+  </data>
+  <data name="Text_347fbf7748e8" xml:space="preserve">
+    <value>Palogotlhe ya ga jaana ya polokelo ya tshedimosetso</value>
+  </data>
+  <data name="Text_3292c07fdda7" xml:space="preserve">
+    <value>Dipalogotlhe di tlhatlhobilwe ka</value>
+  </data>
+  <data name="Text_efeb097d6ea7" xml:space="preserve">
+    <value>Go siama ga polokelo ya tshedimosetso</value>
+  </data>
+  <data name="Text_b5a229ac8bec" xml:space="preserve">
+    <value>Webosaete</value>
+  </data>
+  <data name="Text_b11e7e279ac2" xml:space="preserve">
+    <value>Seemo sa sefepi sa webo</value>
+  </data>
+  <data name="Text_31ade2a02404" xml:space="preserve">
+    <value>Teko ya morwalo wa tirelo</value>
+  </data>
+  <data name="Text_1eaeb59b443b" xml:space="preserve">
+    <value>Nako ya karabo fa go na le morwalo</value>
+  </data>
+  <data name="Text_56e56e703898" xml:space="preserve">
+    <value>Phesentaele ya bo95</value>
+  </data>
+  <data name="Text_b852f4395064" xml:space="preserve">
+    <value>Nako ya karabo, e seng tiriso ya CPU. Tekanyo: 0–2,000 ms. Nako e khutshwane e botoka.</value>
+  </data>
+  <data name="Text_407b7a04662f" xml:space="preserve">
+    <value>Go a lekiwa…</value>
+  </data>
+  <data name="Text_3695c242dbd6" xml:space="preserve">
+    <value>Dira teko ya morwalo</value>
+  </data>
+  <data name="Text_03e8bead9361" xml:space="preserve">
+    <value>Teko e romela dikopo tsa go buisa fela tse di sa feteng 24, di le nne di dira ka nako e le nngwe. E ema mo metsotswaneng e le 20.</value>
+  </data>
+  <data name="Text_9d7ece7dec91" xml:space="preserve">
+    <value>Tlhahlobo ya bofelo ya seemo</value>
+  </data>
+  <data name="Text_7e318f15a1db" xml:space="preserve">
+    <value>Dilogo tsa phanele</value>
+  </data>
+  <data name="Text_10f639e7d15b" xml:space="preserve">
+    <value>Dilogo tsa tirelo</value>
+  </data>
+  <data name="Text_49c266baaaa7" xml:space="preserve">
+    <value>Batla</value>
+  </data>
+  <data name="Text_0184905d7451" xml:space="preserve">
+    <value>Ke ditiragalo tsa bosheng tse di bolokilweng fela. Ditsebe tsa kgale di go letla go bona hisetori e e leng teng; go simolola tirelo gape go phimola dilogo tsa yone tse di mo memoriring.</value>
+  </data>
+  <data name="Text_5525724957cc" xml:space="preserve">
+    <value>Ga go na ditiragalo tse di ka bontshiwang.</value>
+  </data>
+  <data name="Text_37d3ab857e50" xml:space="preserve">
+    <value>Ditiragalo tse disha</value>
+  </data>
+  <data name="Text_931b9f282d0f" xml:space="preserve">
+    <value>Phanele e butswe.</value>
+  </data>
+  <data name="Text_e9556fcfce00" xml:space="preserve">
+    <value>Tsenya palo e e feletseng ya metsotswana go tloga go 1 go ya go 3,600.</value>
+  </data>
+  <data name="Text_334776b3cd96" xml:space="preserve">
+    <value>Tsenya aterese ya HTTPS, kgotsa HTTP mo localhost. O se ka wa akaretsa mafoko a sephiri, ditlhaka tsa dipotso kgotsa dikarolwana.</value>
+  </data>
+  <data name="Text_c76c907d0fe6" xml:space="preserve">
+    <value>Go tlhokomela go simolotse.</value>
+  </data>
+  <data name="Text_3e7c8783297c" xml:space="preserve">
+    <value>Go tlhokomela go emisitswe.</value>
+  </data>
+  <data name="Text_38adb336b7a7" xml:space="preserve">
+    <value>Teko ya morwalo e simolotse.</value>
+  </data>
+  <data name="Text_4015de90be9e" xml:space="preserve">
+    <value>Teko ya morwalo e fedile.</value>
+  </data>
+  <data name="Text_d22857f2203d" xml:space="preserve">
+    <value>Teko ya morwalo e khansetswe.</value>
+  </data>
+  <data name="Text_d16948e73a68" xml:space="preserve">
+    <value>Ga go ise go tlhatlhobiwe</value>
+  </data>
+  <data name="Text_7f1e323b6272" xml:space="preserve">
+    <value>E siame</value>
+  </data>
+  <data name="Text_ca1844969742" xml:space="preserve">
+    <value>Ga e teng</value>
+  </data>
+  <data name="Text_53d21e94df96" xml:space="preserve">
+    <value>Tsenya tokene ya phitlhelelo e e nang le tetla ya status.read go dira teko ya morwalo.</value>
+  </data>
+  <data name="Text_3b3c9067ffe6" xml:space="preserve">
+    <value>Tsenya tokene go buisa dipalogotlhe tsa kokoanyo le dilogo tsa tirelo.</value>
+  </data>
+  <data name="Text_39e9193553c5" xml:space="preserve">
+    <value>Dikopo di le {0}; dipaletso di le {1}; dikopo di le {2:F1}/motsotswana.</value>
+  </data>
+  <data name="Text_5c53997d0518" xml:space="preserve">
+    <value>Ditiragalo di le {0} di bolokilwe.</value>
+  </data>
+  <data name="Text_ead737b6c270" xml:space="preserve">
+    <value>Tswala o bo o bula phanele gape. Abelana khoutu ya phoso le mofuta wa phoso le ba tshegetso. Tlhola faele ya setifikeiti fa e rulagantswe.</value>
+  </data>
+  <data name="Text_fec8d8da75de" xml:space="preserve">
+    <value>Setifikeiti sa HTTPS ga se a kgona go netefadiwa; tokene ga e ise e tlhatlhobiwe. Mo localhost, seta RUNNINGHILL_DASHBOARD_CA_CERT go tsela e e feletseng ya .run/tls/localhost.crt mme o bule desheboto gape. Fa e setilwe, netefatsa gore nginx e dirisa setifikeiti seo le gore leina la moamogedi le matlha a sona di siame. Khoutu ya phoso: HttpRequestError.SecureConnectionError.</value>
+  </data>
+</root>

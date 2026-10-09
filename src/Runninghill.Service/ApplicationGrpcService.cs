@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Runninghill.Application;
@@ -26,7 +27,7 @@ public sealed partial class ApplicationGrpcService(IRunninghillApplication appli
             deadline.CancelAfter(TimeSpan.FromSeconds(10));
         try
         {
-            return operation.Complete(new StringValue { Value = await application.GetStatusAsync(deadline.Token) });
+            return operation.Complete(new StringValue { Value = T(await application.GetStatusAsync(deadline.Token)) });
         }
         catch (ApplicationUnavailableException)
         {
@@ -57,7 +58,7 @@ public sealed partial class ApplicationGrpcService(IRunninghillApplication appli
     {
         var reference = context.GetHttpContext().TraceIdentifier;
         // gRPC uses trailers (metadata at the end of a reply) instead of a JSON error body.
-        return new RpcException(new Status(code, $"{message} Request reference: {reference}."),
+        return new RpcException(new Status(code, F($"{T(message)} Request reference: {reference}.")),
             new Metadata { { "request-id", reference } });
     }
 

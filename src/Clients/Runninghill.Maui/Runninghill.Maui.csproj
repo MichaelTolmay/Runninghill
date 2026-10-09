@@ -97,4 +97,13 @@
     <Compile Include="../../Shared/OperationLog.cs" Link="OperationLog.cs" />
   </ItemGroup>
   <ItemGroup><Compile Include="../../Shared/RecentLogStore.cs" Link="RecentLogStore.cs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/AppThemes.cs" Link="AppThemes.cs" />
+    <EmbeddedResource Include="../../../themes/*.json" LogicalName="Runninghill.Themes.%(Filename).json" />
+    <EmbeddedResource Include="../../../themes/*_icon.webp" LogicalName="Runninghill.Themes.%(Filename).webp" />
+    <!-- Keep original WebP files in themes. Package PNGs for consistent native decoding and lowercase Android names. -->
+    <MauiImage Include="../../../themes/*_icon.webp" Link="Resources/Images/$([System.String]::Copy('%(Filename)').ToLowerInvariant()).png" Resize="True" />
+    <!-- Tint the transparent white artwork once during the build, with no runtime pixel processing. -->
+    <MauiImage Update="../../../themes/Runninghill_light_icon.webp" TintColor="#1F2937" />
+  </ItemGroup>
 </Project>

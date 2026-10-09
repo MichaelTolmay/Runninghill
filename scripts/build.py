@@ -15,6 +15,7 @@ PROJECTS = {
     'service': 'src/Runninghill.Service/Runninghill.Service.csproj',
     'cli': 'src/Clients/Runninghill.Cli/Runninghill.Cli.csproj',
     'web': 'src/Clients/Runninghill.Web/Runninghill.Web.csproj',
+    'dashboard': 'src/Clients/Runninghill.Dashboard/Runninghill.Dashboard.csproj',
     'maui': 'src/Clients/Runninghill.Maui/Runninghill.Maui.csproj',
     'tests': 'tests/Runninghill.Tests/Runninghill.Tests.csproj',
 }
@@ -43,10 +44,11 @@ def main():
     if args.action == 'publish':
         targets = ['service', 'cli', 'web'] if args.target in ('all', 'core') else [args.target]
         if args.target == 'all':
+            targets.append('dashboard')
             targets.append('maui')
         if 'maui' in targets and (not args.framework or not args.rid):
             parser.error('MAUI publishing requires --framework and --rid for one selected device platform')
-        if any(target not in ('service', 'cli', 'web', 'maui') for target in targets):
+        if any(target not in ('service', 'cli', 'web', 'maui', 'dashboard') for target in targets):
             parser.error('Publish an executable client/service. Libraries are included with their host; use test for tests.')
         host_os = {'Linux': 'linux', 'Windows': 'win', 'Darwin': 'osx'}[platform.system()]
         host_arch = 'arm64' if platform.machine().lower() in ('arm64', 'aarch64') else 'x64'

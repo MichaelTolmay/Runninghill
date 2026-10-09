@@ -1,3 +1,4 @@
+using static Runninghill.Contracts.AppText;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using Runninghill.Diagnostics;
@@ -28,8 +29,9 @@ public partial class Home
     private SentenceResponse[] sentences = [];
     private string token = "", draftWord = "", draftType = "Noun", search = "";
     private string appliedSearch = "", appliedTypes = "";
-    private string message = "Connect to load your collection.";
+    private string message = T("Connect to load your collection.");
     private bool connected, busy, error, showLogs;
+    private string activeTheme = "Runninghill_light";
 
     /// <summary>Opens diagnostics without disposing the collection state or its current connection.</summary>
     private void OpenLogs() { OperationLog.Event(Logger); showLogs = true; }
@@ -56,13 +58,13 @@ public partial class Home
         busy = true;
         confirmedChange = null;
         error = false;
-        message = "Working…";
+        message = T("Working…");
         try { await action(); eventLog.Complete(); message = success; }
         catch (ClientFailure exception) { SetError(exception.Message); }
         catch (HttpRequestException exception) { SetError(ClientMessages.ForRequestFailure(exception)); }
-        catch (OperationCanceledException) { eventLog.Complete(lifetime.IsCancellationRequested ? "Cancelled" : "TimedOut"); SetError(lifetime.IsCancellationRequested ? "Request cancelled." : ClientMessages.TimedOut); }
+        catch (OperationCanceledException) { eventLog.Complete(lifetime.IsCancellationRequested ? "Cancelled" : "TimedOut"); SetError(lifetime.IsCancellationRequested ? T("Request cancelled.") : ClientMessages.TimedOut); }
         catch (JsonException) { SetError(ClientMessages.InvalidReply); }
-        catch (FormatException) { SetError("Copy a valid access token and connect again."); }
+        catch (FormatException) { SetError(T("Copy a valid access token and connect again.")); }
         catch (Exception exception)
         {
             // A local reference lets support match the screen to a log entry. Avoid logging
@@ -70,7 +72,7 @@ public partial class Home
             var reference = Guid.NewGuid().ToString("N");
             Logger.LogError("Collection screen error. Reference: {Reference}; type: {ErrorType}; stack: {StackTrace}",
                 reference, exception.GetType().Name, exception.StackTrace);
-            SetError(ClientMessages.WithReference(ClientMessages.Unexpected, reference));
+            SetError(ClientMessages.WithReference(ClientMessages.ForUnexpected(exception), reference));
         }
         finally { busy = false; confirmedChange = null; }
     }
@@ -92,6 +94,7 @@ public partial class Home
     private async Task<T> SendAsync<T>(HttpMethod method, string path, JsonTypeInfo<T> resultType, HttpContent? content = null)
     {
         using var request = new HttpRequestMessage(method, path) { Content = content };
+        request.Headers.AcceptLanguage.ParseAdd(Runninghill.Contracts.AppText.Language);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Trim());
         using var response = await Client.SendAsync(request, lifetime.Token);
         OperationLog.Response(Logger, (int)response.StatusCode, ClientMessages.ReadReference(response));
@@ -118,12 +121,15 @@ public partial class Home
     /// </summary>
     private Task ConnectAsync() => RunAsync(async () =>
     {
+        // Browser-native validation follows the browser's language. Our feedback follows
+        // the language chosen inside the app and is announced by the existing live region.
+        if (string.IsNullOrWhiteSpace(token)) throw new ClientFailure(T("Copy a valid access token and connect again."));
         ApplyFilterValues();
         await LoadWordsAsync(0);
         connected = true;
         previous.Clear();
         await LoadHistoryAsync(0);
-    }, "Your collection is up to date.");
+    }, T("Your collection is up to date."));
 
     /// <summary>
     /// Loads a filtered word page after the supplied bookmark and clears any pending delete
@@ -161,7 +167,7 @@ public partial class Home
     /// <summary>
     /// Applies the current filter inputs and returns the collection to its first page.
     /// </summary>
-    private Task SearchAsync() => RunAsync(async () => { ApplyFilterValues(); await LoadWordsAsync(0); previous.Clear(); }, "Filters applied.");
+    private Task SearchAsync() => RunAsync(async () => { ApplyFilterValues(); await LoadWordsAsync(0); previous.Clear(); }, T("Filters applied."));
 
     /// <summary>
     /// Clears the search and selected types, then reloads the unfiltered first page.
@@ -172,30 +178,30 @@ public partial class Home
         selectedTypes.Clear();
         return SearchAsync();
     }
-    private string SentenceHelp => !connected ? "Connect to your collection before saving a sentence."
-        : busy ? "Please wait for the current request to finish."
-        : chosen.Count == 0 ? "Add at least one word using Add to sentence in the word list to enable saving."
-        : "Your sentence is ready to save. You can change the word order using the arrows above.";
+    private string SentenceHelp => !connected ? T("Connect to your collection before saving a sentence.")
+        : busy ? T("Please wait for the current request to finish.")
+        : chosen.Count == 0 ? T("Add at least one word using Add to sentence in the word list to enable saving.")
+        : T("Your sentence is ready to save. You can change the word order using the arrows above.");
 
     /// <summary>
     /// Loads the next word page and records the previous bookmark only after a successful response.
     /// </summary>
-    private Task NextAsync() => RunAsync(async () => { var old = after; await LoadWordsAsync(nextAfter!.Value); previous.Push(old); }, "Next page loaded.");
+    private Task NextAsync() => RunAsync(async () => { var old = after; await LoadWordsAsync(nextAfter!.Value); previous.Push(old); }, T("Next page loaded."));
 
     /// <summary>
     /// Loads the preceding word page before removing its stored bookmark.
     /// </summary>
-    private Task PreviousAsync() => RunAsync(async () => { await LoadWordsAsync(previous.Peek()); previous.Pop(); }, "Previous page loaded.");
+    private Task PreviousAsync() => RunAsync(async () => { await LoadWordsAsync(previous.Peek()); previous.Pop(); }, T("Previous page loaded."));
 
     /// <summary>
     /// Reloads the newest saved sentences from the first history page.
     /// </summary>
-    private Task RefreshHistoryAsync() => RunAsync(() => LoadHistoryAsync(0), "Saved sentences refreshed.");
+    private Task RefreshHistoryAsync() => RunAsync(() => LoadHistoryAsync(0), T("Saved sentences refreshed."));
 
     /// <summary>
     /// Loads the next page of older saved sentences.
     /// </summary>
-    private Task NextHistoryAsync() => RunAsync(() => LoadHistoryAsync(nextSentenceAfter!.Value), "Next sentences loaded.");
+    private Task NextHistoryAsync() => RunAsync(() => LoadHistoryAsync(nextSentenceAfter!.Value), T("Next sentences loaded."));
 
     /// <summary>
     /// Adds or removes a type in the draft filter selection without sending a request.
@@ -208,17 +214,19 @@ public partial class Home
     /// </summary>
     private Task SaveWordAsync() => RunAsync(async () =>
     {
+        if (string.IsNullOrWhiteSpace(draftWord))
+            throw new ClientFailure(T("Enter one word, up to 80 characters. Use letters, apostrophes or hyphens; no spaces or numbers."));
         var saved = await SendAsync(editingId is null ? HttpMethod.Post : HttpMethod.Put,
             editingId is null ? "api/words" : $"api/words/{editingId}", ApiJsonContext.Default.WordResponse,
             JsonContent.Create(new SaveWordRequest(draftWord, draftType), ApiJsonContext.Default.SaveWordRequest));
-        confirmedChange = "Word saved.";
+        confirmedChange = T("Word saved.");
         for (var i = 0; i < chosen.Count; i++) if (chosen[i].Id == saved.Id) chosen[i] = saved;
         CancelEdit();
         // Show the collection again after saving, rather than searching for only the saved word.
         // Large collections still use Next/Previous; never download every word at once.
         search = ""; selectedTypes.Clear(); previous.Clear(); ApplyFilterValues();
         await LoadWordsAsync(0);
-    }, "Word saved. Your collection has been refreshed.");
+    }, T("Word saved. Your collection has been refreshed."));
 
     /// <summary>
     /// Copies a word into the editor and attempts to focus the input; focus failure leaves the editable
@@ -231,7 +239,7 @@ public partial class Home
         try { await wordInput.FocusAsync(); }
         catch (Microsoft.JSInterop.JSException)
         {
-            SetError("The word is ready to edit. Tap the word field to continue.");
+            SetError(T("The word is ready to edit. Tap the word field to continue."));
         }
     }
 
@@ -247,12 +255,12 @@ public partial class Home
     private Task DeleteAsync(WordResponse word) => RunAsync(async () =>
     {
         await SendAsync(HttpMethod.Delete, $"api/words/{word.Id}", ApiJsonContext.Default.WordResponse);
-        confirmedChange = "Word deleted.";
+        confirmedChange = T("Word deleted.");
         chosen.RemoveAll(item => item.Id == word.Id);
         sentenceRequestId = Guid.NewGuid();
         if (editingId == word.Id) CancelEdit();
         await LoadWordsAsync(after);
-    }, "Word deleted. Saved sentences have not changed.");
+    }, T("Word deleted. Saved sentences have not changed."));
 
     /// <summary>
     /// Appends a word to an idle draft of fewer than 50 words and assigns the changed draft a fresh
@@ -263,7 +271,7 @@ public partial class Home
         OperationLog.Event(Logger);
         if (busy || chosen.Count >= 50) return;
         chosen.Add(word); sentenceRequestId = Guid.NewGuid();
-        message = $"Added {word.Word} to your sentence."; error = false;
+        message = F($"Added {word.Word} to your sentence."); error = false;
     }
 
     /// <summary>
@@ -295,11 +303,11 @@ public partial class Home
     {
         await SendAsync(HttpMethod.Post, "api/sentences", ApiJsonContext.Default.SentenceResponse,
             JsonContent.Create(new SaveSentenceRequest(chosen.Select(w => w.Id).ToArray(), sentenceRequestId), ApiJsonContext.Default.SaveSentenceRequest));
-        confirmedChange = "Sentence saved.";
+        confirmedChange = T("Sentence saved.");
         // Keep the same request ID on failure. Retrying an uncertain save cannot create a duplicate.
         ClearSentence();
         await LoadHistoryAsync(0);
-    }, "Sentence saved.");
+    }, T("Sentence saved."));
 
     /// <summary>
     /// Clears the token, displayed records, bookmarks and drafts without deleting stored words or
@@ -310,7 +318,7 @@ public partial class Home
         OperationLog.Event(Logger);
         token = ""; connected = false; words = []; sentences = []; previous.Clear();
         nextAfter = nextSentenceAfter = null; pendingDelete = null; after = sentenceAfter = 0;
-        CancelEdit(); ClearSentence(); message = "Disconnected. Your saved words are safe in the database.";
+        CancelEdit(); ClearSentence(); message = T("Disconnected. Your saved words are safe in the database.");
     }
 
     /// <summary>Records a request to show or dismiss a delete prompt without exposing the word.</summary>
@@ -320,17 +328,23 @@ public partial class Home
     private void ClearTypes() { OperationLog.Event(Logger); selectedTypes.Clear(); }
 
     /// <summary>Records the page becoming available without logging the stored token or drafts.</summary>
-    protected override void OnInitialized() => OperationLog.Event(Logger, "PageCreated");
+    protected override void OnInitialized() { AppText.LanguageChanged += RefreshLanguage; OperationLog.Event(Logger, "PageCreated"); }
 
     /// <summary>
     /// Converts a word type to the lowercase CSS class used for its colour badge.
     /// </summary>
     private static string TypeClass(string type) => type.ToLowerInvariant();
 
+    /// <summary>Refreshes translated labels while retaining the draft, filters, and connection.</summary>
+    private void RefreshLanguage() => _ = InvokeAsync(() =>
+    {
+        message = T("Language changed."); error = false; StateHasChanged();
+    });
+
     /// <summary>
     /// Cancels pending page requests and releases the lifetime cancellation source.
     /// </summary>
-    public void Dispose() { OperationLog.Event(Logger); lifetime.Cancel(); lifetime.Dispose(); }
+    public void Dispose() { AppText.LanguageChanged -= RefreshLanguage; OperationLog.Event(Logger); lifetime.Cancel(); lifetime.Dispose(); }
 
     /// <summary>
     /// Carries a service error or unreadable-reply message that can be shown safely in the browser.

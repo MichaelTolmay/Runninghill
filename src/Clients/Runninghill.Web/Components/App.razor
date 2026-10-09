@@ -1,7 +1,18 @@
+<AppErrorBoundary>
+<ChildContent>
 <Router AppAssembly="typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="routeData" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
-    <NotFound><main><h1>Page not found</h1><a href="/">Home</a></main></NotFound>
+    <NotFound><main><h1>@T("Page not found")</h1><a href="/">@T("Home")</a></main></NotFound>
 </Router>
+</ChildContent>
+<ErrorContent>
+    <main class="workspace" role="alert">
+        <h1>@T("This page could not be displayed.")</h1>
+        <p>@T("Reload the page. Unsaved changes may be lost. Before repeating a save, check whether it already succeeded.")</p>
+        <a href="/">@T("Reload")</a>
+    </main>
+</ErrorContent>
+</AppErrorBoundary>

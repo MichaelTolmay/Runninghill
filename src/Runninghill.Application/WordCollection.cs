@@ -6,6 +6,9 @@ namespace Runninghill.Application;
 /// <summary>All collection rules live here, so every transport follows the same rules.</summary>
 public sealed class WordCollection(IWordRepository repository)
 {
+    /// <summary>Gets collection totals through the same storage boundary as other reads.</summary>
+    public Task<CollectionCounts> CountAsync(CancellationToken cancellation) => repository.CountAsync(cancellation);
+
     public const int PageSize = 50;
     public const int SentencePageSize = 10;
     private static readonly HashSet<string> Types = new(StringComparer.Ordinal)

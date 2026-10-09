@@ -3,6 +3,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <RunAOTCompilation Condition="'$(Configuration)' == 'Release'">true</RunAOTCompilation>
     <IsAotCompatible>true</IsAotCompatible>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    <!-- Content-based filenames prevent an older cached script from being used with a new assembly. -->
+    <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
   </PropertyGroup>
   <ItemGroup>
     <!-- Router discovers pages by reflection; preserve page types through full trimming. -->
@@ -18,4 +21,11 @@
     <Compile Include="../../Shared/OperationLog.cs" Link="OperationLog.cs" />
   </ItemGroup>
   <ItemGroup><Compile Include="../../Shared/RecentLogStore.cs" Link="RecentLogStore.cs" /></ItemGroup>
+  <ItemGroup>
+    <StaticWebAssetFingerprintPattern Include="AppScript" Pattern="*.js" Expression="#[.{fingerprint}]!" />
+    <!-- CSS uses stable filenames and nginx revalidation; the HTML placeholder pipeline fingerprints scripts only. -->
+    <Compile Include="../Shared/AppThemes.cs" Link="AppThemes.cs" />
+    <EmbeddedResource Include="../../../themes/*.json" LogicalName="Runninghill.Themes.%(Filename).json" />
+    <EmbeddedResource Include="../../../themes/*_icon.webp" LogicalName="Runninghill.Themes.%(Filename).webp" />
+  </ItemGroup>
 </Project>

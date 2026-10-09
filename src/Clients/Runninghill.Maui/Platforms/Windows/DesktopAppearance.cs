@@ -1,5 +1,4 @@
 using Microsoft.Maui.Handlers;
-using Microsoft.UI.Xaml.Media;
 
 namespace Runninghill.Maui.WinUI;
 
@@ -20,20 +19,15 @@ internal static class DesktopAppearance
         {
             handler.PlatformView.CornerRadius = new Microsoft.UI.Xaml.CornerRadius(6);
             handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
-            handler.PlatformView.BorderBrush = InputBorder();
             handler.PlatformView.Padding = new Microsoft.UI.Xaml.Thickness(12, 10, 12, 10);
         });
         PickerHandler.Mapper.AppendToMapping("WebsiteAppearance", (handler, _) =>
         {
             handler.PlatformView.CornerRadius = new Microsoft.UI.Xaml.CornerRadius(6);
             handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
-            handler.PlatformView.BorderBrush = InputBorder();
             handler.PlatformView.Padding = new Microsoft.UI.Xaml.Thickness(12, 10, 12, 10);
         });
     }
 
-    /// <summary>
-    /// Creates the shared input-outline colour as a native WinUI brush.
-    /// </summary>
-    private static SolidColorBrush InputBorder() => new(global::Windows.UI.Color.FromArgb(255, 186, 197, 211));
+    // WinUI supplies the border brush so switching Light/Dark/System also updates native input chrome.
 }

@@ -8,6 +8,7 @@
     <Project Path="src/Runninghill.Service/Runninghill.Service.csproj" />
   </Folder>
   <Folder Name="/Clients/">
+    <Project Path="src/Clients/Runninghill.Dashboard/Runninghill.Dashboard.csproj" />
     <Project Path="src/Clients/Runninghill.Cli/Runninghill.Cli.csproj" />
     <Project Path="src/Clients/Runninghill.Web/Runninghill.Web.csproj" />
     <Project Path="src/Clients/Runninghill.Maui/Runninghill.Maui.csproj" />

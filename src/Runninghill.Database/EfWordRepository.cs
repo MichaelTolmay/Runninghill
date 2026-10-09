@@ -8,6 +8,18 @@ namespace Runninghill.Database;
 /// <summary>All collection reads and writes go through EF; providers generate the SQL.</summary>
 public sealed class EfWordRepository(CollectionContextFactory factory, ILogger<EfWordRepository> logger) : IWordRepository
 {
+    /// <summary>Runs two SQL COUNT queries; no entities or text are loaded into application memory.</summary>
+    public async Task<CollectionCounts> CountAsync(CancellationToken cancellation)
+    {
+        using var operation = new OperationLog(logger, "Database.CountAsync", cancellation: cancellation);
+        await using var db = await factory.CreateAsync(cancellation);
+        // EF contexts cannot run concurrent queries. Await each scalar read before starting the next.
+        // These are live totals, so a write between the reads can affect the second count.
+        var words = await db.Words.LongCountAsync(cancellation);
+        var sentences = await db.Sentences.LongCountAsync(cancellation);
+        return new(words, sentences);
+    }
+
     /// <summary>
     /// Runs filtered, ordered and bounded word lookup in the database, returning only the requested
     /// page without EF change tracking.

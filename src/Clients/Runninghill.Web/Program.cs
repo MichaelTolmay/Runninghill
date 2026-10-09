@@ -22,4 +22,7 @@ builder.Services.AddSingleton(new HttpClient
     // Lists are paged. Bound buffering so a bad server cannot fill client memory.
     MaxResponseContentBufferSize = 256 * 1024
 });
-await builder.Build().RunAsync();
+var host = builder.Build();
+var javascript = host.Services.GetRequiredService<Microsoft.JSInterop.IJSRuntime>();
+Runninghill.Contracts.AppText.SetClientLanguage(await Microsoft.JSInterop.JSRuntimeExtensions.InvokeAsync<string>(javascript, "runninghillLanguage.get"));
+await host.RunAsync();
